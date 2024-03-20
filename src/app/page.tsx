@@ -1,18 +1,28 @@
-"use client"
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import { useState } from "react";
-
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { FiAlignRight, FiCornerUpLeft, FiHelpCircle, FiUserPlus } from "react-icons/fi";import Menu from "./staff/Menu";
+import Form from "@/components/assembled/form";
 export default function Home() {
-  const [date, setDate] = useState('')
   return (
-    <main className="flex  p-24">
-<h1>Вход</h1>
-<Button className=" bg-orange-600" title="hello wordl">First Button</Button>
-    <Input className="bg-orange-600" placeholder="Введите свой логин" />
+  <>
+  <div className=" float-right">
+    <DropdownMenu>
+  <DropdownMenuTrigger className=""><Menu/></DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>Страницы</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>      Главная</DropdownMenuItem>
+    <DropdownMenuItem>Регистация </DropdownMenuItem>
+    <DropdownMenuItem>Часто задаваемые вопросы      <span><FiHelpCircle /></span></DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+    </div>
+    <main className="flex flex-col  p-24 ">
+      <div className="flex-row justify-center">
+      <h1  className=" text-center">Вход</h1>
+      </div>
+  <Form/>
     </main>
+    </>
   );
 }
 //для добавления компонента run pnpm dlx shadcn-ui@latest add ... component name
