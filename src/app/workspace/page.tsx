@@ -8,11 +8,11 @@ export default function AuthPage() {
 
   async function handleAuthUser() {
     try {
-      const userData = await authUser();
-      console.log(userData);
-      setUserData(userData);
+      const response = await authUser();
+      console.log(response)
+      setUserData(response);
     } catch (error) {
-    alert(error)
+      alert(error);
     }
   }
 
@@ -30,3 +30,4 @@ export default function AuthPage() {
     </div>
   );
 }
+

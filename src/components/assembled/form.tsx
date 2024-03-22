@@ -29,9 +29,6 @@ function Form({ }: Props) {
 
         if (valid.success) {
             const requst = await sendUserLoginData(data)
-            if (requst=='error') {
-setError(true)
-            }
             router.push('/workspace')
         }
     }
