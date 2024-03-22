@@ -1,5 +1,6 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { FiAlignRight, FiCornerUpLeft, FiHelpCircle, FiUserPlus } from "react-icons/fi";import Menu from "./staff/Menu";
+import { FiAlignRight, FiCornerUpLeft, FiHelpCircle, FiUserPlus } from "react-icons/fi";
+import Menu from "./staff/Menu";
 import Form from "@/components/assembled/form";
 export default function Home() {
   return (

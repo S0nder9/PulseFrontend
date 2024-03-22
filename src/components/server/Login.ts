@@ -1,20 +1,23 @@
-   "use server"
-   import axios from 'axios';
+"use server"
+import { cookies } from 'next/headers';
  interface LoginData {
     login: string
     password: string
 }
-   async function sendUserLoginData(data: LoginData) {
-    // Import axios
-    axios.post('http://127.0.0.1:8000/api/users/login', {
-        login: data.login,
-        password: data.password 
-    })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+   async function sendUserLoginData(data: LoginData): Promise<void | string> {
+const res  =  await fetch('http://127.0.0.1:8000/api/users/login', {
+method: 'POST',
+credentials:'include',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+})
+if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data')
+      }
+            console.log(res.headers.getSetCookie());
+            return "Success"
 }
 export default sendUserLoginData;
