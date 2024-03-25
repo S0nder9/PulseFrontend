@@ -1,5 +1,7 @@
 "use server"
 import { cookies} from 'next/headers';
+import { host } from './types';
+
  interface LoginData {
     login: string
     password: string
@@ -9,7 +11,8 @@ message: string,
 token: string
 }
    async function sendUserLoginData(data: LoginData): Promise<OutPut> {
-    const res = await fetch('https://kdnhfs81-8000.euw.devtunnels.ms/api/users/login', {
+
+    const res = await fetch(`${host}/api/users/login`, {
         method: 'POST',
         credentials: 'include',
         headers: {

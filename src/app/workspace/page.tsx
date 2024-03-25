@@ -10,7 +10,7 @@ export default function AuthPage() {
     try {
       const response = await authUser();
       console.log(response)
-      setUserData(response);
+      setUserData(response.userData);
     } catch (error) {
       alert(error);
     }

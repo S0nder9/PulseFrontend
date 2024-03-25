@@ -1,27 +1,13 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { FiAlignRight, FiCornerUpLeft, FiHelpCircle, FiUserPlus } from "react-icons/fi";
-import Menu from "./staff/Menu";
-import Form from "@/components/assembled/form";
+
+import Link from "next/link";
 export default function Home() {
   return (
   <>
-  <div className=" float-right">
-    <DropdownMenu>
-  <DropdownMenuTrigger className=""><Menu/></DropdownMenuTrigger>
-  <DropdownMenuContent>
-    <DropdownMenuLabel>Страницы</DropdownMenuLabel>
-    <DropdownMenuSeparator />
-    <DropdownMenuItem>      Главная</DropdownMenuItem>
-    <DropdownMenuItem>Регистация </DropdownMenuItem>
-    <DropdownMenuItem>Часто задаваемые вопросы      <span><FiHelpCircle /></span></DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
-    </div>
-    <main className="flex flex-col  p-24 ">
-      <div className="flex-row justify-center">
-      <h1  className=" text-center">Вход</h1>
-      </div>
-  <Form/>
+<main className="flex flex-col  p-24 ">
+  <nav>
+    <Link href='/login'>Вход</Link>
+  </nav>
+
     </main>
     </>
   );

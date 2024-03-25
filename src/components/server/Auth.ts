@@ -1,13 +1,14 @@
 "use server"
 import { cookies } from 'next/headers';
-async function authUser(): Promise<OutCome | string> {
+import { host } from './types';
+async function authUser(): Promise<OutCome > {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
     console.log(jwt);
     if(!jwt){
         throw new Error('No token provided')
     }
-    const res = await fetch('https://kdnhfs81-8000.euw.devtunnels.ms/api/users/auth',{
+    const res = await fetch(`${host}/api/users/auth`,{
         credentials:'include',
         headers:{
             Cookie: `jwt=${jwt}`
