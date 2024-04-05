@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import {z} from 'zod'
@@ -9,7 +9,7 @@ type Props = {}
 
 function Form({ }: Props) {
     const router = useRouter()
-
+    const buttonRef = useRef<HTMLButtonElement>(null)
     const schema = z.object({
         login: z.string().min(6),
         password: z.string().min(6)
@@ -25,12 +25,18 @@ function Form({ }: Props) {
             password: password || ''
         }
 
-        const valid = schema.safeParse(data)
-
-        if (valid.success) {
-            const requst = await sendUserLoginData(data)
-            router.push('/workspace')
+        const result = schema.safeParse(data)
+        if (!result.success) {
+            throw new Error(result.error.issues[0].message)
         }
+        const resultData = await sendUserLoginData(data)
+        if (!resultData) {
+            setError(true)
+            throw new Error("Failed to login")
+        }
+        router.push('/my-stat')
+        return resultData
+
     }
 
     return (
@@ -50,19 +56,24 @@ function Form({ }: Props) {
             />
 
             <Button
-                className="bg-orange-600 mt-4"
+                className="bg-orange-600 mt-4  hover:bg-orange-200"
                 title=""
+                onAuxClick={
+                    () => {
+                        buttonRef.current?.click()
+                    }
+                }
                 onClick={sendData}
             >
                 Войти
             </Button>
             {
-                error ? 
-                <h1>Error occure</h1>
-                :
-                null
+                error ?
+                    <h1>Error occur</h1>
+                    :
+                    null
             }
-            
+
         </div>
     )
 }

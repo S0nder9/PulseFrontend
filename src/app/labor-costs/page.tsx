@@ -11,14 +11,14 @@ import { Input } from "@/components/ui/input"
 
 export default function Home() {
   return (
-      <div className="all">
-        <div className="block1">
+ <>
+        <nav>
           <h1 className="text">Трудозатраты</h1>
           <ul>
             <Link href={"../../../my-stat/"}><li>Моя статистика</li></Link>
             <Link href={"../../../labor-costs/"}><li className="li_main">Учет трудозатрат</li></Link>
           </ul>
-        </div>
+          </nav>
 
       <div className="col2">
         <div className="block2">
@@ -48,7 +48,7 @@ export default function Home() {
 
 
 
-        <div className="profil_block">
+        <div className=" w-full flex flex-col gap-4">
         <Avatar className="Avatar">
           <AvatarImage src="https://avatars.githubusercontent.com/u/124599?v=4" />
           <AvatarFallback>II</AvatarFallback>
@@ -73,7 +73,7 @@ export default function Home() {
                 </SelectTrigger>
                 <SelectContent className="SelectContent" position="popper">
                   <SelectItem value="зеленая-зона">Зеленая зона</SelectItem>
-                  <SelectItem value="SuperBrand">Продвижение бренда "SuperBrand"</SelectItem>
+                  <SelectItem value="SuperBrand">Продвижение бренда</SelectItem>
                   <SelectItem value="Еда онлайн">Еда онлайн</SelectItem>
                   <SelectItem value="Компания X">Логотип для компании X</SelectItem>
                 </SelectContent>
@@ -103,5 +103,6 @@ export default function Home() {
     </Card>
         </div>
         
-        </div></div>
+        </div>
+      </>
   );}
