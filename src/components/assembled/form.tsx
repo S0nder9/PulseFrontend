@@ -18,7 +18,7 @@ function Form({ }: Props) {
     const [login, setLogin] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [error, setError] = useState(false)
-
+    const [errorData, setErrorData] = useState<string>('')
     const sendData = async () => {
         const data = {
             login: login || '',
@@ -27,7 +27,8 @@ function Form({ }: Props) {
 
         const result = schema.safeParse(data)
         if (!result.success) {
-            throw new Error(result.error.issues[0].message)
+            setErrorData(result.error.issues[0].message)
+            console.error(result.error.message)
         }
         const resultData = await sendUserLoginData(data)
         if (!resultData) {
@@ -35,6 +36,8 @@ function Form({ }: Props) {
             throw new Error("Failed to login")
         }
         router.push('/my-stat')
+
+            localStorage.setItem('userData', JSON.stringify(resultData))
         return resultData
 
     }
@@ -68,10 +71,7 @@ function Form({ }: Props) {
                 Войти
             </Button>
             {
-                error ?
-                    <h1>Error occur</h1>
-                    :
-                    null
+            errorData ? <h1 className=' text-red-600'>{errorData}</h1> : null
             }
 
         </div>
