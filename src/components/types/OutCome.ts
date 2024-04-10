@@ -23,3 +23,21 @@ interface OutCome  {
       login:string,
       position: string
   }
+
+  interface task {
+      id: number,
+      project_id: number,
+      name: string,
+      description: string,
+      hoursToAccomplish:number,
+      stageAt: string,
+      priority: number,
+      workers: Array<number>
+  }
+  interface project {
+      id: number,
+      name:string ,
+      description: string,
+      members: Array<number>,
+      created_at: string
+  }

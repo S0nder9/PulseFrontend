@@ -35,7 +35,7 @@ function Form({ }: Props) {
             setError(true)
             throw new Error("Failed to login")
         }
-        router.push('/my-stat')
+        router.push('/profile')
 
             localStorage.setItem('userData', JSON.stringify(resultData))
         return resultData

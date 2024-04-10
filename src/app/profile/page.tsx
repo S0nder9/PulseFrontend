@@ -9,6 +9,7 @@ import { useStore } from '@/components/types/state';
 import { cookies } from 'next/headers';
 import { useRouter } from 'next/navigation';
 import { checkCookie } from '@/components/server/CheckCookie';
+import { getUserTask } from '@/components/server/getUserProjects';
 
 
 const Profile = () => {
@@ -43,12 +44,18 @@ const router  = useRouter()
   return (
 <section>
         <div>{userData ?  
-        <>
+             <>
+        <nav>
+<Link href='/projects/'></Link>
+        </nav>
+   
         <Avatar className="Avatar">
             <AvatarImage src="https://avatars.githubusercontent.com/u/124599?v=4" />
             <AvatarFallback></AvatarFallback>
           </Avatar>
         <p>{userData.first_name }  {userData. last_name } </p>
+        <p> Проекты</p>
+    
 </>
          :
         <h1>
