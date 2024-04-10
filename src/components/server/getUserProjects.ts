@@ -41,7 +41,7 @@ async function getUserTask(id:number):Promise<Array<task> | task> {
     const receiveddata = await res.json();
     return receiveddata
 }
-async function getAllProjectTasks(id:number):Promise<Array<project> | project> {
+async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
     console.log(jwt);
