@@ -25,6 +25,7 @@ export default function AuthPage() {
           <p>First Name: {userData.first_name}</p>
           <p>Last Name: {userData.last_name}</p>
           <p>Father Name: {userData.father_name}</p>
+
         </div>
       )}
     </div>

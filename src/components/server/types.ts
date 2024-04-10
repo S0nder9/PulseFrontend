@@ -1,4 +1,4 @@
-const host =" https://kdnhfs81-8000.euw.devtunnels.ms/"
+const host ="http://127.0.0.1:8000/"
 
 
 export {host}

@@ -1,76 +1,176 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
-@layer base {
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
- 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
- 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
- 
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
- 
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
- 
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
- 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
- 
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
- 
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
- 
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
- 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
- 
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
- 
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
- 
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
- 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
- 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
- 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+
+/*  ------------------------------------------ лояуты ------------------------------------- */
+.col2 {
+  grid-template-rows: 1fr 7fr;
+  margin-left: -18px;
+  border-left: 1px solid #3c3434;
 }
+body {
+  margin: 5px;
+}
+.all {
+  grid-template-columns: 1fr 4fr;
+}
+
+body,.SelectContent, .SelectTrigger {  background-color: #f6faf9;}
+h2, button, li:hover, .li_main {  background-color: #FF6565;}
+.CardContent, .input, .ADTrigger, .ADContent {  background-color: #d9d9d9;}
+.SelectContent, .SelectTrigger, .ADCancel, .time, .ADD, .label{  color: #3c3434;}
+h2, .label, .block3, .ADTrigger, .footer, .SelectContent, .SelectTrigger {  font-size: 20px;}
+.text, h3, ul {  font-size: 25px;}
+.SelectContent, .SelectTrigger, button, .input, .time {  border-radius: 25px;}
+.col2, .all,.profil_block, .tasks_block3, .ADTrigger,  .ADHeader, .ADCancel{  display: grid;}
+.block2, .CommandItem, .time, .timet, ul{  display: flex;}
+/*  --------------------------------------- Текста  --------------------------------------- */
+h2 {
+  padding: 5px;
+  color: #d9d9d9;
+}
+h3 {
+  margin: 20px 140px 20px 110px;
+}
+.text {
+  margin-left: 35px;
+}
+.label {
+  background: none;
+}
+
+/* --------------------------------------- кнопки ----------------------------------------- */
+button {
+  padding: 15px;
+  margin-top: 25px;
+}
+
+/*  --------------------------------------- block1 ---------------------------------------- */
+ul{
+  padding:13px;
+  flex-direction: column;
+  justify-content: right;
+  margin-top: 80%;
+  width: 100%;
+}
+li, .li_main {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 25px 0px 0px 25px;
+  padding-right: 10px;
+  padding-left: 25px;
+}
+
+/*  -------------------------------------- block2 ----------------------------------------- */
+.block2 {
+  border-bottom: 1px solid #3c3434 ;
+  padding: 5px;
+  justify-content: space-between;
+}
+.Avatar {
+  margin: 0px 0px 10px 15px;
+  height: 70px;
+  width: 70px;
+  margin-right: 15px;
+}
+.input {
+  width: 600px;
+  height: 60%;
+  margin:  0px 0px 10px 50px;
+}
+.CommandItem{
+  flex-direction: column;
+  align-items: start;
+  box-shadow: none;
+}
+.profil_block{
+  grid-template-columns: 1fr 2fr;
+  margin-right: 15px;
+}
+.Avatar {
+  margin: 0px 0px 10px 15px;
+  height: 70px;
+  width: 70px;
+  margin-right: 15px;
+}
+
+/*  --------------------------------------- block3-1 -------------------------------------- */
+.block3 {
+  padding:10px 0px 0px 50px;
+}
+.tasks_block3 {
+  grid-template: 1fr / 1fr 1fr 1fr
+}
+.ADTrigger{
+  width: 280px;
+  height: 230px;
+  text-align: left;
+  grid-template-rows: 1fr 1fr 1fr;
+  margin-left: 35px;
+  margin-bottom: 15px;
+  margin-top: 0px;
+  border-radius: 0%;
+}
+.ADHeader {
+  grid-template: 3fr 1fr / 80% 15% 5%;
+}
+.ADCancel {
+  grid-column-start: 3;
+  grid-row-start: 1;
+  border: none;
+}
+.footer {
+  background-color:#f6faf9cc;
+  border-left: 1px solid black;
+   position: fixed;
+   right: 0;
+   bottom: 0;
+   text-align: center; 
+   width: 81%;
+   height: 10%;
+ }
+.timet{
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 100px;
+}
+ .time {
+  background-color: #c5c2c2;
+  height: 40px;
+  padding:0px 10px;
+  align-items: center;
+}
+
+/*  ----------------------------------------- block3-2 ------------------------------------ */
+.CardContent {
+  width: 1100px;
+  height: 580px;
+  margin-top: 20px;
+  border-radius: 0%;
+}
+form{
+  margin-top: 20px;
+}
+.SelectContent, .SelectTrigger{
+  text-align: center;
+}
+.SelectTrigger {
+  height: 70px;
+  margin: 25px 0px 50px 0px;
+}
+
+@layer utilities {.text-balance {text-wrap: balance;}}
