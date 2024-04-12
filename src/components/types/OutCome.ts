@@ -38,5 +38,6 @@ interface OutCome  {
       name:string ,
       description: string,
       members: Array<number>,
+      true_members: Array<string> ,
       created_at: string
   }

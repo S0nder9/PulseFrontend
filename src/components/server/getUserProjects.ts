@@ -19,6 +19,7 @@ async function getUserProjects(id: number): Promise<Array<project> | project>  {
         throw new Error('Failed to fetch data')
     }
     const receiveddata = await res.json();
+    receiveddata
     return receiveddata
 }
 
@@ -60,4 +61,24 @@ async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
     const receiveddata = await res.json();
     return receiveddata
 }
-export  { getUserProjects,getUserTask,getAllProjectTasks};
+ async function getUserName(id:number):Promise<string>{
+    const cookieStore = cookies();
+    const jwt = cookieStore.get('jwt')?.value
+    console.log(jwt);
+    if(!jwt){
+        throw new Error('No token provided')
+    }
+    console.log(host,id)
+    if(!id ){
+        throw new Error('No user id provided')
+    }
+    const res = await fetch(`${host}/api/user/${id}`);
+    if(!res.ok) {
+        console.log(res.status)
+        throw new Error('Failed to fetch data')
+
+ }
+ const receiveddata:userData = await res.json();
+ return receiveddata.first_name +' ' + receiveddata.last_name;
+}
+export  { getUserProjects,getUserTask,getAllProjectTasks,getUserName};
