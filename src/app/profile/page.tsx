@@ -1,6 +1,5 @@
 'use client'
 import authUser from '@/components/server/Auth';
-import fetchTitle from '@/components/server/FetchJobTitle';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import React, { use, useCallback, useEffect, useState } from 'react'
@@ -12,6 +11,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toNames } from '@/components/server/other/fromIdsToNames';
+import { fetchTitle } from '@/components/server/FetchJobTitle';
 
 
 const Profile = () => {
@@ -130,7 +130,10 @@ setTitle(title)
                   <>
       <section className="container flex flex-col gap-4 px-4 md:gap-10 md:flex-row md:items-center lg:px-6">
         <article className="flex items-center space-x-4">
-          <Avatar className="w-12 h-12" />
+          <Avatar className="w-12 h-12">
+          <AvatarImage src={userData.avatar} />
+  <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
           <div className="space-y-1.5">
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl font-bold">{userData.first_name} {userData.last_name}</h1>
@@ -160,36 +163,36 @@ setTitle(title)
         <div className="grid max-w-3xl gap-4 px-4 mx-auto lg:grid-cols-2 lg:max-w-5xl lg:gap-8 dark:lg:gap-6">
         {
             Array.isArray(projects) ?
-            projects.map((project,index) => 
-              < div key={index} className='flex-row'>
-          <Card className="grid gap-4 sm:grid-cols-3">
-            <CardContent className="col-span-2 space-y-4">
-              <article className="space-y-2">
-                <h2 className="text-xl font-bold">{project.name}</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                {project.description}
-                </p>
-              </article>
-              <div className="grid gap-0.5 sm:grid-cols-2">
-                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                  <div className="w-4 h-4 stroke-2.5" />
-                 {project.members} {project.true_members.length > 1 ?project.true_members : "nety ego" }
-                </div>
-          
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col gap-1 sm:justify-end sm:flex-row">
-              <Button className="w-full sm:w-auto" variant="outline">
-                <Link href='/project/[id]' as={`/project/${project.id}`}>
-                View
-                </Link>
-              </Button>
-              <Button className="w-full sm:w-auto" variant="outline">
-                Edit
-              </Button>
-            </CardFooter>
-          </Card>
-          </div>
+                        projects.map((project, index) =>
+                          <div key={index} className='flex-row'>
+                            <Card className="grid gap-4 sm:grid-cols-3">
+                              <CardContent className="col-span-2 space-y-4">
+                                <article className="space-y-2">
+                                  <h2 className="text-xl font-bold">{project.name}</h2>
+                                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    {project.description}
+                                  </p>
+                                </article>
+                                <div className="grid gap-0.5 sm:grid-cols-2">
+                                  <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                                    <div className="w-4 h-4 stroke-2.5" />
+                                    {project.members} {project.true_members.length > 1 ? project.true_members : "nety ego"}
+                                  </div>
+
+                                </div>
+                              </CardContent>
+                              <CardFooter className="flex flex-col gap-1 sm:justify-end sm:flex-row">
+                                <Button className="w-full sm:w-auto">
+                                  <Link href='/project/[id]' as={`/project/${project.id}`}>
+                                    View
+                                  </Link>
+                                </Button>
+                                <Button className="w-full sm:w-auto">
+                                  Edit
+                                </Button>
+                              </CardFooter>
+                            </Card>
+                          </div>
             ) 
             :
          null

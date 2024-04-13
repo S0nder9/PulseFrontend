@@ -4,6 +4,7 @@ interface OutCome  {
     userData: {
       id: number,
       job_title_id: number,
+      avatar: string,
       age: number,
       first_name: string,
       last_name: string,
@@ -13,16 +14,30 @@ interface OutCome  {
     }
   }
   interface userData {
-      id: number,
+      id: number ,
       job_title_id: number,
+      avatar: string,
       age: number,
       first_name: string,
       last_name: string,
       father_name: string,
       login:string,
-      position: string
+      position: string 
   }
-
+  interface createUser {
+    job_title_id: number,
+    avatar: string,
+    age: number,
+    first_name: string,
+    last_name: string,
+    father_name: string,
+    login:string,
+    password:string
+}
+interface jobTitle {
+    id:number,
+    name:string
+}
   interface task {
       id: number,
       project_id: number,
