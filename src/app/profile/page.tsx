@@ -128,6 +128,12 @@ setTitle(title)
               {
                   userData ?  
                   <>
+                  <nav className=' w-full h-1/4 bg-slate-100  flex space-x-5'>
+<Link href='/project/create' >Создать проект </Link>
+<Link href='/'>На главную</Link>
+<Link href='/searchProject'>Найти проект</Link>
+<Link href='/searchEmployee'>Узнать информацию по сотруднику </Link>
+                  </nav>
       <section className="container flex flex-col gap-4 px-4 md:gap-10 md:flex-row md:items-center lg:px-6">
         <article className="flex items-center space-x-4">
           <Avatar className="w-12 h-12" />
@@ -201,6 +207,7 @@ setTitle(title)
       <>
    <p> У тебя нет проектов</p>
    <Button onClick={getUserProjectsClient } className='flex justify-center'>Обновить</Button>
+  
    </>
 }
       </>
