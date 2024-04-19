@@ -56,3 +56,8 @@ interface jobTitle {
       true_members: Array<string> ,
       created_at: string
   }
+  interface projectSend {
+  name:string ,
+    description: string,
+    members: Array<number>,
+  }

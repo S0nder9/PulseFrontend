@@ -32,14 +32,65 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@
 import { CardContent, CardFooter, Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
+import { getUserByPrefixSurname } from "@/components/server/getUserProjects"
+import { createProject } from "@/components/server/Create"
+import { useRouter } from "next/navigation"
+import SearchUser from "@/components/assembled/searchUser"
 
 export function CreatePage() {
+    const router = useRouter()
+    const [project, setproject] = useState({
+        name:"",
+        description:"",
+        members:[
+            {
+                id:0,
+                name:"",
+                surname:""
+            }
+        ]
+    })
+ const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
+    const [membersIds, setmembersIds] = useState<Array<number>>([userId.id])
     const [name,setName] = useState('')
+    const total = []
+    const [users, setusers] = useState<Array<userData> | userData>([])
     useEffect(()=>{
         const getNames = async() =>{
+            const users = await getUserByPrefixSurname(name)
+       setusers(users)
         }
-        getNames()
-    })
+        if(name.length < 1){
+return
+        }
+        setTimeout(()=>{
+            getNames()
+        },1000)
+      
+    },[name])
+const handleSelectUser = (user: userData) => {
+setproject((prev) => ({
+...prev, members: [...prev.members, {
+name: user.first_name,
+surname: user.last_name,
+id: user.id
+}]
+}))
+
+setmembersIds((prevIds) => [...prevIds, user.id])
+}
+    const createProjectClient = async () => {
+    try{
+        alert(`${project.name},${project.description}membersIds}`)
+const response = await createProject(project.name,project.description,membersIds)
+response.toString()
+console.log(response)
+router.push(`/project/${response}`)
+
+    }
+    catch(error){
+        console.log(error)
+    }}
   return (
     <Card>
       <div className="flex space-x-4">
@@ -52,29 +103,22 @@ export function CreatePage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="project-name">Название проекта</Label>
-            <Input id="project-name" placeholder="Название проекта" />
+            <Input id="project-name" placeholder="Название проекта" 
+            value={project.name} onChange={(e) => setproject((prev) => ({...prev, name: e.target.value}))} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="description">Описание</Label>
-            <Textarea className="min-h-[100px]" id="description" placeholder="Описание" />
+            <Textarea className="min-h-[100px]" id="description" placeholder="Описание" 
+            value={project.description} onChange={(e) => setproject((prev) => ({...prev, description: e.target.value}))} />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="participants">Участники</Label>
-           <Input className="" placeholder="Учаники" value ={name} onChange={(e) => setName(e.target.value)}/>
-
-           <select title="">
-            <option>
-
-            </option>
-           </select>
-          </div>
+       <SearchUser/>
         </CardContent>
         <CardContent className="flex-none">
        
         </CardContent>
       </div>
       <CardFooter className="flex justify-end">
-        <Button>Создать проект</Button>
+        <Button onClick={()=>createProjectClient()}>Создать проект</Button>
       </CardFooter>
     </Card>
   )

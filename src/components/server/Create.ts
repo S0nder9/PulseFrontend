@@ -1,11 +1,14 @@
 "use server "
+
+import { host } from "./types";
+
 interface RegisterData {
     login:string,
     email:string,
     password:string
 }
 async function registesrUser(data: RegisterData): Promise<string> {
-    const response = await fetch('https://bhsfwwc1-5444.euw.devtunnels.ms/api/auth/register', {
+    const response = await fetch(`${host}/api/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -21,5 +24,52 @@ async function registesrUser(data: RegisterData): Promise<string> {
 
     return responseData.token;
 }
+async function createProject(name:string,description:string,member:Array<number>) {
+    const response = await fetch(`${host}/api/project/0`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            description: description,
+            members: member
+        })
+    });
+console.log(response)
+    const responseData = await response.json();
+
+    return responseData.id
+
+    
+}
+async function createTask(project_id:number,name:string,description:string,hoursToAccomplish:number,priority:number,workers:Array<number>): Promise<any> {
+    // "project_id":1,
+    // "name":"Рассчитать стоимость деплоя",
+    // "description":"Что  то для пояснения какого именно деплоя",   
+    // "hoursToAccomplish":9,
+    // "priority":1,
+    // "workers":[1]
+    const response = await fetch(`${host}/api/task/0`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+           project_id,
+             name,
+            description,
+            hoursToAccomplish,
+             priority,
+            workers
+        })
+    });
+console.log(response)
+    const responseData = await response.json();
+
+    return responseData
+
+}
+export {createProject,registesrUser,createTask}
 
 

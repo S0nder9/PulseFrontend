@@ -50,6 +50,7 @@ const router  = useRouter()
   async function getUserProjectsClient() {
     try {
       const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
+      
       if (!userId) {
         router.push('/login');
         return;
@@ -71,7 +72,9 @@ const router  = useRouter()
   }
   async function setJobTitle(id: number) {
     try {
+    
       const title = await  fetchTitle(id);
+      localStorage.setItem('jobTitle', title);
 setTitle(title)
       } 
     catch (error) {

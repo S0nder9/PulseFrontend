@@ -55,6 +55,7 @@ function Form({ }: Props) {
                 className="mt-4"
                 placeholder="Введите свой пароль"
                 value={password}
+                type='password'
                 onChange={(e) => { setPassword(e.target.value) }}
             />
 
