@@ -38,36 +38,35 @@ import { useRouter } from "next/navigation"
 import SearchUser from "@/components/assembled/searchUser"
 
 export function CreatePage() {
-    const router = useRouter()
-    const [project, setproject] = useState({
-        name:"",
-        description:"",
-        members:[
-            {
-                id:0,
-                name:"",
-                surname:""
-            }
-        ]
-    })
- const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
-    const [membersIds, setmembersIds] = useState<Array<number>>([userId.id])
-    const [name,setName] = useState('')
-    const total = []
-    const [users, setusers] = useState<Array<userData> | userData>([])
-    useEffect(()=>{
-        const getNames = async() =>{
-            const users = await getUserByPrefixSurname(name)
-       setusers(users)
-        }
-        if(name.length < 1){
+const router = useRouter()
+const [project, setproject] = useState({
+name: "",
+description: "",
+members: [
+{
+id: 0,
+name: "",
+surname: ""
+}
+]
+})
+const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
+const [membersIds, setmembersIds] = useState<Array<number>>([userId.id])
+const [name, setName] = useState('')
+const [users, setusers] = useState<Array<userData> | userData>([])
+useEffect(() => {
+const getNames = async () => {
+const users = await getUserByPrefixSurname(name)
+setusers(users)
+}
+if (name.length < 1) {
 return
-        }
-        setTimeout(()=>{
-            getNames()
-        },1000)
-      
-    },[name])
+}
+setTimeout(() => {
+getNames()
+}, 1000)
+
+}, [name])
 const handleSelectUser = (user: userData) => {
 setproject((prev) => ({
 ...prev, members: [...prev.members, {
@@ -79,48 +78,49 @@ id: user.id
 
 setmembersIds((prevIds) => [...prevIds, user.id])
 }
-    const createProjectClient = async () => {
-    try{
-        alert(`${project.name},${project.description}membersIds}`)
-const response = await createProject(project.name,project.description,membersIds)
+const createProjectClient = async () => {
+try {
+alert(`${project.name},${project.description},${membersIds}`)
+const response = await createProject(project.name, project.description, membersIds)
 response.toString()
 console.log(response)
 router.push(`/project/${response}`)
 
-    }
-    catch(error){
-        console.log(error)
-    }}
-  return (
-    <Card>
-      <div className="flex space-x-4">
-        <CardContent className="w-full max-w-lg space-y-4">
-          <div className="space-y-2 rounded-lg">
-            <h2 className="text-2xl font-bold">Добавить проект</h2>
-            <p className="text-gray-500 dark:text-gray-400">
-              Добавьте свой проект, введите название проекта, описание и выберите участников.
-            </p>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="project-name">Название проекта</Label>
-            <Input id="project-name" placeholder="Название проекта" 
-            value={project.name} onChange={(e) => setproject((prev) => ({...prev, name: e.target.value}))} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="description">Описание</Label>
-            <Textarea className="min-h-[100px]" id="description" placeholder="Описание" 
-            value={project.description} onChange={(e) => setproject((prev) => ({...prev, description: e.target.value}))} />
-          </div>
-       <SearchUser/>
-        </CardContent>
-        <CardContent className="flex-none">
-       
-        </CardContent>
-      </div>
-      <CardFooter className="flex justify-end">
-        <Button onClick={()=>createProjectClient()}>Создать проект</Button>
-      </CardFooter>
-    </Card>
-  )
+}
+catch (error) {
+console.log(error)
+}
+}
+return (
+<Card>
+<div className="flex space-x-4">
+<CardContent className="w-full max-w-lg space-y-4">
+<div className="space-y-2 rounded-lg">
+<h2 className="text-2xl font-bold">Добавить проект</h2>
+<p className="text-gray-500 dark:text-gray-400">
+Добавьте свой проект, введите название проекта, описание и выберите участников.
+</p>
+</div>
+<div className="space-y-2">
+<Label htmlFor="project-name">Название проекта</Label>
+<Input id="project-name" placeholder="Название проекта"
+value={project.name} onChange={(e) => setproject((prev) => ({ ...prev, name: e.target.value }))} />
+</div>
+<div className="space-y-2">
+<Label htmlFor="description">Описание</Label>
+<Textarea className="min-h-[100px]" id="description" placeholder="Описание"
+value={project.description} onChange={(e) => setproject((prev) => ({ ...prev, description: e.target.value }))} />
+</div>
+<SearchUser memberIds={membersIds}/>
+</CardContent>
+<CardContent className="flex-none">
+
+</CardContent>
+</div>
+<CardFooter className="flex justify-end">
+<Button onClick={() => createProjectClient()}>Создать проект</Button>
+</CardFooter>
+</Card>
+)
 }
 export default CreatePage

@@ -48,6 +48,15 @@ interface jobTitle {
       priority: number,
       workers: Array<number>
   }
+  interface addTask {
+    project_id:number,
+    name:string,
+    description:string,
+    stageAt:string,
+    hoursToAccomplish:number,
+    priority:number,
+    workers:Array<number>
+  }
   interface project {
       id: number,
       name:string ,
@@ -56,6 +65,14 @@ interface jobTitle {
       true_members: Array<string> ,
       created_at: string
   }
+  interface recProject {
+    id: number,
+    name:string ,
+    description: string,
+    members: Array<number>,
+    created_at: string
+}
+  
   interface projectSend {
   name:string ,
     description: string,

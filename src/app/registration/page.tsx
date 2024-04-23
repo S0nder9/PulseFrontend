@@ -4,25 +4,22 @@ import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { JSX, SVGProps } from "react"
-import { useForm } from 'react-hook-form'
 import {  z } from 'zod'
 import registerUser from '@/components/server/Register'
 import { fetchAllTitles } from '@/components/server/FetchJobTitle'
 import { checkCookie } from '@/components/server/CheckCookie'
 import { useRouter } from 'next/navigation'
-
+import Image from 'next/image'
 function Registration() {
  const schematwo = z.object({
     login: z.string().min(6),
     password: z.string().min(6),
-    first_name:z.string().min(6),
-    last_name: z.string().min(6),
-    father_name:z.string().min(6),
+    first_name:z.string(),
+    last_name: z.string(),
+    father_name:z.string(),
     job_title_id:z.number(),
     age:z.number(),
-    avatar:z.string().min(6),
+    avatar:z.string(),
 })
 const [data, setdata] = useState({
   login:"",
@@ -107,7 +104,7 @@ return    }
           </div>
           <div className="border-dashed border-2 border-gray-300 dark:border-gray-700 rounded-lg p-4 flex items-center justify-center w-full">
             <div className="w-12 h-12 rounded-full overflow-hidden">
-              <img
+              <Image
                 alt="Avatar placeholder"
                 height="64"
                 src={data.avatar}
@@ -122,7 +119,7 @@ return    }
               <p className="font-semibold">Перетащите файл сюда</p>
               <p className="text-gray-500 dark:text-gray-400">
                 или
-                <Label as="span" className="cursor-pointer underline ml-1" htmlFor="file">
+                <Label  className="cursor-pointer underline ml-1" htmlFor="file">
                   выберите файл
                 </Label>
               </p>
@@ -138,6 +135,7 @@ return    }
           </div>
           <div className="space-y-2  "> 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* <h1>{data.job_title_id}</h1> */}
             <select  value={data.job_title_id} onChange={(e) => setdata({...data, job_title_id: parseInt(e.target.value)})}>
 {
 Array.isArray(job_title) ?

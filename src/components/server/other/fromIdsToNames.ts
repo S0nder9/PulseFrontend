@@ -1,17 +1,23 @@
 import { getUserName } from "../getUserProjects";
 
-function toNames(id:Array<number> ):Array<string> {
-    const response = iterateNames(id)
-return response
-  }
- function iterateNames(id:Array<number> ):Array<string>  {
-     const newNames:Array<string> = []
-     if(Array.isArray(id)) {
-        id.map(async (id) => {
-            const name = await getUserName(id);
-            newNames.push(name );
-        })
+async function toNames(id: number[]): Promise<string[]> {
+    const names = await iterateNames(id);
+    return names;
+}
+
+async function iterateNames(id: number[]): Promise<string[]> {
+    const newNames: string[] = [];
+    if (Array.isArray(id)) {
+        await Promise.all(id.map(async (userId) => {
+            const name = await getUserName(userId);
+            newNames.push(name);
+        }));
     }
-return newNames
-  }
-  export {toNames}
+    return newNames;
+}
+
+function beautifyArray(arr: string[]): string {
+    return arr.join(', ');
+}
+
+  export {toNames,beautifyArray}

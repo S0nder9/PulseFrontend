@@ -1,20 +1,22 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { getUserByPrefixSurname, getUserName } from '../server/getUserProjects';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 
-type Props = {}
+type Props = {
+    memberIds:number[]
+}
 interface user {
     id: number;
     name:string
 }
-function SearchUser  (props: Props)  {
+function SearchUser(props:Props) {
 const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
-const [membersIds, setmembersIds] = useState<Array<user>>([{
-    id: userId.id,
-    name: userId.first_name + '' + userId.last_name
+const [membersList, setMembersList] = useState<Array<user>>([{
+id: userId.id,
+name: userId.first_name + '' + userId.last_name
 }])
 const [name, setName] = useState('')
 const total = []
@@ -32,11 +34,8 @@ getNames()
 }, 1000)
 
 }, [name])
-const getNameById = async(id: number) => {
-membersIds.map(user =>{
-    const getData   =  getUserName(id)
+const getNameById = async (id: number) => {
 
-})
 }
 const handleSelectUser = (user: userData) => {
 // setproject((prev) => ({
@@ -45,16 +44,20 @@ const handleSelectUser = (user: userData) => {
 // surname: user.last_name,
 // id: user.id
 // }]
-setmembersIds((prevIds) => [...prevIds, {
-    id: user.id,
-    name: user.first_name +'' + user.last_name
+setMembersList((prevIds) => [...prevIds, {
+id: user.id,
+name: user.first_name + ' ' + user.last_name
 }])
+props.memberIds.push(user.id)
+
 }
 
 return (
 <div className="space-y-2">
 <div className="flex space-x-4">
-<h1>Добавлены :</h1>
+<div>Добавлены : {membersList.map(user =>
+<p key={user.id}>{user.name}</p>
+)}</div>
 
 </div>
 <Label htmlFor="participants">Поиск сотрудника</Label>

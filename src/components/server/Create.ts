@@ -43,7 +43,7 @@ console.log(response)
 
     
 }
-async function createTask(project_id:number,name:string,description:string,hoursToAccomplish:number,priority:number,workers:Array<number>): Promise<any> {
+async function createTask(data:addTask): Promise<any> {
     // "project_id":1,
     // "name":"Рассчитать стоимость деплоя",
     // "description":"Что  то для пояснения какого именно деплоя",   
@@ -56,12 +56,12 @@ async function createTask(project_id:number,name:string,description:string,hours
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-           project_id,
-             name,
-            description,
-            hoursToAccomplish,
-             priority,
-            workers
+           project_id: data.project_id,
+             name: data.name,
+            description: data.description,
+            hoursToAccomplish: data.hoursToAccomplish,
+             priority: data.priority,
+            workers: data.workers
         })
     });
 console.log(response)

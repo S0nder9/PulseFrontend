@@ -23,17 +23,7 @@ async function fetchTitle(id:number):Promise<string> {
     return receiveddata.name
 }
 async function fetchAllTitles():Promise<Array<jobTitle> |jobTitle> {
-    const cookieStore = cookies();
-    const jwt = cookieStore.get('jwt')?.value
-    console.log(jwt);
-    if(!jwt){
-        throw new Error('No token provided')
-    }
-    const res = await fetch(`${host}/api/all_job_titles`,
-        {
-            cache:'force-cache',
-        }
-    );
+    const res = await fetch(`${host}/api/all_job_titles`,);
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')

@@ -102,5 +102,24 @@ const cookieStore = cookies();
 
  return receiveddata;
 }
-
-export  { getUserProjects,getUserTask,getAllProjectTasks,getUserName,getUserByPrefixSurname};
+async function getProjectTitle(id:number):Promise<any>{
+    const cookieStore = cookies();
+        const jwt = cookieStore.get('jwt')?.value
+        console.log(jwt);
+        if(!jwt){
+            throw new Error('No token provided')
+        }
+        if(!id ){
+            throw new Error('No user id provided')
+        }
+        const res = await fetch(`${host}/api/project/${id}`);
+        if(!res.ok) {
+            console.log(res.status)
+            throw new Error('Failed to fetch data')
+    
+     }
+     const receiveddata:userData = await res.json();
+    
+     return receiveddata;
+    }
+export  { getUserProjects,getUserTask,getAllProjectTasks,getUserName,getUserByPrefixSurname,getProjectTitle};
