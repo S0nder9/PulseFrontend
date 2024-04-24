@@ -9,7 +9,7 @@ type Props = {
 }
 
 const ProjectData = (props: Props) => {
-    const [projectData, setprojectData] = useState<recProject >({
+    const [projectData, setprojectData] = useState<project >({
         id: 0,
         name:props.projectName ,
         description: "",
@@ -26,7 +26,7 @@ const ProjectData = (props: Props) => {
                 return
             }
             try {
-                const projectTitle:recProject = await getProjectTitle(props.projectId)
+                const projectTitle:project= await getProjectTitle(props.projectId)
                setprojectData(projectTitle)
        const namesOf =   toNames(projectTitle.members)
        const names = await toNames(projectTitle.members);

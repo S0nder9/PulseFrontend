@@ -6,7 +6,6 @@ import { string } from "zod";
 async function getUserProjects(id: number): Promise<Array<project> | project>  {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
-    console.log(jwt);
     if (!jwt) {
         throw new Error('No token provided')
     }
@@ -20,14 +19,12 @@ async function getUserProjects(id: number): Promise<Array<project> | project>  {
         throw new Error('Failed to fetch data')
     }
     const receiveddata = await res.json();
-    receiveddata
     return receiveddata
 }
 
 async function getUserTask(id:number):Promise<Array<task> | task> {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
-    console.log(jwt);
     if(!jwt){
         throw new Error('No token provided')
     }
@@ -46,15 +43,13 @@ async function getUserTask(id:number):Promise<Array<task> | task> {
 async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
-    console.log(jwt);
     if(!jwt){
         throw new Error('No token provided')
     }
-    console.log(host,id)
     if(!id ){
         throw new Error('No project id provided')
     }
-    const res = await fetch(`${host}/api/task_for_project/${id}`);
+    const res = await fetch(`${host}/api/task_for_project/${id}`,{ next: { revalidate: 3600 } });
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')
@@ -65,11 +60,9 @@ async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
  async function getUserName(id:number):Promise<string>{
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
-    console.log(jwt);
     if(!jwt){
         throw new Error('No token provided')
     }
-    console.log(host,id)
     if(!id ){
         throw new Error('No user id provided')
     }
@@ -85,7 +78,6 @@ async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
 async function getUserByPrefixSurname(surname:string):Promise<any>{
 const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
-    console.log(jwt);
     if(!jwt){
         throw new Error('No token provided')
     }
@@ -102,10 +94,9 @@ const cookieStore = cookies();
 
  return receiveddata;
 }
-async function getProjectTitle(id:number):Promise<any>{
+async function getProjectTitle(id:number):Promise<project>{
     const cookieStore = cookies();
         const jwt = cookieStore.get('jwt')?.value
-        console.log(jwt);
         if(!jwt){
             throw new Error('No token provided')
         }
@@ -118,7 +109,7 @@ async function getProjectTitle(id:number):Promise<any>{
             throw new Error('Failed to fetch data')
     
      }
-     const receiveddata:userData = await res.json();
+     const receiveddata:project= await res.json();
     
      return receiveddata;
     }

@@ -16,7 +16,7 @@ function SearchUser(props:Props) {
 const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
 const [membersList, setMembersList] = useState<Array<user>>([{
 id: userId.id,
-name: userId.first_name + '' + userId.last_name
+name: userId.first_name + ' ' + userId.last_name 
 }])
 const [name, setName] = useState('')
 const total = []
@@ -55,15 +55,13 @@ props.memberIds.push(user.id)
 return (
 <div className="space-y-2">
 <div className="flex space-x-4">
-<div>Добавлены : {membersList.map(user =>
+<div className='flex '>Добавлены :  {membersList.map(user =>
 <p key={user.id}>{user.name}</p>
 )}</div>
-
 </div>
-<Label htmlFor="participants">Поиск сотрудника</Label>
+<Label htmlFor="participants">Поиск </Label>
 <Input id='participants' className="" placeholder="Введите Фамилию" value={name} onChange={(e) => setName(e.target.value)} />
-
-<div title="">
+<div className=' pt-0 mt-0'>
 {Array.isArray(users) ?
 users.map((user) => (
 <p key={user.id} onClick={() => handleSelectUser(user)} >

@@ -1,9 +1,8 @@
 'use client'
 import { checkCookie } from '@/components/server/CheckCookie'
 import { getAllProjectTasks, getProjectTitle, getUserByPrefixSurname } from '@/components/server/getUserProjects'
-import { useRouter } from 'next/navigation'
-import { CgAdd } from "react-icons/cg";
-import Router from 'next/router'
+import { useRouter } from 'next/navigation';
+import Router from 'next/router';
 import React, { useEffect, useState } from 'react'
 import {
   AlertDialog,
@@ -27,11 +26,17 @@ projectId: number
 }
 
 const Tasks = (props: Props) => {
-    const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
+  const windowType = typeof window !== 'undefined'
+
+  const userId: userData = windowType ? JSON.parse(localStorage?.getItem('userData') || '{}') : null
+const router = useRouter()
+const [update, setupdate] = useState(true)
+setTimeout(() => {
+setupdate(!update)
+},5000)
     const [tasks, setTasks] = useState<task | Array<task>>([])
-    const router = useRouter()
     const [name,setName] = useState('')
-    const [membersIds, setmembersIds] = useState<Array<number>>([userId.id])
+    const [membersIds, setmembersIds] = useState<Array<number>>([userId?.id])
     const [users, setusers] = useState<Array<userData> | userData>([])
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(()=>{
@@ -66,7 +71,7 @@ return
         };
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [update]);
     const tasksByStage: { [stage: string]: task[] } = {};
     if(Array.isArray(tasks)){
     tasks.forEach(task => {
@@ -75,6 +80,9 @@ return
       }
       tasksByStage[task.stageAt].push(task);
     });
+}
+else {
+  tasksByStage[tasks.stageAt] = [tasks]
 }
 const handleSelectUser = (user: userData) => {
   setmembersIds((prevIds) => [...prevIds, user.id])
@@ -94,7 +102,7 @@ const handleSelectUser = (user: userData) => {
 Object.keys(tasksByStage).map(stage => (
 <div key={stage}  className=' w-full rounded-lg bg-white p-4 shadow-lg flex flex-col items-center overflow-hidden object-contain'>
 <h1>{stage}</h1>
-<ScrollArea className="h-[500px] space-x-4 space-y-10 ">
+<ScrollArea className="h-[500px] space-x-4 space-y-10 w-full">
 {tasksByStage[stage].map(task => (
 
   <AlertDialog key={task.id} >

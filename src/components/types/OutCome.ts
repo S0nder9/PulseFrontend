@@ -62,7 +62,7 @@ interface jobTitle {
       name:string ,
       description: string,
       members: Array<number>,
-      true_members: Array<string> ,
+      true_members: string ,
       created_at: string
   }
   interface recProject {

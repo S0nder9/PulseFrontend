@@ -13,7 +13,6 @@ select: string
 }
 const SelectStage = (props: Props) => {
 const [select, setSelect] = React.useState(props.select);
-
 return (
 <Select onValueChange={(value) => { setSelect(value) }} value={select} >
 <h1>{select}</h1>
@@ -21,7 +20,6 @@ return (
 <SelectValue placeholder="Стадия задачи" />
 </SelectTrigger>
 <SelectContent className=' bg-violet-300'>
-<h1>{select}</h1>
 <SelectItem value="Готово">Готово</SelectItem>
 <SelectItem value="В процессе">В процессе</SelectItem>
 <SelectItem value="В обсуждении">В обсуждении</SelectItem>

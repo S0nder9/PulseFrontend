@@ -44,12 +44,7 @@ console.log(response)
     
 }
 async function createTask(data:addTask): Promise<any> {
-    // "project_id":1,
-    // "name":"Рассчитать стоимость деплоя",
-    // "description":"Что  то для пояснения какого именно деплоя",   
-    // "hoursToAccomplish":9,
-    // "priority":1,
-    // "workers":[1]
+ 
     const response = await fetch(`${host}/api/task/0`, {
         method: 'POST',
         headers: {
@@ -60,11 +55,12 @@ async function createTask(data:addTask): Promise<any> {
              name: data.name,
             description: data.description,
             hoursToAccomplish: data.hoursToAccomplish,
+            stageAt:data.stageAt,
              priority: data.priority,
             workers: data.workers
         })
     });
-console.log(response)
+console.log(response.status , "Статус создания таски")
     const responseData = await response.json();
 
     return responseData
