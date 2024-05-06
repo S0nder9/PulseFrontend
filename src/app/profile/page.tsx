@@ -15,7 +15,9 @@ import { fetchTitle } from '@/components/server/FetchJobTitle';
 import { deleteProject, deleteUser } from '@/components/server/deleteObj';
 import Loading from '@/components/assembled/Loading';
 import { allDepMembers } from '@/components/server/getAllDepartment';
-
+//TODO РАЗБИТЬ ВСЕ НА КОМПОНЕНТЫ , А ТАКЖЕ ДОБАВИТЬ ЗАГРУЗКУ И ОБРАБОТКУ ОШИБОК
+//& ДОБАВИТЬ ISSUES КАК ПРИЯТНОЕ ДОПОЛНЕНИЕ ОТВЕРСТАТЬ ГЛАВНУЮ СТРАНИЦУ
+//? ИСПРАВИТЬ ВСЕ НЕДОЧЕТЫ ГОТОВИТЬСЯ ДЕЛАТЬ СТРАНИЦУ ОТЧЕТА
 const Profile = () => {
     const [userData, setUserData] = useState<userData | null>(null);
     const [error,setError] = useState(false)
