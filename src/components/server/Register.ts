@@ -7,7 +7,7 @@ async function registerUser(userData: createUser): Promise<any> {
         throw new Error('User data is required');
     }
 
-    const response = await fetch(`${host}/api/users/create`, {
+    const response = await fetch(`${host}users/create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

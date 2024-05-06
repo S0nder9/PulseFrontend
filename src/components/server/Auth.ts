@@ -7,7 +7,7 @@ async function authUser(): Promise<OutCome > {
     if(!jwt){
         throw new Error('No token provided')
     }
-    const res = await fetch(`${host}/api/users/auth`,{
+    const res = await fetch(`${host}users/auth`,{
         credentials:'include',
         headers:{
             Cookie: `jwt=${jwt}`

@@ -13,7 +13,7 @@ async function fetchTitle(id:number):Promise<string> {
     if(!id ){
         return "no id provided"
     }
-    const res = await fetch(`${host}/api/job_title/${id}`);
+    const res = await fetch(`${host}job_title/${id}`);
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')
@@ -23,7 +23,7 @@ async function fetchTitle(id:number):Promise<string> {
     return receiveddata.name
 }
 async function fetchAllTitles():Promise<Array<jobTitle> |jobTitle> {
-    const res = await fetch(`${host}/api/all_job_titles`,);
+    const res = await fetch(`${host}all_job_titles`,);
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')

@@ -2,7 +2,7 @@ import { host } from "./types";
 
 async function deleteTask(taskId: number) {
 try {
-const response = await fetch(`${host}/api/task/${taskId}`, {
+const response = await fetch(`${host}task/${taskId}`, {
 method: 'DELETE',
 });
 if (!response.ok) {
@@ -14,7 +14,7 @@ console.error('Error deleting object:', error);
 }
 async function deleteProject(projectId: number) {
     try {
-    const response = await fetch(`${host}/api/project/${projectId}`, {
+    const response = await fetch(`${host}project/${projectId}`, {
     method: 'DELETE',
     });
     if (!response.ok) {

@@ -1,5 +1,5 @@
 
-import SearchIcon from "@/staff/SearchIcon";
+import SearchIcon from "@/svg/SearchIcon";
 import Link from "next/link";
 export default function Home() {
   return (

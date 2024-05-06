@@ -13,7 +13,7 @@ async function getUserProjects(id: number): Promise<Array<project> | project>  {
     if (!id) {
         throw new Error('No project id provided')
     }
-    const res = await fetch(`${host}/api/all_user_projects/${id}`);
+    const res = await fetch(`${host}all_user_projects/${id}`);
     if (!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')
@@ -32,7 +32,7 @@ async function getUserTask(id:number):Promise<Array<task> | task> {
     if(!id ){
         throw new Error('No task id provided')
     }
-    const res = await fetch(`${host}/api/all_user_task/${id}`);
+    const res = await fetch(`${host}all_user_task/${id}`);
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')
@@ -49,7 +49,7 @@ async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
     if(!id ){
         throw new Error('No project id provided')
     }
-    const res = await fetch(`${host}/api/task_for_project/${id}`,{ next: { revalidate: 3600 } });
+    const res = await fetch(`${host}task_for_project/${id}`,{ next: { revalidate: 3600 } });
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')
@@ -66,7 +66,7 @@ async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
     if(!id ){
         throw new Error('No user id provided')
     }
-    const res = await fetch(`${host}/api/user/${id}`);
+    const res = await fetch(`${host}user/${id}`);
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')
@@ -84,7 +84,7 @@ const cookieStore = cookies();
     if(!surname ){
         throw new Error('No user id provided')
     }
-    const res = await fetch(`${host}/api/userbyName/${surname}`);
+    const res = await fetch(`${host}userbyName/${surname}`);
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')
@@ -103,7 +103,7 @@ async function getProjectTitle(id:number):Promise<project>{
         if(!id ){
             throw new Error('No user id provided')
         }
-        const res = await fetch(`${host}/api/project/${id}`);
+        const res = await fetch(`${host}project/${id}`);
         if(!res.ok) {
             console.log(res.status)
             throw new Error('Failed to fetch data')
