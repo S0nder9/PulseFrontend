@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { checkCookie } from '../server/CheckCookie';
 import authUser from '../server/Auth';
 import Image from 'next/image';
+import Link from 'next/link';
 type Props = {}
 
 const Aside = (props: Props) => {
@@ -30,14 +31,21 @@ const Aside = (props: Props) => {
   return (
     <aside className=" w-1/12 flex flex-col items-center bottom-0 bg-white">
     <div> 
+    <Link href={`/profile`}>
         <Image
        width="0"
        height="0"
        sizes="100vw"
        className="w-auto h-auto"
-        src={userData ? userData.avatar : ""}
+        src={userData ? userData.avatar : "/addUser.png"}   
+        loading="lazy"
+        onError={(e)=>{
+          alert('Не удалость загрузить аватарку')
+        }}
         alt="avatar"
+        
         />
+        </Link>
         {/* <div className='  bg-white'>
         <h2>{userData ?  <h2>{userData. first_name }  {userData. last_name } </h2> :null}</h2>
 <h2>{localStorage.getItem('jobTitle')}</h2>

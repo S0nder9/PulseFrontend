@@ -9,7 +9,7 @@ type Props = {
 }
 
 const ProjectData = (props: Props) => {
-    const [projectData, setprojectData] = useState<project >({
+    const [projectData, setprojectData] = useState<any >({
         id: 0,
         name:props.projectName ,
         description: "",
@@ -45,9 +45,9 @@ const ProjectData = (props: Props) => {
     <>
 {
     projectData ?
-    <div>
-       <p>{projectData.name}</p> 
-        Дата создания: {projectData.created_at}
+    <div className='pl-20'>
+    <p>{projectData.name}</p> 
+        {/*    Дата создания: {projectData.created_at} */}
         <div className='flex '>
         Участники :  {namesStr}
         </div>

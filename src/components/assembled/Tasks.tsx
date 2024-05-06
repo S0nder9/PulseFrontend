@@ -3,7 +3,7 @@ import { checkCookie } from '@/components/server/CheckCookie'
 import { getAllProjectTasks, getProjectTitle, getUserByPrefixSurname } from '@/components/server/getUserProjects'
 import { useRouter } from 'next/navigation';
 import Router from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -21,6 +21,7 @@ import ProjectData from './ProjectData';
 import { Button } from '../ui/button';
 import ChangeTask from './changeTask';
 import { deleteTask } from '../server/deleteObj';
+import Loading from './Loading';
 type Props = {
 projectId: number
 }
@@ -31,9 +32,9 @@ const Tasks = (props: Props) => {
   const userId: userData = windowType ? JSON.parse(localStorage?.getItem('userData') || '{}') : null
 const router = useRouter()
 const [update, setupdate] = useState(true)
-setTimeout(() => {
-setupdate(!update)
-},5000)
+// setTimeout(() => {
+// setupdate(!update)
+// },10000)
     const [tasks, setTasks] = useState<task | Array<task>>([])
     const [name,setName] = useState('')
     const [membersIds, setmembersIds] = useState<Array<number>>([userId?.id])
@@ -60,10 +61,11 @@ return
                 return
             }
             try {
-                const projectTitle = await getProjectTitle(props.projectId)
+        
                
                 const response = await getAllProjectTasks(props.projectId)
                 setTasks(response)
+                console.log(response)
             }
             catch (error) {
                 throw new Error('error happened while authenticating user')
@@ -89,13 +91,13 @@ const handleSelectUser = (user: userData) => {
   }
   const [projectName, setprojectName] = useState('')
   return (
-<>
+    <Suspense fallback={<Loading />}>
 {
     tasks ?
 <section className="flex-1 p-4 w-full h-full">
-<div className="flex justify-between mb-4">
+<div className="flex  justify-between mb-4 ">
   <h1 className="text-2xl font-bold">Доска</h1>
-  <ProjectData projectId={props.projectId} projectName={projectName}/>        
+  <ProjectData projectId={props.projectId} projectName={projectName} />        
 </div>
 <div className="grid grid-cols-3 gap-2">
 {
@@ -121,10 +123,6 @@ if (sure) {
 deleteTask(task.id);
 }
 }}>Удалить</Button>
-
-
-
- 
   </div>
   <ChangeTask task={task}/></AlertDialog>
 ))}
@@ -139,7 +137,7 @@ deleteTask(task.id);
 :
 null
 } 
-</>
+</Suspense>
 ) }
 
 export default Tasks

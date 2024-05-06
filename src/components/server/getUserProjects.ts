@@ -49,7 +49,7 @@ async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
     if(!id ){
         throw new Error('No project id provided')
     }
-    const res = await fetch(`${host}task_for_project/${id}`,{ next: { revalidate: 3600 } });
+    const res = await fetch(`${host}task_for_project/${id}`);
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch data')
@@ -85,11 +85,7 @@ const cookieStore = cookies();
         throw new Error('No user id provided')
     }
     const res = await fetch(`${host}userbyName/${surname}`);
-    if(!res.ok) {
-        console.log(res.status)
-        throw new Error('Failed to fetch data')
-
- }
+    
  const receiveddata:userData = await res.json();
 
  return receiveddata;

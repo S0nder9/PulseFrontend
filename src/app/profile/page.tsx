@@ -2,7 +2,7 @@
 import authUser from '@/components/server/Auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
-import React, { use, useCallback, useEffect, useState } from 'react'
+import React, { Suspense, use, useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { checkCookie } from '@/components/server/CheckCookie';
 import { getUserName, getUserProjects, getUserTask } from '@/components/server/getUserProjects';
@@ -12,18 +12,20 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { beautifyArray, toNames } from '@/components/server/other/fromIdsToNames';
 import { fetchTitle } from '@/components/server/FetchJobTitle';
-import { deleteProject } from '@/components/server/deleteObj';
-
+import { deleteProject, deleteUser } from '@/components/server/deleteObj';
+import Loading from '@/components/assembled/Loading';
+import { allDepMembers } from '@/components/server/getAllDepartment';
 
 const Profile = () => {
     const [userData, setUserData] = useState<userData | null>(null);
     const [error,setError] = useState(false)
-    const [projects,setProjects] = useState<project | Array<project> >([])
+    const [projects,setProjects] = useState<project | Array<project> | null>(null)
     const [title, setTitle] = useState("")
-    const names  = []
+    const [departmentMembers,setDepartmentMembers]  = useState<any>(null)
 const router  = useRouter()
-
+const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
     useEffect(() => {
+
       const fetchData = async () => {
         const isToken =  await checkCookie()
         if(!isToken){
@@ -32,15 +34,18 @@ const router  = useRouter()
         }
         try {
           const response = await authUser();
-          console.log(response);
           setUserData(response.userData);
           setJobTitle(response.userData.job_title_id)
-          const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
-      
+      if (response.userData.position =='B'){
+        const departmentMembers = await allDepMembers(response.userData?.department_id)
+        setDepartmentMembers(departmentMembers)
+        console.log('departmentMembers', departmentMembers)
+      }
           if (!userId) {
             router.push('/login');
             return;
           }
+          getUserProjectsClient()
         }
          catch (error) {
         setError(true)
@@ -49,19 +54,12 @@ const router  = useRouter()
       };
       fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [projects]);
+    }, []);
     if(userData){
       localStorage.setItem('userData', JSON.stringify(userData))
     }
   async function getUserProjectsClient() {
     try {
-      const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
-      
-      if (!userId) {
-        router.push('/login');
-        return;
-      }
-
       const response = await getUserProjects(userId.id);
       if (Array.isArray(response)) {
         response.map(async (item)=>{
@@ -69,7 +67,6 @@ const router  = useRouter()
           const beautifulNames = beautifyArray(names); 
           setProjects(response.map(project => ({ ...project, true_members: beautifulNames })));
         })
-
       } else {
         const names = await toNames(response.members);
           const beautifulNames = beautifyArray(names); 
@@ -77,7 +74,7 @@ const router  = useRouter()
      console.log(projects)
       }
     } catch (error) {
-      alert(error);
+      alert(`${error} on project`,);
     }
   }
   async function setJobTitle(id: number) {
@@ -91,9 +88,14 @@ setTitle(title)
       alert(error);
     }
   }
-
-  return (
+async function ifIsBoss(){
+  const allDepartment = allDepMembers(userId.department_id)
+  setDepartmentMembers(allDepartment)
+  alert("")
+}
+  return (          <Suspense fallback={<Loading/>}>
             <main className="w-full py-6 space-y-6">
+
               {
                   userData ?  
                   <>
@@ -126,16 +128,47 @@ setTitle(title)
               <div className="flex items-center space-x-2">
                 <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Возраст</dt>
                 <dd className="font-medium">{userData.age}</dd>
+                <dd className="font-medium">{userData.position}</dd>  
               </div>
             </dl>
           </div>
         </article>
+        
+<div className='  w-full '>
+      {
+        departmentMembers ?
+        departmentMembers.map((user:any)=>
+          <section key={user.id}>
+            <div className='grid grid-cols-2 w-96 '>
+              {/* <div>
+                <img src={user.avatar} className='h-16 w-16 rounded-full'/>
+              </div> */}
+              <div className='p-4 w-96'>  
+                <h1>{user.first_name} {user.father_name} {user.last_name}  </h1>
+                <h1>Должность: {user.position}</h1>
+                <h1>Проекты: {user.job_title_id}</h1>
+              </div>
+            </div>
+            <div>
+            <Button className="w-full sm:w-auto" onClick={() => {
+  const sure = confirm('Вы уверены что хотите удалить работника?');
+  if (sure) {
+  deleteUser(user.id);
+  }}}>Удалить</Button>
+            </div>
+        
+  
+          </section>
+        )
+        :
+        null
+      }
+</div>
       </section>
       {
       projects ?
-      <section className="container">
-          <Button onClick={getUserProjectsClient } className='flex justify-center'>Обновить</Button>
-        <div className="grid max-w-3xl gap-4 px-4 mx-auto lg:grid-cols-2 lg:max-w-5xl lg:gap-8 dark:lg:gap-6">
+      <section className="mt-10">
+        <div className="grid max-w-6xl gap-4 px-4 mx-auto lg:grid-cols-2 lg:max-w-5xl lg:gap-8 dark:lg:gap-6">
         {
             Array.isArray(projects) ?
                         projects.map((project, index) =>
@@ -176,8 +209,42 @@ deleteProject(project.id);
                             </Card>
                           </div>
             ) 
+          
             :
-         null
+            <Card className="grid gap-4 sm:grid-cols-3">
+            <CardContent className="col-span-2 space-y-4">
+              <article className="space-y-2">
+                <h2 className="text-xl font-bold">{projects.name}</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {projects.description}
+                </p>
+              </article>
+              <div className="grid gap-0.5 sm:grid-cols-2">
+                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                  <div className=" flex" >
+                {projects.true_members.length > 1 ? projects.true_members : "nety ego"}
+                </div>
+
+              </div>
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col gap-1 sm:justify-end sm:flex-row">
+              <Button className="w-full sm:w-auto">
+                <Link href='/project/[id]' as={`/project/${projects.id}`}>
+              Посмотреть
+                </Link>
+              </Button>
+              <Button className="w-full sm:w-auto" onClick={() => {
+const sure = confirm('Вы уверены что хотите удалить проект ?');
+if (sure) {
+deleteProject(projects.id);
+}
+}}>              
+Удалить
+              </Button>
+        
+            </CardFooter>
+          </Card>
           }
          
         </div>
@@ -193,7 +260,9 @@ deleteProject(project.id);
       :
       null
 }
+
     </main>
+    </Suspense>
   )
 }
 

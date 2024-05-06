@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import Router from 'next/router';
 import {
@@ -46,9 +47,13 @@ newTask.project_id = props.project
 if (newTask.stageAt == '') {
 throw new Error("")
 }
+const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
+newTask.workers.push(userId?.id)
 await createTask(newTask)
 setisAdded(true)
-
+setTimeout(()=>{
+setisAdded(false)
+},1000)
 }
   return (
 <AlertDialog  >
@@ -62,7 +67,6 @@ setisAdded(true)
 <Input className="w-full" placeholder="Время на выполнение" type='number' value={newTask.hoursToAccomplish} onChange={(e)=>setNewTask({...newTask,hoursToAccomplish:Number(e.target.value)})} />
 <Input className="w-full" placeholder="Важность" type='number' maxLength={10}  value={newTask.priority} onChange={(e)=>setNewTask({...newTask,priority:Number(e.target.value)})} />
 <Select onValueChange={(value) => { setNewTask({...newTask,stageAt:value})}} value={newTask.stageAt} >
-<h1>{newTask.stageAt}</h1>
 <SelectTrigger>
 <SelectValue placeholder="Стадия задачи" />
 </SelectTrigger>
@@ -78,7 +82,7 @@ setisAdded(true)
 </AlertDialogHeader>
 <AlertDialogFooter>
 <AlertDialogCancel>Отмена</AlertDialogCancel>
-<AlertDialogAction onClick={()=>addTask()}>Создать</AlertDialogAction>
+<AlertDialogAction onClick={addTask}>Создать</AlertDialogAction>
 {
   isAdded ?
   <h1>Задача добавлена</h1>

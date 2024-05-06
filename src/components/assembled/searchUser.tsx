@@ -4,6 +4,7 @@ import { getUserByPrefixSurname, getUserName } from '../server/getUserProjects';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { beautifyArray } from '../server/other/fromIdsToNames';
 
 type Props = {
     memberIds:number[]
@@ -14,10 +15,11 @@ interface user {
 }
 function SearchUser(props:Props) {
 const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
-const [membersList, setMembersList] = useState<Array<user>>([{
+const [membersList, setMembersList] = useState<Array<any>>([{
 id: userId.id,
 name: userId.first_name + ' ' + userId.last_name 
 }])
+
 const [name, setName] = useState('')
 const total = []
 const [users, setusers] = useState<Array<userData> | userData>([])
@@ -25,6 +27,7 @@ useEffect(() => {
 const getNames = async () => {
 const users = await getUserByPrefixSurname(name)
 setusers(users)
+
 }
 if (name.length < 1) {
 return
@@ -34,20 +37,14 @@ getNames()
 }, 1000)
 
 }, [name])
-const getNameById = async (id: number) => {
 
-}
 const handleSelectUser = (user: userData) => {
-// setproject((prev) => ({
-// ...prev, members: [...prev.members, {
-// name: user.first_name,
-// surname: user.last_name,
-// id: user.id
-// }]
+
 setMembersList((prevIds) => [...prevIds, {
 id: user.id,
 name: user.first_name + ' ' + user.last_name
 }])
+
 props.memberIds.push(user.id)
 
 }
@@ -55,23 +52,22 @@ props.memberIds.push(user.id)
 return (
 <div className="space-y-2">
 <div className="flex space-x-4">
-<div className='flex '>Добавлены :  {membersList.map(user =>
-<p key={user.id}>{user.name}</p>
+<div className='flex flex-col '>Добавлены :  {membersList.map(user =>
+<span key={user.id}>{user.name} </span>
 )}</div>
 </div>
-<Label htmlFor="participants">Поиск </Label>
 <Input id='participants' className="" placeholder="Введите Фамилию" value={name} onChange={(e) => setName(e.target.value)} />
 <div className=' pt-0 mt-0'>
 {Array.isArray(users) ?
 users.map((user) => (
-<p key={user.id} onClick={() => handleSelectUser(user)} >
-{user.first_name} {user.last_name}
-</p>
+<div key={user.id} onClick={() => handleSelectUser(user)} >
+{user.first_name} {user.last_name} 
+</div>
 ))
 :
-<p key={users.id}  >
+<div key={users.id}  >
 {users.first_name} {users.last_name} <Button onClick={() => handleSelectUser(users)}>Добавить</Button>
-</p>
+</div>
 }
 </div>
 </div>

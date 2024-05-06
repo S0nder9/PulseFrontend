@@ -10,7 +10,8 @@ interface OutCome  {
       last_name: string,
       father_name: string,
       login:string,
-      position: string
+      position: string,
+      department_id:number
     }
   }
   interface userData {
@@ -22,7 +23,8 @@ interface OutCome  {
       last_name: string,
       father_name: string,
       login:string,
-      position: string 
+      position: string ,
+      department_id:number
   }
   interface createUser {
     job_title_id: number,
@@ -32,7 +34,8 @@ interface OutCome  {
     last_name: string,
     father_name: string,
     login:string,
-    password:string
+    password:string,
+    department_id:number
 }
 interface jobTitle {
     id:number,
@@ -55,7 +58,7 @@ interface jobTitle {
     stageAt:string,
     hoursToAccomplish:number,
     priority:number,
-    workers:Array<number>
+    workers:Array<number> 
   }
   interface project {
       id: number,
