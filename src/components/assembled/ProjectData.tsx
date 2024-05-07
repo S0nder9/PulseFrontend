@@ -45,13 +45,13 @@ const ProjectData = (props: Props) => {
     <>
 {
     projectData ?
-    <div className='pl-20'>
-    <p>{projectData.name}</p> 
-        {/*    Дата создания: {projectData.created_at} */}
-        <div className='flex '>
-        Участники :  {namesStr}
-        </div>
+<div className='pl-20 animate-pulse'>
+<p  className='  h-3 bg-slate-700 rounded-xl'>{projectData.name}</p> 
+    {/*    Дата создания: {projectData.created_at} */}
+    <div className='w-full h-6 bg-slate-700 rounded-xl'>
+    Участники :  {namesStr}
     </div>
+</div>
     :
     null
 }

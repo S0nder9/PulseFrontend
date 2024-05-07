@@ -1,20 +1,26 @@
 import React from 'react'
 import {motion, useTime, useTransform} from 'framer-motion'
-type Props = {}
+type Props = {
+   color:string
+}
 
 const Loading = (props: Props) => {
 
 return (
-    <div className="flex items-center justify-center h-screen w-full flex-col">
-    <motion.div
-      className="w-20 h-16 bg-red-100 rounded-xl"
-      animate={{ rotate: 360, borderRadius: ['10%',"20%",'50%',"20%","10%"],color:["blue","green","yellow","orange","red"] }}
-    
-      transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-    >
-                <h1 className=' text-center'>Загрузка ...</h1>
-    </motion.div>
-  </div>
+<div className=' w-11 h-1/2 '>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'>
+   <circle transform='rotate(0)' transform-origin='center' fill='none' stroke={props.color}stroke-width='15' stroke-linecap='round' stroke-dasharray='230 1000' stroke-dashoffset='0' cx='100' cy='100' r='70'>
+      <animateTransform 
+         attributeName='transform'
+         type='rotate'
+         from='0'
+         to='360'
+         dur='1'
+         repeatCount='indefinite'>
+      </animateTransform>
+   </circle>
+</svg>
+</div>
 )
 }
 

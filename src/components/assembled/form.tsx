@@ -17,7 +17,10 @@ function Form({ }: Props) {
 
     const [login, setLogin] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [error, setError] = useState(false)
+    const [error,setError] = useState({
+        status:false,
+        text:"",
+      })
     const [errorData, setErrorData] = useState<string>('')
     const sendData = async () => {
         const data = {
@@ -32,7 +35,7 @@ function Form({ }: Props) {
         }
         const resultData = await sendUserLoginData(data)
         if (!resultData) {
-            setError(true)
+            setError({status:true, text:"Ошибка аутентификации пользователя"})
             throw new Error("Failed to login")
         }
         router.push('/profile')
@@ -43,7 +46,13 @@ function Form({ }: Props) {
     }
 
     return (
+
         <div className='flex flex-col'>
+                {
+      error.status && <div className="flex justify-center items-center h-screen">
+        <h1>Возникла ошибка: {error.text} </h1>
+        </div>
+    }
             <Input
                 className="mt-4"
                 placeholder="Введите свой логин"
@@ -71,9 +80,6 @@ function Form({ }: Props) {
             >
                 Войти
             </Button>
-            {
-            errorData ? <h1 className=' text-red-600'>{errorData}</h1> : null
-            }
 
         </div>
     )

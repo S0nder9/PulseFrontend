@@ -66,7 +66,7 @@ setisAdded(false)
 <Input className="w-full" placeholder="Описание задачи" value={newTask.description} onChange={(e)=>setNewTask({...newTask,description:e.target.value})} />
 <Input className="w-full" placeholder="Время на выполнение" type='number' value={newTask.hoursToAccomplish} onChange={(e)=>setNewTask({...newTask,hoursToAccomplish:Number(e.target.value)})} />
 <Input className="w-full" placeholder="Важность" type='number' maxLength={10}  value={newTask.priority} onChange={(e)=>setNewTask({...newTask,priority:Number(e.target.value)})} />
-<Select onValueChange={(value) => { setNewTask({...newTask,stageAt:value})}} value={newTask.stageAt} >
+<Select onValueChange={(value:any) => { setNewTask({...newTask,stageAt:value})}} value={newTask.stageAt} >
 <SelectTrigger>
 <SelectValue placeholder="Стадия задачи" />
 </SelectTrigger>

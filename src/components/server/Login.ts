@@ -11,7 +11,6 @@ message: string,
 token: string
 }
    async function sendUserLoginData(data: LoginData): Promise<OutPut> {
-console.log(host)
     const res = await fetch(`${host}users/login`, {
         method: 'POST',
         credentials: 'include',

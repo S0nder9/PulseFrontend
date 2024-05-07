@@ -9,6 +9,10 @@ type Props = {}
 
 const Aside = (props: Props) => {
     const router   = useRouter()
+    const [error,setError] = useState({
+      status:false,
+      text:"",
+    })
     const [userData, setUserData] = useState<any>(null);
     useEffect(() => {
         const fetchData = async () => {
@@ -22,7 +26,8 @@ const Aside = (props: Props) => {
               setUserData(responseUser.userData);
             }
             catch (error) {
-                throw new Error('error happened while authenticating user')
+              
+                setError({status:true, text:"Ошибка аутентификации пользователя"})
             }
         };
         fetchData();
@@ -30,6 +35,8 @@ const Aside = (props: Props) => {
     }, []);
   return (
     <aside className=" w-1/12 flex flex-col items-center bottom-0 bg-white">
+      {
+        error.status? null : 
     <div> 
     <Link href={`/profile`}>
         <Image
@@ -51,6 +58,7 @@ const Aside = (props: Props) => {
 <h2>{localStorage.getItem('jobTitle')}</h2>
         </div> */}
 </div>
+}
     </aside>
   )
 }

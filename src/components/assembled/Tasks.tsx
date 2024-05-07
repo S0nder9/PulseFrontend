@@ -23,7 +23,8 @@ import ChangeTask from './changeTask';
 import { deleteTask } from '../server/deleteObj';
 import Loading from './Loading';
 type Props = {
-projectId: number
+projectId: number,
+isError: boolean
 }
 
 const Tasks = (props: Props) => {
@@ -37,6 +38,10 @@ const [update, setupdate] = useState(true)
 // },10000)
     const [tasks, setTasks] = useState<task | Array<task>>([])
     const [name,setName] = useState('')
+    const [error,setError] = useState({
+      status:false,
+      text:"",
+    })
     const [membersIds, setmembersIds] = useState<Array<number>>([userId?.id])
     const [users, setusers] = useState<Array<userData> | userData>([])
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -68,7 +73,8 @@ return
                 console.log(response)
             }
             catch (error) {
-                throw new Error('error happened while authenticating user')
+              setError({status:true, text:"Ошибка аутентификации пользователя"})
+          
             }
         };
         fetchData();
@@ -91,6 +97,9 @@ const handleSelectUser = (user: userData) => {
   }
   const [projectName, setprojectName] = useState('')
   return (
+    <>
+    {
+      error.status ? <h1 className='flex text-center'>Ошибка</h1> :
     <Suspense fallback={<Loading />}>
 {
     tasks ?
@@ -138,6 +147,9 @@ deleteTask(task.id);
 null
 } 
 </Suspense>
+}
+</>
+
 ) }
 
 export default Tasks

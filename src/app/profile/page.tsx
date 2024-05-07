@@ -20,7 +20,10 @@ import { allDepMembers } from '@/components/server/getAllDepartment';
 //? ИСПРАВИТЬ ВСЕ НЕДОЧЕТЫ ГОТОВИТЬСЯ ДЕЛАТЬ СТРАНИЦУ ОТЧЕТА
 const Profile = () => {
     const [userData, setUserData] = useState<userData | null>(null);
-    const [error,setError] = useState(false)
+    const [error,setError] = useState({
+      status:false,
+      text:"",
+    })
     const [projects,setProjects] = useState<project | Array<project> | null>(null)
     const [title, setTitle] = useState("")
     const [departmentMembers,setDepartmentMembers]  = useState<any>(null)
@@ -37,6 +40,7 @@ const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
         try {
           const response = await authUser();
           setUserData(response.userData);
+
           setJobTitle(response.userData.job_title_id)
       if (response.userData.position =='B'){
         const departmentMembers = await allDepMembers(response.userData?.department_id)
@@ -50,8 +54,8 @@ const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
           getUserProjectsClient()
         }
          catch (error) {
-        setError(true)
-        throw new Error('error happened while authenticating user')
+        setError({status:true, text:"Ошибка аутентификации пользователя"})
+      //  throw new Error('error happened while authenticating user')
         }
       };
       fetchData();
@@ -95,7 +99,13 @@ async function ifIsBoss(){
   setDepartmentMembers(allDepartment)
   alert("")
 }
-  return (          <Suspense fallback={<Loading/>}>
+  return (          
+  <Suspense fallback={<Loading color='#FA8072'/>}>
+    {
+      error.status && <div className="flex justify-center items-center h-screen">
+        <h1>Возникла ошибка: {error.text} </h1>
+        </div>
+    }
             <main className="w-full py-6 space-y-6">
 
               {
