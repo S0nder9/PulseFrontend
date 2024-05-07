@@ -34,9 +34,9 @@ const Aside = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
   return (
-    <aside className=" w-1/12 flex flex-col items-center bottom-0 bg-white">
+    <aside className=" w-1/12 flex flex-col items-center bottom-0  bg-basic-default">
       {
-        error.status? null : 
+        error.status ? null : 
     <div> 
     <Link href={`/profile`}>
         <Image
@@ -44,19 +44,15 @@ const Aside = (props: Props) => {
        height="0"
        sizes="100vw"
        className="w-auto h-auto"
-        src={userData ? userData.avatar : "/addUser.png"}   
+        src={userData ? userData.avatar : ""}   
         loading="lazy"
         onError={(e)=>{
-          alert('Не удалость загрузить аватарку')
+       e.preventDefault()
         }}
         alt="avatar"
         
         />
         </Link>
-        {/* <div className='  bg-white'>
-        <h2>{userData ?  <h2>{userData. first_name }  {userData. last_name } </h2> :null}</h2>
-<h2>{localStorage.getItem('jobTitle')}</h2>
-        </div> */}
 </div>
 }
     </aside>

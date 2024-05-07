@@ -22,6 +22,7 @@ import { Button } from '../ui/button';
 import ChangeTask from './changeTask';
 import { deleteTask } from '../server/deleteObj';
 import Loading from './Loading';
+import Link from 'next/link';
 type Props = {
 projectId: number,
 isError: boolean
@@ -73,7 +74,7 @@ return
                 console.log(response)
             }
             catch (error) {
-              setError({status:true, text:"Ошибка аутентификации пользователя"})
+              setError({status:true, text:`Ошибка сервера`})
           
             }
         };
@@ -98,12 +99,19 @@ const handleSelectUser = (user: userData) => {
   const [projectName, setprojectName] = useState('')
   return (
     <>
-    {
-      error.status ? <h1 className='flex text-center'>Ошибка</h1> :
-    <Suspense fallback={<Loading />}>
+            {
+      error.status && <div className="flex justify-center flex-col items-center h-screen w-screen  bg-basic-default">
+        <h1 className=' text-basic-default'>Возникла ошибка: {error.text} </h1>
+        <Link 
+        className='text-basic-default   border-base border-4 rounded-xl'
+        href='/'
+        > Обратно на главную</Link>
+        </div>
+    }
+    <Suspense fallback={<Loading color={'white'} />}>
 {
-    tasks ?
-<section className="flex-1 p-4 w-full h-full">
+    tasks && !error.status ?
+<section className="flex-1 p-4 w-full h-full bg-basic-default text-basic-default">
 <div className="flex  justify-between mb-4 ">
   <h1 className="text-2xl font-bold">Доска</h1>
   <ProjectData projectId={props.projectId} projectName={projectName} />        
@@ -111,20 +119,20 @@ const handleSelectUser = (user: userData) => {
 <div className="grid grid-cols-3 gap-2">
 {
 Object.keys(tasksByStage).map(stage => (
-<div key={stage}  className=' w-full rounded-lg bg-white p-4 shadow-lg flex flex-col items-center overflow-hidden object-contain'>
+<div key={stage}  className=' w-full rounded-lg bg-basic-default text-basic-default p-4 shadow-lg flex flex-col items-center overflow-hidden object-contain'>
 <h1>{stage}</h1>
 <ScrollArea className="h-[500px] space-x-4 space-y-10 w-full">
 {tasksByStage[stage].map(task => (
 
   <AlertDialog key={task.id} >
-    <div className=' bg-slate-200 rounded-xl '>
+    <div className='  rounded-xl '>
   <h1>Задача: <i>{task.name}</i></h1>
   <h1>Описание: {task.description}</h1>
   <h1>Время: <i>{task.hoursToAccomplish} часов</i></h1>
   <Label htmlFor='priority'>Приоритет</Label>
   <Input type='range' value={task.priority} maxLength={10} id="priority" />
   <AlertDialogTrigger className=" pt-0 p-0 m-0 flex  justify-end">
-    <Button  title='Изменить'  >Изменить</Button>
+    <Button  title='Изменить' className='ml-2' >Изменить</Button>
   </AlertDialogTrigger>
   <Button title='Удалить' className='ml-2' onClick={() => {
 const sure = confirm('Вы уверены что хотите удалить задачу ?');
@@ -141,13 +149,13 @@ deleteTask(task.id);
 
 ))}
 </div>
-<AddTaskDialog project={props.projectId}/>
+
+{error.status && <AddTaskDialog project={props.projectId}/>}
 </section>
 :
 null
 } 
 </Suspense>
-}
 </>
 
 ) }

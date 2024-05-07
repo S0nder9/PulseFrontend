@@ -24,11 +24,12 @@ const Profile = () => {
       status:false,
       text:"",
     })
+    const isServer = typeof window !== 'undefined'
     const [projects,setProjects] = useState<project | Array<project> | null>(null)
     const [title, setTitle] = useState("")
     const [departmentMembers,setDepartmentMembers]  = useState<any>(null)
 const router  = useRouter()
-const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
+const userId: userData =  isServer && JSON.parse(localStorage?.getItem('userData') || '{}');
     useEffect(() => {
 
       const fetchData = async () => {
@@ -39,6 +40,7 @@ const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
         }
         try {
           const response = await authUser();
+          console.log(response.userData)
           setUserData(response.userData);
 
           setJobTitle(response.userData.job_title_id)
@@ -47,7 +49,7 @@ const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
         setDepartmentMembers(departmentMembers)
         console.log('departmentMembers', departmentMembers)
       }
-          if (!userId) {
+          if (!userId.id) {
             router.push('/login');
             return;
           }
@@ -64,9 +66,14 @@ const userId: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
     if(userData){
       localStorage.setItem('userData', JSON.stringify(userData))
     }
+    //TODO оживить поиск по юзерам и проектам , достилизовать 
+    //! ОТЧЕТЫ СКАЧИВАНИЕ СДЕЛАТЬ ДЛЯ БОСА
+    //? БУДУЩЕЕ : ДОБАВИТЬ РАЗДЕЛ ISSUES
+    //*ДОСТИЛИЗОВАТЬ ВСЕ ДОБАВИТЬ ЕЩЕ CSS ПЕРЕМЕННЫХ И ДОБИТЬ РЕСПОНСИВ V0 В ПОМОЩЬ
   async function getUserProjectsClient() {
     try {
-      const response = await getUserProjects(userId.id);
+    
+      const response =  await getUserProjects(userId.id);
       if (Array.isArray(response)) {
         response.map(async (item)=>{
           const names = await toNames(item.members);
@@ -102,26 +109,29 @@ async function ifIsBoss(){
   return (          
   <Suspense fallback={<Loading color='#FA8072'/>}>
     {
-      error.status && <div className="flex justify-center items-center h-screen">
-        <h1>Возникла ошибка: {error.text} </h1>
+      error.status && <div className="flex justify-center items-center h-screen flex-col  bg-basic-default">
+        <h1 className=' text-basic-default'>Возникла ошибка: {error.text} </h1>
+        <Link 
+        className='text-basic-default  border-base hover:border-4 rounded-xl'
+        href='/'
+        > Обратно на главную</Link>
         </div>
     }
-            <main className="w-full py-6 space-y-6">
-
+            <main className="w-full py-6 space-y-6 bg-basic-default text-basic-default   h-screen ">
               {
                   userData ?  
                   <>
-                  <nav className=' w-full h-1/4 bg-slate-100  flex space-x-5'>
+                  <nav className=' w-full h-1/4  bg-basic-default text-basic-default flex space-x-5'>
 <Link href='/project/create' >Создать проект </Link>
 <Link href='/'>На главную</Link>
-<Link href='/searchProject'>Найти проект</Link>
-<Link href='/searchEmployee'>Узнать информацию по сотруднику </Link>
+<Link href='/findProject'>Найти проект</Link>
+<Link href='/findUser'>Узнать информацию по сотруднику</Link>
                   </nav>
       <section className="container flex flex-col gap-4 px-4 md:gap-10 md:flex-row md:items-center lg:px-6">
         <article className="flex items-center space-x-4">
           <Avatar className="w-12 h-12">
           <AvatarImage src={userData.avatar} />
-  <AvatarFallback>CN</AvatarFallback>
+  <AvatarFallback>AVATAR</AvatarFallback>
           </Avatar>
           <div className="space-y-1.5">
             <div className="flex items-center space-x-2">
@@ -140,7 +150,7 @@ async function ifIsBoss(){
               <div className="flex items-center space-x-2">
                 <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Возраст</dt>
                 <dd className="font-medium">{userData.age}</dd>
-                <dd className="font-medium">{userData.position}</dd>  
+                <dd className="font-medium">{userData.position=='B' && "Начальник"}</dd>  
               </div>
             </dl>
           </div>

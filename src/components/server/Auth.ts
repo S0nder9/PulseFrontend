@@ -13,7 +13,6 @@ async function authUser(): Promise<OutCome > {
             Cookie: `jwt=${jwt}`
         }
     });
-    console.log(res.status);
 
 
         /* headers: {

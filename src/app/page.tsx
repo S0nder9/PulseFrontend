@@ -1,13 +1,31 @@
-
+"use client"
 import SearchIcon from "@/svg/SearchIcon";
 import Link from "next/link";
 import Image from "next/image";
-
+import {motion} from 'framer-motion'
+import { useTheme } from "next-themes";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { checkCookie } from "@/components/server/CheckCookie";
 export default function Home() {
-  //const { scrollYProgress } = useScroll();
+  const router  = useRouter()
+  // TODO доделать страницу поика
+  useEffect(()=>{
+    const check = async() =>{
+      const isToken =  await checkCookie()
+      if(isToken){
+  router.push('/profile')
+  return
+      }
+    }
+    check()
+  },[])
+  //const { scrollY Progress } = useScroll();
+  const { resolvedTheme, setTheme } = useTheme();
+  console.log(resolvedTheme);
   return (
-<div className="">
-      <header className=" bg-red-500 text-white py-4 px-6 flex  items-center rounded-md sticky">
+<div className=" bg-basic-default text-basic-default">
+      <header className="  text-white py-4 px-6 flex  items-center rounded-md sticky">
         <nav className="flex space-x-4 text-2xl">
           <Link className="hover:underline" href="/login" >
   Логин
@@ -26,33 +44,21 @@ sizes="100vw"
 className=" w-2/4   h-full justify-end"
 />
           </Link>
-
+          <button
+        role='button'
+     
+        onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+        className=' w-auto h-auto  bg-basic-default text-basic-default  px-4 py-2 rounded-lg focus:ring'
+      >
+        { resolvedTheme === 'light' ? 'Переключить на темную тему' : 'Переключить на светлую тему'}
+      </button>
         </nav>
 
       </header>
-      <main className="flex flex-col h-screen bg-red-500 ">
-<h1 className="text-center items-center mt-1.5 text-4xl sm:text-3xl lg:text-4xl text-white">Приложение для удобного менеджинга труда</h1>
+      <main className="flex flex-col h-screen bg-basic-default text-basic-default ">
+<h1 className="text-center items-center mt-1.5 text-4xl sm:text-3xl lg:text-4xl   text-basic-default">Приложение для удобного менеджинга труда</h1>
+
       </main>
-      <section className="flex flex-col h-screen bg-gray-700 ">
-<h1>Плюсы и возможности:</h1>
-<motion.ul>
-  Плюсы:
-<motion.li 
-transition={{
-  ease: "linear",
-  duration: 2,
-  x: { duration: 1 }
-}}>
-Удобство управления трудящимися
-</motion.li>
-<motion.li>
-Скорость
-</motion.li>
-<motion.li>
-Стоимость
-</motion.li>
-</motion.ul>
-      </section>
     </div>
   );
 }

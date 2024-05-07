@@ -15,18 +15,14 @@ const Project = ({ params }: Props) => {
         text:"Ошибка запроса к серверу",
       })
     return (
+        <>
         <Suspense fallback={<Loading color='#FA8072'/>}>
-         {
-      error.status && <div className="flex justify-center items-center h-screen">
-        <h1>Возникла ошибка: {error.text} </h1>
-        <button>Перезагрузить</button>
-        </div>
-    }
           <main className="flex h-screen">
 <Tasks projectId={params.id} isError={error.status}/>
 <Aside />
         </main>
         </Suspense>
+        </>
     )
 }
 

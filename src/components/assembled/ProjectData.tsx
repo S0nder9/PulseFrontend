@@ -16,6 +16,10 @@ const ProjectData = (props: Props) => {
         members:[],
         created_at: ""
     })
+    const [error,setError] =  useState({
+        status:false,
+        text:""
+    })
     const [namesStr, setnames] = useState<string>("")
     const router  = useRouter()
     useEffect(() => {
@@ -35,7 +39,8 @@ const ProjectData = (props: Props) => {
 
     }
             catch (error) {
-                throw new Error('error happened while authenticating user')
+             //   throw new Error('error happened while authenticating user')
+            setError({status:true, text:`Ошибка аутентификации пользователя`})
             }
         };
         fetchData();
@@ -44,11 +49,11 @@ const ProjectData = (props: Props) => {
   return (
     <>
 {
-    projectData ?
-<div className='pl-20 animate-pulse'>
-<p  className='  h-3 bg-slate-700 rounded-xl'>{projectData.name}</p> 
+    projectData && !error.status ?
+<div className='pl-20 '>
+<p  className='  h-3  rounded-xl'>{projectData.name}</p> 
     {/*    Дата создания: {projectData.created_at} */}
-    <div className='w-full h-6 bg-slate-700 rounded-xl'>
+    <div className='w-full h-6  rounded-xl pt-2'>
     Участники :  {namesStr}
     </div>
 </div>

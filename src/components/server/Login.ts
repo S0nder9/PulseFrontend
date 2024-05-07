@@ -24,7 +24,7 @@ token: string
 
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        throw new Error('Ошибка при входе попробуйте еще раз'); 
+        throw new Error(`Ошибка при входе попробуйте еще раз , статус ${res.statusText} `,); 
     }
 
     const cookiesApi = cookies()
@@ -33,7 +33,6 @@ token: string
         httpOnly: true,
         secure: true,
     })
-    console.log(receiveddata)
     return receiveddata;
 }
 
