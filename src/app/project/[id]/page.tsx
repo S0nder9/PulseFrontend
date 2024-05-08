@@ -14,6 +14,7 @@ const Project = ({ params }: Props) => {
         status:false,
         text:"Ошибка запроса к серверу",
       })
+      //TODO ДОБАВВИТЬ ВОЗМОЖНОСТЬ МЕНЯТЬ СТАДИЮ ТАСКИ ПОСРЕДСТВОМ КНОПОК
     return (
         <>
         <Suspense fallback={<Loading color='#FA8072'/>}>
