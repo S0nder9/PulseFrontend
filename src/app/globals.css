@@ -7,13 +7,16 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --text-default: white;
-  --background: rgb(40, 37, 37);
+  --background-section-color: rgb(84, 82, 82);
+  --background-button-color: rgb(40, 37, 37);
   --borderColor: #fbfbfb;
+  --button-bg-color:rgb(119, 107, 107);
 }
 [data-theme="light"] {
   --text-default: #161718;
   --background:#e45e5e;
   --borderColor:#161718;
+  --button-bg-color:rgb(119, 107, 107);
 }
 body{
   background-color: var(--background);

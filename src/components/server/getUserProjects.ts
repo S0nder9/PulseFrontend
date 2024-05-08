@@ -1,7 +1,6 @@
 'use server'
 import { cookies } from "next/headers";
 import { host } from "./types";
-import { string } from "zod";
 
 async function getUserProjects(id: number): Promise<Array<project> | project>  {
     const cookieStore = cookies();
@@ -88,6 +87,16 @@ const cookieStore = cookies();
 
  return receiveddata;
 }
+async function getByPrefixProject(name:string):Promise<project[] | project | null> {
+    if(!name ){
+        throw new Error('No project name provided')
+    }
+    const res = await fetch(`${host}projectbyName/${name}`);
+    
+ const receiveddata = await res.json();
+
+ return receiveddata;
+}
 async function getProjectTitle(id:number):Promise<project>{
     const cookieStore = cookies();
         const jwt = cookieStore.get('jwt')?.value
@@ -107,4 +116,4 @@ async function getProjectTitle(id:number):Promise<project>{
     
      return receiveddata;
     }
-export  { getUserProjects,getUserTask,getAllProjectTasks,getUserName,getUserByPrefixSurname,getProjectTitle};
+export  { getUserProjects,getUserTask,getAllProjectTasks,getUserName,getUserByPrefixSurname,getProjectTitle,getByPrefixProject};

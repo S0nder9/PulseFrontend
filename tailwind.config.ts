@@ -31,8 +31,11 @@ textColor:{
 },
 backgroundColor:{
     basic:{
-        default:"var(--background)",
+        default:"var(--background-section-color)",
      },
+     button:{
+        base:"var(--background-button-color)"
+     }
 },
 
 colors: {

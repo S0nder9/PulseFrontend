@@ -26,6 +26,7 @@ interface OutCome  {
       position: string ,
       department_id:number
   }
+
   interface createUser {
     job_title_id: number,
     avatar: string,

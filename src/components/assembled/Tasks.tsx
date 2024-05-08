@@ -2,20 +2,14 @@
 import { checkCookie } from '@/components/server/CheckCookie'
 import { getAllProjectTasks, getProjectTitle, getUserByPrefixSurname } from '@/components/server/getUserProjects'
 import { useRouter } from 'next/navigation';
-import Router from 'next/router';
 import React, { Suspense, useEffect, useState } from 'react'
 import {
   AlertDialog,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import authUser from '@/components/server/Auth'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import SearchUser from '@/components/assembled/searchUser'
-import { createTask } from '@/components/server/Create'
-import { Select } from '@/components/ui/select'
-import SelectStage from '@/components/assembled/SelectStage'
 import AddTaskDialog from './AddTaskDialog';
 import ProjectData from './ProjectData';
 import { Button } from '../ui/button';
@@ -57,7 +51,6 @@ return
       setTimeout(()=>{
           getNames()
       },1000)
-    
   },[name])
     useEffect(() => {
         const fetchData = async () => {
@@ -71,7 +64,6 @@ return
                
                 const response = await getAllProjectTasks(props.projectId)
                 setTasks(response)
-                console.log(response)
             }
             catch (error) {
               setError({status:true, text:`Ошибка сервера`})

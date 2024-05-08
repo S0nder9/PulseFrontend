@@ -11,6 +11,7 @@ import { checkCookie } from '@/components/server/CheckCookie'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 function Registration() {
+  //TODO добавить департамент и загругку 
  const schematwo = z.object({
     login: z.string().min(6),
     password: z.string().min(6),
