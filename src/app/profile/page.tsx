@@ -25,6 +25,10 @@ import ProjectsCard from '@/components/buildIn/ProjectsCard';
 //? ИСПРАВИТЬ ВСЕ НЕДОЧЕТЫ ГОТОВИТЬСЯ ДЕЛАТЬ СТРАНИЦУ ОТЧЕТА
 const Profile = () => {
     const [userData, setUserData] = useState<userData | null>(null);
+    const [status,setStatus] = useState({
+      isBoss:false,
+deparmentId:0
+    })
     const [error,setError] = useState({
       status:false,
       text:"",
@@ -52,6 +56,10 @@ const userId: userData =  isServer && JSON.parse(localStorage?.getItem('userData
       if (response.userData.position =='B'){
         const departmentMembers = await allDepMembers(response.userData?.department_id)
         setDepartmentMembers(departmentMembers)
+        setStatus({
+          isBoss:true,
+          departmentId:response.userData?.department_id
+        })
         console.log('departmentMembers', departmentMembers)
         getUserProjectsClient()
       }
@@ -113,7 +121,8 @@ async function ifIsBoss(){
               {
                   userData ?  
                   <>
-                <Navigation/>
+                <Navigation isBoss idOfDep={status.deparmentId} />
+                
       <section className="container flex  flex-col  gap-4 px-4 md:flex-col  xl:flex-row    sm:flex-col h-screen">
      <UserProfile
       userData={userData} title ={title}/>
