@@ -150,7 +150,7 @@ deleteTask(task.id);
 ))}
 </div>
 
-{error.status && <AddTaskDialog project={props.projectId}/>}
+{!error.status && <AddTaskDialog project={props.projectId}/>}
 </section>
 :
 null

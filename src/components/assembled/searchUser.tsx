@@ -50,7 +50,7 @@ props.memberIds.push(user.id)
 }
 
 return (
-<div className="space-y-2">
+<div className="space-y-2  bg-basic-default">
 <div className="flex space-x-4">
 <div className='flex flex-col '>Добавлены :  {membersList.map(user =>
 <span key={user.id}>{user.name} </span>

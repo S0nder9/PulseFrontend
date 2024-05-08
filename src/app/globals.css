@@ -15,7 +15,9 @@
   --background:#e45e5e;
   --borderColor:#161718;
 }
-
+body{
+  background-color: var(--background);
+}
 /*  ------------------------------------------ лояуты ------------------------------------- */
 .col2 {
   grid-template-rows: 1fr 7fr;

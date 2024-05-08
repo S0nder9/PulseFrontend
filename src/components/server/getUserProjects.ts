@@ -12,6 +12,7 @@ async function getUserProjects(id: number): Promise<Array<project> | project>  {
     if (!id) {
         throw new Error('No project id provided')
     }
+    console.log(`${host}all_user_projects/${id}`)
     const res = await fetch(`${host}all_user_projects/${id}`);
     if (!res.ok) {
         throw new Error('Failed to fetch data')

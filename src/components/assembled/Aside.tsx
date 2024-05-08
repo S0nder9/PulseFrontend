@@ -37,13 +37,13 @@ const Aside = (props: Props) => {
     <aside className=" w-1/12 flex flex-col items-center bottom-0  bg-basic-default">
       {
         error.status ? null : 
-    <div> 
+    <div className='  bg-basic-default'> 
     <Link href={`/profile`}>
         <Image
        width="0"
        height="0"
        sizes="100vw"
-       className="w-auto h-auto"
+       className="w-auto h-auto bg-basic-default"
         src={userData ? userData.avatar : ""}   
         loading="lazy"
         onError={(e)=>{

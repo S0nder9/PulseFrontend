@@ -57,8 +57,8 @@ setisAdded(false)
 }
   return (
 <AlertDialog  >
-<AlertDialogTrigger className='flex  flex-col justify-end float-right text-3xl'><CgAdd  scale={100}/>  Добавить </AlertDialogTrigger>
-<AlertDialogContent className='bg-blue-100'>
+<AlertDialogTrigger className='flex  flex-row justify-end float-right text-3xl bg-basic-default '>Добавить <CgAdd  scale={100}/> </AlertDialogTrigger>
+<AlertDialogContent className='bg-blue-100'>  
 <AlertDialogHeader>
 <AlertDialogTitle className=''>Создать Задачу</AlertDialogTitle>
 <AlertDialogDescription>

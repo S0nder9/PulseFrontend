@@ -5,7 +5,7 @@ import { ThemeProvider } from 'next-themes';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GoalFlow",
+  title: "",
   description: "Создано на next js",
   
 };
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
     
-      <body className={inter.className}>
+      <body className={inter.className}  >
       <ThemeProvider>
       {children}
       </ThemeProvider>

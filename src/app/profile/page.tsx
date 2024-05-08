@@ -15,6 +15,11 @@ import { fetchTitle } from '@/components/server/FetchJobTitle';
 import { deleteProject, deleteUser } from '@/components/server/deleteObj';
 import Loading from '@/components/assembled/Loading';
 import { allDepMembers } from '@/components/server/getAllDepartment';
+import Error from '@/components/buildIn/Error';
+import Navigation from '@/components/buildIn/Navigation';
+import UserProfile from '@/components/buildIn/UserProfile';
+import DpMembers from '@/components/buildIn/DpMembers';
+import ProjectsCard from '@/components/buildIn/ProjectsCard';
 //TODO РАЗБИТЬ ВСЕ НА КОМПОНЕНТЫ , А ТАКЖЕ ДОБАВИТЬ ЗАГРУЗКУ И ОБРАБОТКУ ОШИБОК
 //& ДОБАВИТЬ ISSUES КАК ПРИЯТНОЕ ДОПОЛНЕНИЕ ОТВЕРСТАТЬ ГЛАВНУЮ СТРАНИЦУ
 //? ИСПРАВИТЬ ВСЕ НЕДОЧЕТЫ ГОТОВИТЬСЯ ДЕЛАТЬ СТРАНИЦУ ОТЧЕТА
@@ -27,7 +32,7 @@ const Profile = () => {
     const isServer = typeof window !== 'undefined'
     const [projects,setProjects] = useState<project | Array<project> | null>(null)
     const [title, setTitle] = useState("")
-    const [departmentMembers,setDepartmentMembers]  = useState<any>(null)
+    const [departmentMembers,setDepartmentMembers]  = useState<userData[]| null>(null);
 const router  = useRouter()
 const userId: userData =  isServer && JSON.parse(localStorage?.getItem('userData') || '{}');
     useEffect(() => {
@@ -48,12 +53,9 @@ const userId: userData =  isServer && JSON.parse(localStorage?.getItem('userData
         const departmentMembers = await allDepMembers(response.userData?.department_id)
         setDepartmentMembers(departmentMembers)
         console.log('departmentMembers', departmentMembers)
+        getUserProjectsClient()
       }
-          if (!userId.id) {
-            router.push('/login');
-            return;
-          }
-          getUserProjectsClient()
+      getUserProjectsClient()  
         }
          catch (error) {
         setError({status:true, text:"Ошибка аутентификации пользователя"})
@@ -72,7 +74,6 @@ const userId: userData =  isServer && JSON.parse(localStorage?.getItem('userData
     //*ДОСТИЛИЗОВАТЬ ВСЕ ДОБАВИТЬ ЕЩЕ CSS ПЕРЕМЕННЫХ И ДОБИТЬ РЕСПОНСИВ V0 В ПОМОЩЬ
   async function getUserProjectsClient() {
     try {
-    
       const response =  await getUserProjects(userId.id);
       if (Array.isArray(response)) {
         response.map(async (item)=>{
@@ -102,175 +103,26 @@ setTitle(title)
     }
   }
 async function ifIsBoss(){
-  const allDepartment = allDepMembers(userId.department_id)
+  const allDepartment =  await allDepMembers(userId.department_id)
   setDepartmentMembers(allDepartment)
-  alert("")
 }
   return (          
-  <Suspense fallback={<Loading color='#FA8072'/>}>
-    {
-      error.status && <div className="flex justify-center items-center h-screen flex-col  bg-basic-default">
-        <h1 className=' text-basic-default'>Возникла ошибка: {error.text} </h1>
-        <Link 
-        className='text-basic-default  border-base hover:border-4 rounded-xl'
-        href='/'
-        > Обратно на главную</Link>
-        </div>
-    }
-            <main className="w-full py-6 space-y-6 bg-basic-default text-basic-default   h-screen ">
+    <div className='bg-basic-default h-lvh'> 
+  <Suspense fallback={<Loading color='#FA8072'/>} >
+            <main className="w-full py-6 space-y-6 bg-basic-default text-basic-default   sm:flex-col h-lvh">
               {
                   userData ?  
                   <>
-                  <nav className=' w-full h-1/4  bg-basic-default text-basic-default flex space-x-5'>
-<Link href='/project/create' >Создать проект </Link>
-<Link href='/'>На главную</Link>
-<Link href='/findProject'>Найти проект</Link>
-<Link href='/findUser'>Узнать информацию по сотруднику</Link>
-                  </nav>
-      <section className="container flex flex-col gap-4 px-4 md:gap-10 md:flex-row md:items-center lg:px-6">
-        <article className="flex items-center space-x-4">
-          <Avatar className="w-12 h-12">
-          <AvatarImage src={userData.avatar} />
-  <AvatarFallback>AVATAR</AvatarFallback>
-          </Avatar>
-          <div className="space-y-1.5">
-            <div className="flex items-center space-x-2">
-              <h1 className="text-2xl font-bold">{userData.first_name} {userData.last_name}</h1>
-              <Badge className="text-sm">{userData.job_title_id ? title : null}</Badge>
-            </div>
-            <dl className="grid gap-1 sm:grid-cols-2">
-              <div className="flex items-center space-x-2">
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Имя</dt>
-                <dd className="font-medium">{userData.first_name}</dd>
-              </div>
-              <div className="flex items-center space-x-2">
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Фамилия</dt>
-                <dd className="font-medium">{userData.last_name}</dd>
-              </div>
-              <div className="flex items-center space-x-2">
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Возраст</dt>
-                <dd className="font-medium">{userData.age}</dd>
-                <dd className="font-medium">{userData.position=='B' && "Начальник"}</dd>  
-              </div>
-            </dl>
-          </div>
-        </article>
-        
-<div className='  w-full '>
+                <Navigation/>
+      <section className="container flex  flex-col  gap-4 px-4 md:flex-col  xl:flex-row    sm:flex-col h-screen">
+     <UserProfile
+      userData={userData} title ={title}/>
       {
-        departmentMembers ?
-        departmentMembers.map((user:any)=>
-          <section key={user.id}>
-            <div className='grid grid-cols-2 w-96 '>
-              {/* <div>
-                <img src={user.avatar} className='h-16 w-16 rounded-full'/>
-              </div> */}
-              <div className='p-4 w-96'>  
-                <h1>{user.first_name} {user.father_name} {user.last_name}  </h1>
-                <h1>Должность: {user.position}</h1>
-                <h1>Проекты: {user.job_title_id}</h1>
-              </div>
-            </div>
-            <div>
-            <Button className="w-full sm:w-auto" onClick={() => {
-  const sure = confirm('Вы уверены что хотите удалить работника?');
-  if (sure) {
-  deleteUser(user.id);
-  }}}>Удалить</Button>
-            </div>
-        
-  
-          </section>
-        )
-        :
-        null
+        departmentMembers && <DpMembers departmentMembers={departmentMembers}/>
       }
-</div>
-      </section>
-      {
+         {
       projects ?
-      <section className="mt-10">
-        <div className="grid max-w-6xl gap-4 px-4 mx-auto lg:grid-cols-2 lg:max-w-5xl lg:gap-8 dark:lg:gap-6">
-        {
-            Array.isArray(projects) ?
-                        projects.map((project, index) =>
-                          <div key={index} className='flex-row'>
-                            <Card className="grid gap-4 sm:grid-cols-3">
-                              <CardContent className="col-span-2 space-y-4">
-                                <article className="space-y-2">
-                                  <h2 className="text-xl font-bold">{project.name}</h2>
-                                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    {project.description}
-                                  </p>
-                                </article>
-                                <div className="grid gap-0.5 sm:grid-cols-2">
-                                  <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                                    <div className=" flex" >
-                                  {project.true_members.length > 1 ? project.true_members : "nety ego"}
-                                  </div>
-
-                                </div>
-                                </div>
-                              </CardContent>
-                              <CardFooter className="flex flex-col gap-1 sm:justify-end sm:flex-row">
-                                <Button className="w-full sm:w-auto">
-                                  <Link href='/project/[id]' as={`/project/${project.id}`}>
-                                Посмотреть
-                                  </Link>
-                                </Button>
-                                <Button className="w-full sm:w-auto" onClick={() => {
-const sure = confirm('Вы уверены что хотите удалить проект ?');
-if (sure) {
-deleteProject(project.id);
-}
-}}>              
-Удалить
-                                </Button>
-                          
-                              </CardFooter>
-                            </Card>
-                          </div>
-            ) 
-          
-            :
-            <Card className="grid gap-4 sm:grid-cols-3">
-            <CardContent className="col-span-2 space-y-4">
-              <article className="space-y-2">
-                <h2 className="text-xl font-bold">{projects.name}</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {projects.description}
-                </p>
-              </article>
-              <div className="grid gap-0.5 sm:grid-cols-2">
-                <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                  <div className=" flex" >
-                {projects.true_members.length > 1 ? projects.true_members : "nety ego"}
-                </div>
-
-              </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col gap-1 sm:justify-end sm:flex-row">
-              <Button className="w-full sm:w-auto">
-                <Link href='/project/[id]' as={`/project/${projects.id}`}>
-              Посмотреть
-                </Link>
-              </Button>
-              <Button className="w-full sm:w-auto" onClick={() => {
-const sure = confirm('Вы уверены что хотите удалить проект ?');
-if (sure) {
-deleteProject(projects.id);
-}
-}}>              
-Удалить
-              </Button>
-        
-            </CardFooter>
-          </Card>
-          }
-         
-        </div>
-      </section>
+    <ProjectsCard projects={projects}/>
       :
       <>
    <p> У тебя нет проектов</p>
@@ -278,6 +130,7 @@ deleteProject(projects.id);
   
    </>
 }
+      </section>
       </>
       :
       null
@@ -285,6 +138,7 @@ deleteProject(projects.id);
 
     </main>
     </Suspense>
+    </div>
   )
 }
 
