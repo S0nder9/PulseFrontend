@@ -11,12 +11,12 @@ type Props = {
 const ProjectsCard = (props: Props) => {
   return (
     <section >
-    <div className="grid max-w-8xl gap-4 px-4 mx-auto lg:grid-cols-2 lg:max-w-5xl lg:gap-8 dark:lg:gap-6">
+    <div className="grid max-w-8xl gap-4 px-4 mx-auto lg:grid-cols-2 lg:max-w-5xl lg:gap-8 dark:lg:gap-6  ">
     {
         Array.isArray(props.projects) ?
                     props.projects.map((project, index) =>
-                      <div key={index} className='flex-row'>
-                        <Card className="grid gap-4 sm:grid-cols-3">
+                      <div key={index} className='flex-row '>
+                        <Card className="grid gap-4 sm:grid-cols-3 bg-cards-base ">
                           <CardContent className="col-span-2 space-y-4">
                             <article className="space-y-2">
                               <h2 className="text-xl font-bold">{project.name}</h2>
@@ -54,7 +54,7 @@ deleteProject(project.id);
         ) 
       
         :
-        <Card className="grid gap-4 sm:grid-cols-3">
+        <Card className="grid gap-4 sm:grid-cols-3 bg-cards-base">
         <CardContent className="col-span-2 space-y-4">
           <article className="space-y-2">
             <h2 className="text-xl font-bold">{props.projects.name}</h2>

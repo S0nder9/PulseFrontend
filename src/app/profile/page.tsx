@@ -58,7 +58,7 @@ const userId: userData =  isServer && JSON.parse(localStorage?.getItem('userData
         setDepartmentMembers(departmentMembers)
         setStatus({
           isBoss:true,
-          departmentId:response.userData?.department_id
+          deparmentId:response.userData?.department_id
         })
         console.log('departmentMembers', departmentMembers)
         getUserProjectsClient()
@@ -117,11 +117,11 @@ async function ifIsBoss(){
   return (          
     <div className='bg-basic-default h-lvh'> 
   <Suspense fallback={<Loading color='#FA8072'/>} >
+  <Navigation isBoss={false}  idOfDep={status.deparmentId} isImage={false} />
             <main className="w-full py-6 space-y-6 bg-basic-default text-basic-default   sm:flex-col h-lvh">
               {
                   userData ?  
                   <>
-                <Navigation isBoss idOfDep={status.deparmentId} />
                 
       <section className="container flex  flex-col  gap-4 px-4 md:flex-col  xl:flex-row    sm:flex-col h-screen">
      <UserProfile

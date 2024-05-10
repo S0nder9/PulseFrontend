@@ -9,7 +9,7 @@ type Props = {
 
 const UserProfile = (props: Props) => {
   return (
-<article className="flex  items-start space-x-4  basis-1/3
+<article className="flex  items-start space-x-4   basis-1/4
 ">
 <Avatar className="w-12 h-12">
 <AvatarImage src={props.userData.avatar} />

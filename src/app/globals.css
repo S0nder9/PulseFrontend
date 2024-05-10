@@ -7,15 +7,19 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --text-default: white;
-  --background-section-color: rgb(84, 82, 82);
+  --background-section-color: rgb(35, 34, 34);
   --background-button-color: rgb(40, 37, 37);
   --borderColor: #fbfbfb;
-  --button-bg-color:rgb(119, 107, 107);
+  --button-bg-color:rgb(34, 30, 30);
+  --background-cards-color: rgb(57, 49, 49);
 }
 [data-theme="light"] {
-  --text-default: #161718;
+  --text-default: #eceeef;
   --background:#e45e5e;
-  --borderColor:#161718;
+  --background-section-color: rgb(205, 52, 52);
+  --background-cards-color: rgb(57, 49, 49);
+  --background-button-color: rgb(40, 37, 37);
+  --borderColor:#010406;
   --button-bg-color:rgb(119, 107, 107);
 }
 body{

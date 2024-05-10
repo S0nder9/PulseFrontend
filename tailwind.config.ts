@@ -35,6 +35,9 @@ backgroundColor:{
      },
      button:{
         base:"var(--background-button-color)"
+     },
+     cards:{
+        base:"var(--background-cards-color)"
      }
 },
 

@@ -1,3 +1,4 @@
+"use server"
 import { cookies } from "next/headers";
 import { host, statusType } from "./types";
 const status = {
@@ -15,6 +16,7 @@ async function changeTaskStatus(id:number,changedStatus:string):Promise<statusTy
     if (!id) {
         throw new Error('No task id provided')
     }
+    console.log(id,changedStatus)
     const res = await fetch(`${host}task/${id}`,{
         method:"PATCH",
         headers: {

@@ -17,6 +17,9 @@ import ChangeTask from './changeTask';
 import { deleteTask } from '../server/deleteObj';
 import Loading from './Loading';
 import Link from 'next/link';
+import { BsArrowBarRight,BsArrowBarLeft} from "react-icons/bs";
+import { changeTaskStatus } from '../server/patchData';
+import { set } from 'zod';
 type Props = {
 projectId: number,
 isError: boolean
@@ -114,27 +117,90 @@ Object.keys(tasksByStage).map(stage => (
 <div key={stage}  className=' w-full rounded-lg bg-basic-default text-basic-default p-4 shadow-lg flex flex-col items-center overflow-hidden object-contain'>
 <h1>{stage}</h1>
 <ScrollArea className="h-[500px] space-x-4 space-y-10 w-full">
-{tasksByStage[stage].map(task => (
+                        {tasksByStage[stage].map(task => (
 
-  <AlertDialog key={task.id} >
-    <div className='  rounded-xl '>
-  <h1>Задача: <i>{task.name}</i></h1>
-  <h1>Описание: {task.description}</h1>
-  <h1>Время: <i>{task.hoursToAccomplish} часов</i></h1>
-  <Label htmlFor='priority'>Приоритет</Label>
-  <Input type='range' value={task.priority} maxLength={10} id="priority" />
-  <AlertDialogTrigger className=" pt-0 p-0 m-0 flex  justify-end">
-    <Button  title='Изменить' className='ml-2' >Изменить</Button>
-  </AlertDialogTrigger>
-  <Button title='Удалить' className='ml-2' onClick={() => {
-const sure = confirm('Вы уверены что хотите удалить задачу ?');
-if (sure) {
-deleteTask(task.id);
-}
-}}>Удалить</Button>
-  </div>
-  <ChangeTask task={task}/></AlertDialog>
-))}
+                          <AlertDialog key={task.id} >
+                            <div className='  rounded-xl '>
+                              <h1>Задача: <i>{task.name}</i></h1>
+                              <h1>Описание: {task.description}</h1>
+                              <h1>Время: <i>{task.hoursToAccomplish} часов</i></h1>
+                              <Label htmlFor='priority'>Приоритет</Label>
+                              <Input type='range' value={task.priority} maxLength={10} id="priority" />
+                              <div className='  l'>
+                                <AlertDialogTrigger className=" pt-0 p-0 m-0 flex  justify-end bg-basic-default">
+                                  <Button title='Изменить' className='ml-2' >Изменить</Button>
+                                </AlertDialogTrigger>
+                                <Button title='Удалить' className='ml-2' onClick={() => {
+                                  const sure = confirm('Вы уверены что хотите удалить задачу ?');
+                                  if (sure) {
+                                    deleteTask(task.id);
+                                      setupdate(!update)
+                                  }
+                                }}>Удалить</Button>
+
+                              </div>
+                              {
+                                stage == "В обсуждении" &&
+                                <Button
+                                onClick={
+                                  ()=>{
+                                    const sure = confirm(`Вы уверены что хотите изменить статус задачи на "В процессе"?`);
+                                    if (sure) {
+                                    changeTaskStatus(task.id,"В процессе")
+                                    setupdate(!update)
+                                  }
+                                }
+                                }>
+                                  <BsArrowBarRight />
+                                </Button>
+                              
+                              }
+                              {
+                                stage =="Готово" &&
+                                <Button onClick={
+                                  ()=>{
+                                    const sure = confirm('Вы уверены что хотите переместить задачу в процессе ?');
+                                    if (sure) {
+                                    changeTaskStatus(task.id,"В процессе")
+                                    setupdate(!update)
+                                  }
+                                }
+                                }>
+                                  <BsArrowBarLeft />
+                                </Button>
+                              }
+                             { stage == "В процессе" &&
+                             <>
+                                    <Button
+                                     onClick={
+                                      ()=>{
+                                        const sure = confirm('Вы уверены что хотите переместить задачу в обсуждение ?');
+                                        if (sure) {
+                                        changeTaskStatus(task.id,"В обсуждении")
+                                        setupdate(!update)
+                                      }
+                                    }
+                                    }>
+                                  <BsArrowBarLeft />
+                                </Button>
+                                  <Button
+                                   onClick={
+                                    ()=>{
+                                      const sure = confirm('Вы уверены что хотите переместить задачу в готово ?');
+                                      if (sure) {
+                                      changeTaskStatus(task.id,"Готово")
+                                      setupdate(!update)
+                                    }
+                                  }
+                                  }>
+                                  <BsArrowBarRight />
+                                </Button>
+                                </>
+                                }
+                            </div>
+                            <ChangeTask task={task} /></AlertDialog>
+                        ))}
+
 </ScrollArea>
 
 </div>

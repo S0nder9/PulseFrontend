@@ -21,8 +21,8 @@ export default function Home() {
     check()
   },[])
   //const { scrollY Progress } = useScroll();
-  const { resolvedTheme, setTheme } = useTheme();
-  console.log(resolvedTheme);
+const { resolvedTheme, setTheme } = useTheme();
+console.log(resolvedTheme);
   return (
 <div className=" bg-basic-default text-basic-default">
       <header className="  text-white py-4 px-6 flex  items-center rounded-md sticky">

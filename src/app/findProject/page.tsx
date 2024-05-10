@@ -5,11 +5,13 @@ import Image from "next/image"
 import Link from "next/link"
 
 export default function FindProject() {
+  //TODO сделать поиск 
+  //TODO не разрешать редачить если ты не в проекте
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800 p-4">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-basic-default p-4">
       <div className="max-w-3xl w-full">
         <Input
-          className="w-full px-4 py-3 rounded-xl shadow-md bg-white dark:bg-gray-950 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="w-full px-4 py-3 rounded-xl shadow-md  text-basic-default focus:outline-none focus:ring-2 focus:ring-primary-500"
           placeholder="Найти проекты"
         />
       </div>

@@ -34,16 +34,16 @@ const Aside = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
   return (
-    <aside className=" w-1/12 flex flex-col items-center bottom-0  bg-basic-default">
+    <aside className=" w-1/12  flex flex-col items-center bottom-0  bg-basic-default h-full">
       {
         error.status ? null : 
-    <div className='  bg-basic-default'> 
+    <div className=' bg-cards-base'> 
     <Link href={`/profile`}>
         <Image
        width="0"
        height="0"
        sizes="100vw"
-       className="w-auto h-auto bg-basic-default"
+       className="w-auto h-auto "
         src={userData ? userData.avatar : ""}   
         loading="lazy"
         onError={(e)=>{
