@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { checkCookie } from "@/components/server/CheckCookie";
+import { Button } from "@/components/ui/button";
 export default function Home() {
   const router  = useRouter()
   // TODO доделать страницу поика
@@ -24,42 +25,42 @@ export default function Home() {
 const { resolvedTheme, setTheme } = useTheme();
 console.log(resolvedTheme);
   return (
-<div className=" bg-basic-default text-basic-default">
-      <header className="  text-white py-4 px-6 flex  items-center rounded-md sticky">
-        <nav className="flex space-x-4 text-2xl">
-          <Link className="hover:underline" href="/login" >
-  Логин
-          </Link>
-          <Link className="hover:underline" href="/registration">
-  Регистрация
-          </Link>
-          <Link className="hover:underline" href="S">
-<Image
-
-src='/logo.png'
-alt="logo"
-width="0"
-height="0"
-sizes="100vw"
-className=" w-2/4   h-full justify-end"
-/>
-          </Link>
-          <button
-        role='button'
-     
-        onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-        className=' w-auto h-auto  bg-basic-default text-basic-default  px-4 py-2 rounded-lg focus:ring'
-      >
-        { resolvedTheme === 'light' ? 'Переключить на темную тему' : 'Переключить на светлую тему'}
-      </button>
-        </nav>
-
-      </header>
-      <main className="flex flex-col h-screen bg-basic-default text-basic-default ">
-<h1 className="text-center items-center mt-1.5 text-4xl sm:text-3xl lg:text-4xl   text-basic-default">Приложение для удобного менеджинга труда</h1>
-
-      </main>
-    </div>
+    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48  bg-basic-default">
+      <div className="container px-4 md:px-6">
+        <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_550px]">
+          <div className="flex flex-col justify-center space-y-4">
+            <div className="space-y-2">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none  text-basic-default">
+              Управляй бизнесс процессами вместе с нами
+              </h1>
+              <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+                Управляй своими проектами, следи за ошибками , управляй сотрудниками  и работай  вместе  с командой в одном месте.
+               <span className=" text-xl"> Rapid Rabit -это ультимативный инструмент для управления бизнес-процессами.</span>
+              </p>
+            </div>
+            <div className="flex w-full max-w-sm flex-col space-y-2">
+              <Button
+                className="w-full bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90"
+                type="submit"
+              >
+              <Link href={"/registration"} prefetch={false}> Начать</Link>
+              </Button>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+               Зарегистрируйся для получения дальнейшей информации  
+              </p>
+            </div>
+          </div>
+          <img
+            alt="Hero"
+            
+            className=" select-none mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+            height="310"
+            src="/main.png"
+            width="550"
+          />
+        </div>
+      </div>
+    </section>
   );
 }
 //для добавления компонента run pnpm dlx shadcn-ui@latest add ... component name

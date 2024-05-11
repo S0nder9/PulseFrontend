@@ -47,21 +47,22 @@ function Form({ }: Props) {
 
     return (
 
-        <div className='flex flex-col'>
+        <div className='flex flex-col  rounded-2xl'>
                 {
       error.status && <div className="flex justify-center items-center h-screen">
         <h1>Возникла ошибка: {error.text} </h1>
         </div>
     }
             <Input
-                className="mt-4"
+                className="mt-4 text-basic-default bg-basic-default rounded-xl"
                 placeholder="Введите свой логин"
                 value={login}
                 onChange={(e) => { setLogin(e.target.value) }}
+            
             />
 
             <Input
-                className="mt-4"
+                className="mt-4  text-basic-default bg-basic-default rounded-xl"
                 placeholder="Введите свой пароль"
                 value={password}
                 type='password'
@@ -69,7 +70,7 @@ function Form({ }: Props) {
             />
 
             <Button
-                className="bg-orange-600 mt-4  hover:bg-orange-200"
+                className= " bg-button-base mt-4  hover:bg-cards-base rounded-2xl"
                 title=""
                 onAuxClick={
                     () => {
@@ -82,6 +83,7 @@ function Form({ }: Props) {
             </Button>
 
         </div>
+        
     )
 }
 

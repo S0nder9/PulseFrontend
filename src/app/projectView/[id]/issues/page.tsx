@@ -6,15 +6,15 @@ type Props = {}
 
 const page = (props: Props) => {
   return (
-    <main className="w-full max-w-6xl mx-auto px-4 py-8 md:px-6 md:py-12">
+    <main className="w-full  h-screen  bg-basic-default mx-auto px-4 py-8 md:px-6 md:py-12">
     <header className="flex justify-between items-center mb-8">
-      <h2 className="text-2xl font-bold">Completed Tasks</h2>
+      <h2 className="text-2xl font-bold bg-basic-default ">Проблемы</h2>
       <div className="text-sm text-gray-500 dark:text-gray-400">May 11, 2024</div>
     </header>
     <section className="mb-8">
       <div className="relative">
         <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-gray-300 dark:bg-gray-700" />
-        <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+        <div className="flex justify-between pt-10 text-sm text-gray-500 dark:text-gray-400">
           <span>1</span>
           <span>5</span>
           <span>10</span>
@@ -38,16 +38,9 @@ const page = (props: Props) => {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Button size="sm" variant="ghost">
-              View
+            Подробнее
             </Button>
-            <div className="flex gap-2">
-              <Button size="sm" variant="ghost">
-                Edit
-              </Button>
-              <Button className="text-red-500" size="sm" variant="ghost">
-                Delete
-              </Button>
-            </div>
+    
           </CardFooter>
         </Card>
       </article>
@@ -62,17 +55,10 @@ const page = (props: Props) => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button size="sm" variant="ghost">
-              View
+          <Button size="sm" variant="ghost">
+            Подробнее
             </Button>
-            <div className="flex gap-2">
-              <Button size="sm" variant="ghost">
-                Edit
-              </Button>
-              <Button className="text-red-500" size="sm" variant="ghost">
-                Delete
-              </Button>
-            </div>
+    
           </CardFooter>
         </Card>
       </article>
@@ -87,17 +73,10 @@ const page = (props: Props) => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button size="sm" variant="ghost">
-              View
+          <Button size="sm" variant="ghost">
+            Подробнее
             </Button>
-            <div className="flex gap-2">
-              <Button size="sm" variant="ghost">
-                Edit
-              </Button>
-              <Button className="text-red-500" size="sm" variant="ghost">
-                Delete
-              </Button>
-            </div>
+    
           </CardFooter>
         </Card>
       </article>
@@ -112,17 +91,10 @@ const page = (props: Props) => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button size="sm" variant="ghost">
-              View
+          <Button size="sm" variant="ghost">
+            Подробнее
             </Button>
-            <div className="flex gap-2">
-              <Button size="sm" variant="ghost">
-                Edit
-              </Button>
-              <Button className="text-red-500" size="sm" variant="ghost">
-                Delete
-              </Button>
-            </div>
+    
           </CardFooter>
         </Card>
       </article>
@@ -137,17 +109,10 @@ const page = (props: Props) => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button size="sm" variant="ghost">
-              View
+          <Button size="sm" variant="ghost">
+            Подробнее
             </Button>
-            <div className="flex gap-2">
-              <Button size="sm" variant="ghost">
-                Edit
-              </Button>
-              <Button className="text-red-500" size="sm" variant="ghost">
-                Delete
-              </Button>
-            </div>
+    
           </CardFooter>
         </Card>
       </article>
@@ -162,17 +127,10 @@ const page = (props: Props) => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button size="sm" variant="ghost">
-              View
+          <Button size="sm" variant="ghost">
+            Подробнее
             </Button>
-            <div className="flex gap-2">
-              <Button size="sm" variant="ghost">
-                Edit
-              </Button>
-              <Button className="text-red-500" size="sm" variant="ghost">
-                Delete
-              </Button>
-            </div>
+    
           </CardFooter>
         </Card>
       </article>
@@ -187,17 +145,10 @@ const page = (props: Props) => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <Button size="sm" variant="ghost">
-              View
+          <Button size="sm" variant="ghost">
+            Подробнее
             </Button>
-            <div className="flex gap-2">
-              <Button size="sm" variant="ghost">
-                Edit
-              </Button>
-              <Button className="text-red-500" size="sm" variant="ghost">
-                Delete
-              </Button>
-            </div>
+    
           </CardFooter>
         </Card>
       </article>

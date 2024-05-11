@@ -6,12 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --text-default: white;
+  --text-default: rgb(236, 231, 231);
   --background-section-color: rgb(35, 34, 34);
   --background-button-color: rgb(40, 37, 37);
   --borderColor: #fbfbfb;
   --loaderColor:#eef3f6;
-  --button-bg-color:rgb(34, 30, 30);
+  --button-bg-color:rgb(65, 64, 64);
   --background-cards-color: rgb(57, 49, 49);
 }
 [data-theme="light"] {
@@ -21,6 +21,7 @@
   --background-cards-color: rgb(57, 49, 49);
   --background-button-color: rgb(40, 37, 37);
   --borderColor:#010406;
+  
   --loaderColor:#01090e;
   --button-bg-color:rgb(119, 107, 107);
 }
