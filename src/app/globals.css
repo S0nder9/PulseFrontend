@@ -10,6 +10,7 @@
   --background-section-color: rgb(35, 34, 34);
   --background-button-color: rgb(40, 37, 37);
   --borderColor: #fbfbfb;
+  --loaderColor:#eef3f6;
   --button-bg-color:rgb(34, 30, 30);
   --background-cards-color: rgb(57, 49, 49);
 }
@@ -20,6 +21,7 @@
   --background-cards-color: rgb(57, 49, 49);
   --background-button-color: rgb(40, 37, 37);
   --borderColor:#010406;
+  --loaderColor:#01090e;
   --button-bg-color:rgb(119, 107, 107);
 }
 body{
@@ -48,13 +50,6 @@ h2, .label, .block3, .ADTrigger, .footer, .SelectContent, .SelectTrigger {  font
 .col2, .all,.profil_block, .tasks_block3, .ADTrigger,  .ADHeader, .ADCancel{  display: grid;}
 .block2, .CommandItem, .time, .timet, ul{  display: flex;}
 /*  --------------------------------------- Текста  --------------------------------------- */
-h2 {
-  padding: 5px;
-  color: #d9d9d9;
-}
-h3 {
-  margin: 20px 140px 20px 110px;
-}
 .text {
   margin-left: 35px;
 }

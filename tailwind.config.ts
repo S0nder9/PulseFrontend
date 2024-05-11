@@ -22,7 +22,8 @@ extend: {
         wholeScreen:'1vh'
     },
 borderColor: {
-base: 'var(--borderColor)'
+base: 'var(--borderColor)',
+loader:'var(--loaderColor)'
 },
 textColor:{
     basic:{
