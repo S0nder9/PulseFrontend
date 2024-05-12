@@ -17,11 +17,11 @@ export default function Home() {
         <form className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Логин</Label>
-            <Input id="email" placeholder="" required   />
+            <Input id="email" placeholder="" required  className="rounded-xl"  />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Пароль</Label>
-            <Input id="password" required type="password" />
+            <Input id="password" required type="password"  className="rounded-xl"  />
           </div>
           <Button className="w-full" type="submit">
            Войти

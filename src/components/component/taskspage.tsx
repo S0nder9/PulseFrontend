@@ -6,6 +6,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { JSX, SVGProps, useState } from "react"
 import AlertComponent from "../buildIn/alert"
 import Loading from "../buildIn/Loading"
+import ThemeSwitcher from "../buildIn/ThemeSwitcher"
 
 interface selec {
   selectedId: number,
@@ -41,6 +42,7 @@ const isLoading = true
               <Link className="hover:underline" href="#">
              Развитие проекта
               </Link>
+              <ThemeSwitcher/> 
             </div>
           </div>
           <div className="flex items-center space-x-4">

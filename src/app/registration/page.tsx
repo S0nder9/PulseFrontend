@@ -144,28 +144,29 @@ function Registration() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="first-name">Имя</Label>
-              <Input id="first-name" placeholder="Иван" required />
+              <Input id="first-name" placeholder="Иван" required  className="rounded-xl"/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="last-name">Фамилия</Label>
-              <Input id="last-name" placeholder="Иванов" required />
+              <Input id="last-name" placeholder="Иванов" required  className="rounded-xl"/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="last-name">Отчество</Label>
-              <Input id="last-name" placeholder="Иванович" required />
+              <Input id="last-name" placeholder="Иванович" required  className="rounded-xl"/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="last-name">Возраст</Label>
-              <Input id="last-name" placeholder="35" required type='number' min='18' max='70'/>
+              <Input id="last-name" placeholder="35" required type='number' min='18' max='70'
+               className="rounded-xl"/>
             </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Логин</Label>
-            <Input id="email" placeholder="" required />
+            <Input id="email" placeholder="" required  className="rounded-xl"/>
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Пароль</Label>
-            <Input id="password" required type="password" />
+            <Input id="password" required type="password" className="rounded-xl" />
           </div>
    
         <div className="grid grid-cols-2 gap-4">

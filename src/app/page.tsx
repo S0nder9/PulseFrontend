@@ -31,7 +31,7 @@ console.log(resolvedTheme);
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none  text-basic-default">
-              Управляй бизнесс процессами вместе с нами
+              Управляй бизнес процессами вместе с нами
               </h1>
               <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
                 Управляй своими проектами, следи за ошибками , управляй сотрудниками  и работай  вместе  с командой в одном месте.
