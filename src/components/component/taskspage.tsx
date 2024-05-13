@@ -1,37 +1,109 @@
-"use client"
-import Link from "next/link"
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog"
-import { JSX, SVGProps, useState } from "react"
-import AlertComponent from "../buildIn/alert"
-import Loading from "../buildIn/Loading"
-import ThemeSwitcher from "../buildIn/ThemeSwitcher"
-
+'use client'
+import { checkCookie } from '@/components/server/CheckCookie'
+import { getAllProjectTasks, getProjectTitle, getUserByPrefixSurname } from '@/components/server/getUserProjects'
+import { useRouter } from 'next/navigation';
+import React, { Suspense, useEffect, useState } from 'react'
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { AvatarImage, Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import AlertComponent from '../buildIn/alert';
+import ThemeSwitcher from '../buildIn/ThemeSwitcher';
+import { JSX, SVGProps } from 'react';
+import TaskImportance from '../buildIn/TaskImportance';
+import ProjectData from '../assembled/ProjectData';
+type Props = {
+projectId: number,
+isError: boolean
+}
 interface selec {
   selectedId: number,
   name: string,
   tostatus: string | null,
 }
-export default function Taskspage() {
+export default function Taskspage(props: Props) {
 const [isOpened, setisOpened] = useState(false)
 const [selected, setselected] = useState<selec>({
   selectedId: 0,
   name:"",
   tostatus: "" ,
 })
-const isLoading = true
   const [type, settype] = useState<"delete" | "change" | "patch" | "add" | null>(null)
+  const windowType = typeof window !== 'undefined'
+
+  const userId: userData = windowType ? JSON.parse(localStorage?.getItem('userData') || '{}') : null
+const router = useRouter()
+const [update, setupdate] = useState(0)
+// setTimeout(() => {
+// setupdate(!update)
+// },10000)
+    const [tasks, setTasks] = useState<task | Array<task>>([])
+    const [name,setName] = useState('')
+    const [error,setError] = useState({
+      status:false,
+      text:"",
+    })
+    const [membersIds, setmembersIds] = useState<Array<number>>([userId?.id])
+    const [users, setusers] = useState<Array<userData> | userData>([])
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(()=>{
+      const getNames = async() =>{
+          const users = await getUserByPrefixSurname(name)
+     setusers(users)
+      }
+      if(name.length < 1){
+return
+      }
+      setTimeout(()=>{
+          getNames()
+      },1000)
+  },[name])
+    useEffect(() => {
+        const fetchData = async () => {
+            const isToken = await checkCookie()
+            if (!isToken) {
+                router.push('/login')
+                return
+            }
+            try {
+                const response = await getAllProjectTasks(props.projectId)
+                setTasks(response)
+            }
+            catch (error) {
+              setError({status:true, text:`Ошибка сервера`})
+          
+            }
+        };
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [update]);
+    const tasksByStage: { [stage: string]: task[] } = {};
+    if(Array.isArray(tasks)){
+    tasks.forEach(task => {
+      if (!tasksByStage[task.stageAt]) {
+        tasksByStage[task.stageAt] = [];
+      }
+      tasksByStage[task.stageAt].push(task);
+    });
+}
+else {
+  tasksByStage[tasks.stageAt] = [tasks]
+}
+const handleSelectUser = (user: userData) => {
+  setmembersIds((prevIds) => [...prevIds, user.id])
+  }
   return (
     <>
     {/* {
       isLoading && <Loading/>
     } */}
     {
-      isOpened && <AlertComponent isOpened={isOpened} setisOpened={setisOpened}  type={type} toStatus={selected.tostatus} name={selected.name} id={selected.selectedId}/>
+      isOpened && <AlertComponent isOpened={isOpened} update={update}  setupdate={setupdate} project ={props.projectId} setisOpened={setisOpened}  type={type} toStatus={selected.tostatus} name={selected.name} id={selected.selectedId}/>
     }
-    <AlertDialog>
-        <header className=" bg-basic-default dark:bg-gray-800 px-6 py-4 flex items-center justify-between">
+        {/* <header className=" bg-basic-default dark:bg-gray-800 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Package2Icon className="h-6 w-6" />
             <h1 className="text-lg text-basic-default font-semibold">Имз Аутентификация</h1>
@@ -46,6 +118,7 @@ const isLoading = true
             </div>
           </div>
           <div className="flex items-center space-x-4">
+
             <Avatar>
               <AvatarImage alt="Shuding" src="https://flomaster.top/uploads/posts/2022-07/1658190796_32-flomaster-club-p-muzhchina-v-ochkakh-risunok-krasivo-37.jpg" />
               <AvatarFallback>SD</AvatarFallback>
@@ -63,361 +136,333 @@ const isLoading = true
               <AvatarFallback>LW</AvatarFallback>
             </Avatar>
           </div>
-        </header>
-
-    
-    </AlertDialog>
+        </header> */}
+        <ProjectData projectId={props.projectId} projectName='' withMenu={true}/>
     <main className="grid grid-cols-3 gap-6 p-6">
       <section className="bg-basic-default rounded-2xl p-4">
-        <header className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold bg-basic-default">В обсуждении</h2>
-        </header>
-        <div className="space-y-4">
-          <article className="bg-cards-default  rounded-lg p-4 shadow-sm relative">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-medium">Finalize project proposal</h3>
-              <div className="flex items-center space-x-2">
-                <AlertDialog>
-            
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost"
-                     onClick={() => {
-                      setisOpened(true)
-                       settype("change")
-                       setselected({
-                        selectedId: 1,
-                        name:"",
-                        tostatus: "" ,
-                      })}}
-                    >
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <Button className="p-1 rounded-md" size="icon" variant="ghost" onClick={() => {
-                    setisOpened(true)
-                     settype("patch")}}>
-                    <ChangeIcon className="h-4 w-4" />
-                  </Button>
-                  <Button className="p-1" size="icon" variant="ghost"
-                  onClick={() => {
-                    setisOpened(true)
-                     settype("delete")
-                     setselected({
-                       selectedId: 1,
-                       name:"",
-                       tostatus: "" ,
-                     })}}>
-                    <TrashIcon className="h-4 w-4" />
-                  </Button>
-                </AlertDialog>
-                <span className="bg-yellow-100 text-yellow-800 dark:text-yellow-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
-                 В обсуждении
-                  </span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Gather requirements and create a detailed project proposal for the client.
-            </p>
-          </article>
-          <article className="bg-cards-default  rounded-lg p-4 shadow-sm relative">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-medium">Finalize project proposal</h3>
-              <div className="flex items-center space-x-2">
-                <AlertDialog>
-            
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost">
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <Button className="p-1 rounded-md" size="icon" variant="ghost" onClick={() => {
-                    setisOpened(true)
-                     settype("patch")}}>
-                    <ChangeIcon className="h-4 w-4" />
-                  </Button>
-                  <Button className="p-1" size="icon" variant="ghost"
-                  onClick={() => {
-                    setisOpened(true)
-                     settype("delete")
-                     setselected({
-                      selectedId: 1,
-                      name:"",
-                      tostatus: "" ,
-                    }) }}>
-                    <TrashIcon className="h-4 w-4" />
-                  </Button>
-                </AlertDialog>
-                <span className="bg-yellow-100 text-yellow-800 dark:text-yellow-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
-                 В обсуждении
-                  </span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Gather requirements and create a detailed project proposal for the client.
-            </p>
-          </article>
-          <article className="bg-cards-default  overflow-hidden  rounded-xl p-4 shadow-sm relative">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-medium">Set up project management tools</h3>
-              <div className="flex   items-center space-x-2">
-                <AlertDialog>
-        
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost">
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogTrigger asChild>
-                  <Button className="p-1 rounded-md" size="icon" variant="ghost" onClick={() => {
-                    setisOpened(true)
-                     settype("patch")}}>
-                    <ChangeIcon className="h-4 w-4" />
-                  </Button>
-                  </AlertDialogTrigger>
-                  <Button className="p-1" size="icon" variant="ghost"
-                  onClick={() => {
-                    setisOpened(true)
-                     settype("delete")
-                     setselected({
-                      selectedId: 1,
-                      name:"",
-                      tostatus: "" ,
-                    }) }}>
-                    <TrashIcon className="h-4 w-4" />
-                  </Button>
-                </AlertDialog>
-                <span className="bg-yellow-100 text-yellow-800 dark:text-yellow-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
-                 В обсуждении
-                  </span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Integrate project management software and communicate with the team.
-            </p>
-          </article>
+{
+            Object.keys(tasksByStage).map(stage => (
+              <>
+                {stage === "В обсуждении" && (
+                  <>
+                    <header className="flex items-center justify-between mb-4">
+                      <h2 className="text-lg font-semibold bg-basic-default">В обсуждении</h2>
+                    </header>
+                    <div className="space-y-4">
+                      {tasksByStage[stage].map(task => (
+                        <article className="bg-cards-default rounded-lg p-4 shadow-sm relative" key={task.id}>
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-base font-medium">{task.name}</h3>
+                            <div className="flex items-center space-x-2">
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button
+                                    className="p-1"
+                                    size="icon"
+                                    variant="ghost"
+                                    onClick={() => {
+                                      setisOpened(true);
+                                      settype("change");
+                                      setselected({
+                                        selectedId: task.id,
+                                        name: "",
+                                        tostatus: "В процессе",
+                                      });
+                                    }}
+                                  >
+                                    <ArrowRightIcon className="h-4 w-4" />
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <Button
+                                  className="p-1 rounded-md"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setisOpened(true);
+                                    settype("patch");
+                                  }}
+                                >
+                                  <ChangeIcon className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  className="p-1"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setisOpened(true);
+                                    settype("delete");
+                                    setselected({
+                                      selectedId: task.id,
+                                      name: "",
+                                      tostatus: "",
+                                    });
+                                  }}
+                                >
+                                  <TrashIcon className="h-4 w-4" />
+                                </Button>
+                              </AlertDialog>
+                              <span className="bg-yellow-100 text-yellow-800 dark:text-yellow-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
+                                В обсуждении
+                              </span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {task.description}
+                          </p>
+                  <TaskImportance value={task.priority} created={task.created_at}  toAcc={task.hoursToAccomplish}/>
+                        </article>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </>
+            ))
+          }
+               <div className="mt-4 flex w-full justify-end">
+               <Button size="sm" variant="outline" className="rounded-2xl"
+           onClick={() => {
+            setisOpened(true);
+            settype("add");
+            setselected({
+              selectedId:0,
+
+              name: "",
+              tostatus:"В обсуждении",
+            });
+          }}>
+          Добавить
+          </Button>
         </div>
-        <div className="mt-4 flex w-full justify-end">
+    </section>
+    <section className="bg-basic-default rounded-2xl p-4">
+    {
+            Object.keys(tasksByStage).map(stage => (
+              <>
+                {stage === "В процессе" && (
+                  <>
+                    <header className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-semibold  bg-basic-default ">В процессе</h2>
+                    </header>
+                    <div className="space-y-4">
+                      {tasksByStage[stage].map(task => (
+                        <article className="bg-cards-default rounded-lg p-4 shadow-sm relative" key={task.id}>
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-base font-medium">{task.name}</h3>
+                            <div className="flex items-center space-x-2">
+                              <AlertDialog>
+                              <Button
+                                    className="p-1"
+                                    size="icon"
+                                    variant="ghost"
+                                    onClick={() => {
+                                      setisOpened(true);
+                                      settype("change");
+                                      setselected({
+                                        selectedId: task.id,
+                                        name: "",
+                                        tostatus:"В обсуждении",
+                                      });
+                                    }}
+                                  >
+                                    <ArrowLeftIcon className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    className="p-1"
+                                    size="icon"
+                                    variant="ghost"
+                                    onClick={() => {
+                                      setisOpened(true);
+                                      settype("change");
+                                      setselected({
+                                        selectedId: task.id,
+                                        name: "",
+                                        tostatus: "Готово",
+                                      });
+                                    }}
+                                  >
+                                    <ArrowRightIcon className="h-4 w-4" />
+                                  </Button>
+                                <Button
+                                  className="p-1 rounded-md"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setisOpened(true);
+                                    settype("patch");
+                                  }}
+                                >
+                                  <ChangeIcon className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  className="p-1"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setisOpened(true);
+                                    settype("delete");
+                                    setselected({
+                                      selectedId: task.id,
+                                      name: "",
+                                      tostatus: "",
+                                    });
+                                  }}
+                                >
+                                  <TrashIcon className="h-4 w-4" />
+                                </Button>
+                              </AlertDialog>
+                              <span className="bg-blue-100 dark:bg-blue-200 text-blue-800 dark:text-blue-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
+                  В процессе
+                  </span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {task.description}
+                          </p>
+                  <TaskImportance value={task.priority} created={task.created_at}  toAcc={task.hoursToAccomplish} />
+                        </article>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </>
+            ))
+          }
+           <div className="mt-4 flex w-full justify-end">
           <Button size="sm" variant="outline" className="rounded-2xl"
            onClick={() => {
-            setisOpened(true)
-             settype("add")
-             setselected({
-              selectedId: 1,
-              name:"",
-              tostatus: "" ,
-            }) }}>
+            setisOpened(true);
+            settype("add");
+            setselected({
+              selectedId:0,
+
+              name: "",
+              tostatus:"В обсуждении",
+            });
+          }}>
           Добавить
           </Button>
         </div>
-      </section>
-      <section className=" bg-basic-default  rounded-2xl p-4  overflow-hidden">
-        <header className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold  bg-basic-default ">В процессе</h2>
-        </header>
-        <div className="space-y-4">
-          <article className=" bg-cards-base rounded-lg p-4 shadow-sm relative">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-medium">Develop landing page</h3>
-              <div className="flex flex-row items-center space-x-2">
-                <AlertDialog >
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost">
-                      <ArrowLeftIcon className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost">
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <Button className="p-1 rounded-md" size="icon" variant="ghost" onClick={() => {
-                    setisOpened(true)
-                     settype("patch")}}>
-                    <ChangeIcon className="h-4 w-4" />
-                  </Button>
-                  <Button className="p-1" size="icon" variant="ghost"
-                  onClick={() => {
-                    setisOpened(true)
-                     settype("delete")
-                     setselected({
-                      selectedId: 1,
-                      name:"",
-                      tostatus: "" ,
-                    })}}>
-                    <TrashIcon className="h-4 w-4" />
-                  </Button>
-                </AlertDialog>
-                <span className="bg-blue-100 dark:bg-blue-200 text-blue-800 dark:text-blue-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
-                  В процессе
-                  </span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Create the initial design and functionality for the landing page.
-            </p>
-          </article>
-          <article className=" bg-basic-default rounded-lg p-4 shadow-sm relative">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-medium">Implement user authentication</h3>
-              <div className="flex items-center space-x-2">
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost">
-                      <ArrowLeftIcon className="h-4 w-4" 
-                      onClick={()=>{
-                        setisOpened(true)
-                         settype("change")
-                         
-                      }}/>
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost">
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <Button className="p-1 rounded-md" size="icon" variant="ghost" onClick={() => {
-                    setisOpened(true)
-                     settype("patch")}}>
-                    <ChangeIcon className="h-4 w-4" />
-                  </Button>
-                  <Button className="p-1" size="icon" variant="ghost"
-                  onClick={() => {
-                    setisOpened(true)
-                     settype("delete")
-                     setselected({
-                      selectedId: 1,
-                      name:"",
-                      tostatus: "" ,
-                    }) }}>
-                    <TrashIcon className="h-4 w-4" />
-                  </Button>
-                </AlertDialog>
-                <span className="bg-blue-100 dark:bg-blue-200 text-blue-800 dark:text-blue-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
-                  В процессе
-                  </span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Integrate a secure user authentication system for the application.
-            </p>
-          </article>
-        </div>
-        <div className="mt-4 flex w-full justify-end">
-          <Button size="sm" variant="outline" className="rounded-2xl">
-          Добавить
-          </Button>
-        </div>
-      </section>
-      <section className=" bg-basic-default  rounded-2xl p-4">
-        <header className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold  bg-basic-default ">Готово</h2>
-        </header>
-        <div className="space-y-4">
-          <article className=" bg-basic-default  rounded-lg p-4 shadow-sm relative">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-medium">Deploy to production</h3>
-              <div className="flex items-center space-x-2">
-                <AlertDialog>
-              
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost">
-                      <ArrowLeftIcon className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <Button className="p-1 rounded-md" size="icon" variant="ghost" onClick={() => {
-                    setisOpened(true)
-                     settype("patch")}}>
-                    <ChangeIcon className="h-4 w-4" />
-                  </Button>
-                  <Button className="p-1" size="icon" variant="ghost"
-                  onClick={() => {
-                    setisOpened(true)
-                     settype("delete")
-                     setselected({
-                      selectedId: 1,
-                      name:"",
-                      tostatus: "" ,
-                    }) }}>
-                    <TrashIcon className="h-4 w-4" />
-                  </Button>
-                </AlertDialog>
-                <span className="bg-green-100 dark:bg-green-200 text-green-800 dark:text-green-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
+          </section>
+          <section className="bg-basic-default rounded-2xl p-4">
+    {
+            Object.keys(tasksByStage).map(stage => (
+              <>
+                {stage === "Готово" && (
+                  <>
+                    <header className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-semibold  bg-basic-default ">Готово</h2>
+                    </header>
+                    <div className="space-y-4">
+                      {tasksByStage[stage].map(task => (
+                        <article className="bg-cards-default rounded-lg p-4 shadow-sm relative" key={task.id}>
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className="text-base font-medium">{task.name}</h3>
+                            <div className="flex items-center space-x-2">
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button
+                                    className="p-1"
+                                    size="icon"
+                                    variant="ghost"
+                                    onClick={() => {
+                                      setisOpened(true);
+                                      settype("change");
+                                      setselected({
+                                        selectedId: task.id,
+                                        name: "",
+                                        tostatus:"В процессе",
+                                      });
+                                    }}
+                                  >
+                                    <ArrowLeftIcon className="h-4 w-4" />
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <Button
+                                  className="p-1 rounded-md"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setisOpened(true);
+                                    settype("patch");
+                                  }}
+                                >
+                                  <ChangeIcon className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  className="p-1"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                    setisOpened(true);
+                                    settype("delete");
+                                    setselected({
+                                      selectedId: task.id,
+                                      name: "",
+                                      tostatus: "",
+                                    });
+                                  }}
+                                >
+                                  <TrashIcon className="h-4 w-4" />
+                                </Button>
+                              </AlertDialog>
+                              <span className="bg-green-100 dark:bg-green-200 text-green-800 dark:text-green-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
                   Готово
                   </span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Finalize testing and deploy the application to the production server.
-            </p>
-          </article>
-          <article className=" bg-basic-default  rounded-lg p-4 shadow-sm relative">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-medium">Publish marketing content</h3>
-              <div className="flex items-center space-x-2">
-                <AlertDialog>
-        
-                  <AlertDialogTrigger asChild>
-                    <Button className="p-1" size="icon" variant="ghost">
-                      <ArrowLeftIcon className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <Button className="p-1 rounded-md" size="icon" variant="ghost" onClick={() => {
-                    setisOpened(true)
-                     settype("patch")}}>
-                    <ChangeIcon className="h-4 w-4" />
-                  </Button>
-                  <Button className="p-1" size="icon" variant="ghost"
-                  onClick={() => {
-                    setisOpened(true)
-                     settype("delete")
-                     setselected({
-                      selectedId: 1,
-                      name:"",
-                      tostatus: "" ,
-                    }) }}>
-                    <TrashIcon className="h-4 w-4" />
-                  </Button>
-                </AlertDialog>
-                <span className="bg-green-100 dark:bg-green-200 text-green-800 dark:text-green-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
-                  Готово
-                  </span>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Create and publish marketing materials for the new product launch.
-            </p>
-          </article>
-        </div>
-        <div className="mt-4 flex w-full justify-end">
-          <Button size="sm" variant="outline" className="rounded-2xl">
+                            </div>
+                          </div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {task.description}
+                          </p>
+                  <TaskImportance value={task.priority} created={task.created_at}  toAcc={task.hoursToAccomplish} />
+                        </article>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </>
+            ))
+          }
+               <div className="mt-4 flex w-full justify-end">
+               <Button size="sm" variant="outline" className="rounded-2xl"
+           onClick={() => {
+            setisOpened(true);
+            settype("add");
+            setselected({
+              selectedId:0,
+
+              name: "",
+              tostatus:"В обсуждении",
+            });
+          }}>
           Добавить
           </Button>
         </div>
-      </section>
+          </section>
+          
     </main>
   </>
 )
 }
 
+
 function ArrowLeftIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-return (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="m12 19-7-7 7-7" />
-    <path d="M19 12H5" />
-  </svg>
-)
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m12 19-7-7 7-7" />
+      <path d="M19 12H5" />
+    </svg>
+  )
 }
 
 
@@ -462,7 +507,7 @@ return (
 }
 
 
-function Package2Icon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+export function Package2Icon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
 return (
   <svg
     {...props}

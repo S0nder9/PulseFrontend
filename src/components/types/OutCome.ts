@@ -51,6 +51,7 @@ interface jobTitle {
       stageAt: string,
       priority: number,
       workers: Array<number>
+      created_at: string
   }
   interface addTask {
     project_id:number,

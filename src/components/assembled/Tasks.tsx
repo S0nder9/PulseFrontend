@@ -4,8 +4,8 @@ import { getAllProjectTasks, getProjectTitle, getUserByPrefixSurname } from '@/c
 import { useRouter } from 'next/navigation';
 import React, { Suspense, useEffect, useState } from 'react'
 import {
-  AlertDialog,
-  AlertDialogTrigger,
+AlertDialog,
+AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Input } from '@/components/ui/input'
@@ -109,7 +109,7 @@ const handleSelectUser = (user: userData) => {
 <section className="flex-1 p-4 w-full h-full bg-basic-default text-basic-default">
 <div className="flex  justify-between mb-4 ">
   <h1 className="text-2xl font-bold">Доска</h1>
-  <ProjectData projectId={props.projectId} projectName={projectName} />        
+  <ProjectData projectId={props.projectId} projectName={projectName}  withMenu={true}/>        
 </div>
 <div className="grid grid-cols-3 gap-2">
 {
@@ -118,7 +118,6 @@ Object.keys(tasksByStage).map(stage => (
 <h1>{stage}</h1>
 <ScrollArea className="h-[500px] space-x-4 space-y-10 w-full">
                         {tasksByStage[stage].map(task => (
-
                           <AlertDialog key={task.id} >
                             <div className='  rounded-xl '>
                               <h1>Задача: <i>{task.name}</i></h1>

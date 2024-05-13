@@ -29,6 +29,9 @@ textColor:{
     basic:{
         default:"var(--text-default)",
      },
+     secondary:{
+        default:"var( --text-secondary)"
+     }
 },
 backgroundColor:{
     basic:{

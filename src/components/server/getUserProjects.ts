@@ -55,7 +55,7 @@ async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
     const receiveddata = await res.json();
     return receiveddata
 }
- async function getUserName(id:number):Promise<string>{
+ async function getUserName(id:number):Promise<userData>{
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
     if(!jwt){
@@ -70,7 +70,7 @@ async function getAllProjectTasks(id:number):Promise<Array<task> | task> {
 
  }
  const receiveddata:userData = await res.json();
- return receiveddata.first_name +' ' + receiveddata.last_name;
+ return receiveddata
 }
 async function getUserByPrefixSurname(surname:string):Promise<any>{
 const cookieStore = cookies();

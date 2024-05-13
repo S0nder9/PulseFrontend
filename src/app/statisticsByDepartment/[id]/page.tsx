@@ -1,6 +1,5 @@
 'use client'
 import { Button } from "@/components/ui/button"
-import { ResponsiveBar } from "@nivo/bar"
 import { DialogTrigger, DialogContent, Dialog } from "@/components/ui/dialog"
 import { UserIcon, XIcon } from "@/svg/Svg"
 

@@ -1,12 +1,12 @@
 import { getUserName } from "../getUserProjects";
 
-async function toNames(id: number[]): Promise<string[]> {
+async function toNames(id: number[]): Promise<userData[]> {
     const names = await iterateNames(id);
     return names;
 }
 
-async function iterateNames(id: number[]): Promise<string[]> {
-    const newNames: string[] = [];
+async function iterateNames(id: number[]): Promise<userData[]> {
+    const newNames: userData[] = [];
     if (Array.isArray(id)) {
         await Promise.all(id.map(async (userId) => {
             const name = await getUserName(userId);

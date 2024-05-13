@@ -50,7 +50,7 @@ console.log(resolvedTheme);
               </p>
             </div>
           </div>
-          <img
+          <Image
             alt="Hero"
             
             className=" select-none mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"

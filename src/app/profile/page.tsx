@@ -83,18 +83,7 @@ const userId: userData =  isServer && JSON.parse(localStorage?.getItem('userData
   async function getUserProjectsClient() {
     try {
       const response =  await getUserProjects(userId.id);
-      if (Array.isArray(response)) {
-        response.map(async (item)=>{
-          const names = await toNames(item.members);
-          const beautifulNames = beautifyArray(names); 
-          setProjects(response.map(project => ({ ...project, true_members: beautifulNames })));
-        })
-      } else {
-        const names = await toNames(response.members);
-          const beautifulNames = beautifyArray(names); 
-          setProjects({...response,true_members:beautifulNames});
-     console.log(projects)
-      }
+      setProjects(response)
     } catch (error) {
       alert(`${error} on project`,);
     }
@@ -115,17 +104,17 @@ async function ifIsBoss(){
   setDepartmentMembers(allDepartment)
 }
   return (          
-    <div className='bg-basic-default h-lvh'> 
   <Suspense fallback={<Loading color='#FA8072'/>} >
   <Navigation isBoss={false}  idOfDep={status.deparmentId} isImage={false} />
-            <main className="w-full py-6 space-y-6 bg-basic-default text-basic-default   sm:flex-col h-lvh">
+  <main className="bg-[#0D1117] min-h-screen text-white">
+<div className="flex">
               {
                   userData ?  
                   <>
                 
-      <section className="container flex  flex-col  gap-4 px-4 md:flex-col  xl:flex-row    sm:flex-col h-screen">
      <UserProfile
       userData={userData} title ={title}/>
+       <section className="flex flex-col flex-grow  p-8 space-y-6">
       {
         departmentMembers && <DpMembers departmentMembers={departmentMembers}/>
       }
@@ -139,15 +128,14 @@ async function ifIsBoss(){
   
    </>
 }
-      </section>
+</section>
       </>
       :
       null
 }
-
+</div>
     </main>
     </Suspense>
-    </div>
   )
 }
 

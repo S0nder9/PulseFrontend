@@ -1,15 +1,16 @@
 import React from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '../ui/badge';
-
+import { AvatarImage, Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import Image from 'next/image'
 type Props = {
     userData:userData
     title:string
 }
 
 const UserProfile = (props: Props) => {
-  return (
-<article className="flex  items-start space-x-4   basis-1/4
+    {/* <article className="flex  items-start space-x-4   basis-1/4
 ">
 <Avatar className="w-12 h-12">
 <AvatarImage src={props.userData.avatar} />
@@ -36,7 +37,25 @@ const UserProfile = (props: Props) => {
     </div>
     </dl>
 </div>
-</article>
+</article> */}
+  return (
+  <aside className="flex flex-col rounded-2xl items-center p-8 space-y-6  bg-basic-default w-80 mt-2" >
+    <Avatar className='select-none'>
+      <AvatarImage alt="Profile picture" src={props.userData.avatar} />
+    </Avatar>
+    <div>
+      <h1 className="text-2xl font-bold select-none">{props.userData.first_name} {props.userData.last_name} </h1>
+     <h2 className='text-xl font-bold bg-basic-default'> {props.userData.job_title_id ? props.title : null}</h2>
+      <p className="text-xs text-secondary-default">{props.userData.position=='B' ? "Начальник" :"Сотрудник"}</p>
+      <p className="text-xs  text-secondary-default">Департамент {}</p>
+    </div>
+  
+    <div className="text-xs">
+
+      <Button variant="secondary" className='bg-button-base rounded-xl'>Редактировать</Button>
+      </div>
+  </aside>
+
   )
 }
 

@@ -39,6 +39,10 @@ getNames()
 }, [name])
 
 const handleSelectUser = (user: userData) => {
+    setName("")
+        if (membersList.some(member => member.id === user.id)) {
+            return;
+        }
 
 setMembersList((prevIds) => [...prevIds, {
 id: user.id,
@@ -50,23 +54,25 @@ props.memberIds.push(user.id)
 }
 
 return (
-<div className="space-y-2  bg-basic-default">
+<div className="space-y-2  bg-basic-default mt-5">
 <div className="flex space-x-4">
 <div className='flex flex-col '>Добавлены :  {membersList.map(user =>
 <span key={user.id}>{user.name} </span>
 )}</div>
 </div>
-<Input id='participants' className="" placeholder="Введите Фамилию" value={name} onChange={(e) => setName(e.target.value)} />
-<div className=' pt-0 mt-0'>
+<Input id='participants' className=" rounded-xl" placeholder="Введите Фамилию" value={name} onChange={(e) => setName(e.target.value)} />
+<div className=' pt-0 mt-0 text-basic-default'>
 {Array.isArray(users) ?
 users.map((user) => (
-<div key={user.id} onClick={() => handleSelectUser(user)} >
+<div key={user.id} onClick={() => handleSelectUser(user)}  >
 {user.first_name} {user.last_name} 
 </div>
 ))
 :
 <div key={users.id}  >
-{users.first_name} {users.last_name} <Button onClick={() => handleSelectUser(users)}>Добавить</Button>
+{users.first_name} {users.last_name} <Button onClick={() => {handleSelectUser(users)
+    setusers([])
+}}>Добавить</Button>
 </div>
 }
 </div>

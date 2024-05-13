@@ -16,7 +16,7 @@ const Navigation = (props: Props) => {
   const { resolvedTheme, setTheme } = useTheme();
 
   return (
-    <nav className=' w-full   bg-cards-base text-basic-default flex space-x-5'>
+    <nav className=' w-full    bg-basic-default text-basic-default flex space-x-5 '>
     <Link href='/project/create'   prefetch={false}>Создать проект </Link>
     <Link href='/'  prefetch={false}>На главную</Link>
     <Link href='/findProject'  prefetch={false}>Найти проект</Link>

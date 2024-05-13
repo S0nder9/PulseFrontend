@@ -1,11 +1,15 @@
 import Taskspage from '@/components/component/taskspage'
 import React from 'react'
 
-type Props = {}
+interface Props  {
+  params:{id:number}
+}
 
-function page({}: Props) {
+function page({params}: Props) {
+  //! Переделать логику под бекенд
+  //? Изменить стилизацию в globals.css
   return (
-<Taskspage/>
+<Taskspage projectId={params.id} isError={false}/>
   )
 }
 
