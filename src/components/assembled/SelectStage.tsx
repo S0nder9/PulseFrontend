@@ -1,6 +1,4 @@
 import React from 'react'
-
-
 import {
 Select,
 SelectContent,
@@ -14,7 +12,7 @@ select: string
 const SelectStage = (props: Props) => {
 const [select, setSelect] = React.useState(props.select);
 return (
-<Select onValueChange={(value) => { setSelect(value) }} value={select} >
+<Select onValueChange={(value:any) => { setSelect(value) }} value={select} >
 <h1>{select}</h1>
 <SelectTrigger>
 <SelectValue placeholder="Стадия задачи" />

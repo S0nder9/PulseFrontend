@@ -1,5 +1,4 @@
 import React from 'react'
-import {motion, useTime, useTransform} from 'framer-motion'
 type Props = {
    color:string
 }

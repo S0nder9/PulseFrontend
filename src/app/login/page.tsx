@@ -38,7 +38,7 @@ export default function Home() {
           setError({status:true, text:"Ошибка аутентификации пользователя"})
           throw new Error("Failed to login")
       }
-      router.push('/profile')
+      router.push('./profile')
           localStorage.setItem('userData', JSON.stringify(resultData))
       return resultData
 

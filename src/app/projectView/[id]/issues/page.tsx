@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import React from 'react'
 import { DropdownMenuTrigger, DropdownMenuRadioItem, DropdownMenuRadioGroup, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
+import { ArrowUpDownIcon } from '@/svg/Svg'
 type Props = {}
 
 const page = (props: Props) => {
@@ -11,7 +12,7 @@ const page = (props: Props) => {
     <main className="bg-basic-default rounded-lg shadow-md p-6 h-screen w-full">
       <header className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Доска Ошибок</h1>
-        <Button size="sm">Создать проблему</Button>
+        <Button variant="default" size="sm">Создать проблему</Button>
       </header>
       <div className="overflow-x-auto">
         <table className="w-full">
@@ -24,8 +25,8 @@ const page = (props: Props) => {
                   <span>Created</span>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button size="icon" variant="ghost" className='  bg-basic-default'>
-                        <ArrowUpDownIcon  />
+                      <Button variant="ghost" size="icon" className='  bg-basic-default'>
+                        <ArrowUpDownIcon />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -63,7 +64,7 @@ const page = (props: Props) => {
                   className="bg-yellow-100 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400"
                   variant="outline"
                 >
-                  In Progress
+              Окрыто
                 </Badge>
               </td>
             </tr>
@@ -73,7 +74,7 @@ const page = (props: Props) => {
               <td>2023-04-15</td>
               <td>
                 <Badge className="bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400" variant="outline">
-                  Closed
+                Закрыто
                 </Badge>
               </td>
             </tr>
@@ -109,47 +110,4 @@ const page = (props: Props) => {
     </main>
   )
 }
-function DoorOpenIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M13 4h3a2 2 0 0 1 2 2v14" />
-        <path d="M2 20h3" />
-        <path d="M13 20h9" />
-        <path d="M10 12v.01" />
-        <path d="M13 4.562v16.157a1 1 0 0 1-1.242.97L5 20V5.562a2 2 0 0 1 1.515-1.94l4-1A2 2 0 0 1 13 4.561Z" />
-      </svg>
-    )
-  }
-  function ArrowUpDownIcon(props:any) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="m21 16-4 4-4-4" />
-        <path d="M17 20V4" />
-        <path d="m3 8 4-4 4 4" />
-        <path d="M7 4v16" />
-      </svg>
-    )
-  }
 export default page

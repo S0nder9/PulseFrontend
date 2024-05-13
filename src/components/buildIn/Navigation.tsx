@@ -13,7 +13,6 @@ type Props = {
 
 const Navigation = (props: Props) => {
   const url = `/profile/generate/${props.idOfDep}`
-  const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <nav className=' w-full    bg-basic-default text-basic-default flex space-x-5 '>
@@ -23,7 +22,7 @@ const Navigation = (props: Props) => {
     <Link href='/findUser' prefetch={false}>Узнать информацию по сотруднику</Link>
    {props.isBoss && <Link href={url} >Получить отчет</Link>}
  <ThemeSwitcher/> 
-{ props.isImage &&     <Aside/>}
+{ props.isImage &&    <Aside/>}
         </nav>
   )
 }

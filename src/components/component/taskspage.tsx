@@ -10,7 +10,7 @@ import {
 import { AvatarImage, Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from '../ui/button';
 import Link from 'next/link';
-import AlertComponent from '../buildIn/alert';
+import AlertComponent from '../buildIn/Alert';
 import ThemeSwitcher from '../buildIn/ThemeSwitcher';
 import { JSX, SVGProps } from 'react';
 import TaskImportance from '../buildIn/TaskImportance';

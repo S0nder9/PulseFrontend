@@ -83,6 +83,9 @@ const userId: userData =  isServer && JSON.parse(localStorage?.getItem('userData
   async function getUserProjectsClient() {
     try {
       const response =  await getUserProjects(userId.id);
+      if(!response){
+        return
+      }
       setProjects(response)
     } catch (error) {
       alert(`${error} on project`,);

@@ -2,16 +2,15 @@
 import { cookies } from "next/headers";
 import { host } from "./types";
 
-async function getUserProjects(id: number): Promise<Array<project> | project>  {
+async function getUserProjects(id: number): Promise<Array<project> | project | undefined> {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
     if (!jwt) {
-        throw new Error('No token provided')
+        return undefined;
     }
     if (!id) {
-        throw new Error('No project id provided')
+        return undefined
     }
-    console.log(`${host}all_user_projects/${id}`)
     const res = await fetch(`${host}all_user_projects/${id}`);
     if (!res.ok) {
         throw new Error('Failed to fetch data')
@@ -32,7 +31,6 @@ async function getUserTask(id:number):Promise<Array<task> | task> {
     }
     const res = await fetch(`${host}all_user_task/${id}`);
     if(!res.ok) {
-        console.log(res.status)
         throw new Error('Failed to fetch data')
     }
     const receiveddata = await res.json();

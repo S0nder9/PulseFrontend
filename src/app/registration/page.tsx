@@ -77,63 +77,6 @@ function Registration() {
 
   }, []);
   return (
-    //     <div className="px-4 md:px-6 lg:px-8 py-6 space-y-6">
-    //       <div className="flex items-center space-x-4">
-    //         <Button className="rounded-full">
-    //           <span className="sr-only">Back</span>
-    //         </Button>
-    //         <h1 className="text-2xl font-bold tracking-tighter">Регистрация</h1>
-    //       </div>
-    //       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-    //         <div className="space-y-4">
-    //           <div className="space-y-2">
-    //             <Label htmlFor="login"  
-    //         >Логин</Label>
-    //             <Input id="login" placeholder="Логин" required  value={data.login}  onChange={(e) => setdata({...data, login: e.target.value})} />
-    //           </div>
-    //           <div className="space-y-2">
-    //             <Label htmlFor="password">Пароль</Label>
-    //             <Input id="password" placeholder="Пароль" required  value={data.password} onChange={(e)=>setdata({...data, password: e.target.value})} type="password"/>
-    //           </div>
-    //           <div className="space-y-2">
-    //             <Label htmlFor="first-name">Имя</Label>
-    //             <Input id="first-name" placeholder="Имя" required  value={data.first_name} onChange={(e) => setdata({...data, first_name: e.target.value})} />
-    //           </div>
-    //           <div className="space-y-2">
-    //             <Label htmlFor="last-name" >Фамилия</Label>
-    //             <Input id="last-name" placeholder="Фамилия" required value={data.last_name} onChange={(e) => setdata({...data, last_name: e.target.value})} />
-    //           </div>
-    //           <div className="space-y-2">
-    //             <Label htmlFor="middle-name">Отчество</Label>
-    //             <Input id="middle-name" placeholder="Отчество" value={data.father_name} onChange ={(e) => setdata({...data, father_name: e.target.value})}/>
-    //           </div>
-    //         </div>
-    //         <div className="space-y-4">
-    //           <div className="space-y-2">
-    //           <p>Возраст</p>
-    //             <Input type='number' id='age' min='18' max='70' required className=' space-x-2' value={data.age} onChange={(e) => setdata({ ...data, age: parseInt(e.target.value) })} />
-
-    //           </div>
-    //           <div className="space-y-2  "> 
-    //             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    //             {/* <h1>{data.job_title_id}</h1> */}
-    //             <select  value={data.job_title_id} onChange={(e) => setdata({...data, job_title_id: parseInt(e.target.value)})}>
-    // {
-    // Array.isArray(job_title) ?
-
-    // job_title.map((item) => 
-    //   <option key={item.id} value={item.id}> {item.name}</option>
-    // )
-    //   :
-    //   <option  value={job_title.id} > {job_title.name}</option>
-    // }
-    //  </select>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <Button className="w-full" onClick={createUser} >Зарегистрироваться</Button>
-    //     </div>
     <main className="flex min-h-[100dvh] items-center justify-center bg-gradient-to-br from-[#f0f4ff] to-[#e6e9f2] px-4 py-12 dark:from-[#0f172a] dark:to-[#1e293b]">
       <div className="w-full max-w-md space-y-6 rounded-2xl bg-basic-default  p-6 shadow-lg dark:bg-gray-900">
         <header className="space-y-2 text-center">
@@ -200,15 +143,6 @@ function Registration() {
                 <option value="sales">Продажи</option>
                 <option value="hr">HR</option>
               </select>
-              {/* <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
-                <svg aria-hidden="true" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    clipRule="evenodd"
-                    d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </div> */}
             </div>
           </div>
           </div>
