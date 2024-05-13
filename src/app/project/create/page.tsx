@@ -36,6 +36,7 @@ import { getUserByPrefixSurname } from "@/components/server/getUserProjects"
 import { createProject } from "@/components/server/Create"
 import { useRouter } from "next/navigation"
 import SearchUser from "@/components/assembled/searchUser"
+import Navigation from "@/components/buildIn/Navigation"
 
 export function CreatePage() {
 const router = useRouter()
@@ -92,6 +93,7 @@ console.log(error)
 }
 }
 return (
+  <>  <Navigation isBoss={false} isImage={false} idOfDep={0} />
 <Card className="bg-basic-default h-screen">
 <div className="flex space-x-4 bg-basic-default w-full ">
 <CardContent className="w-full max-w-lg space-y-4">
@@ -104,11 +106,12 @@ return (
 <div className="space-y-2 ">
 <Label htmlFor="project-name">Название проекта</Label>
 <Input id="project-name" placeholder="Название проекта"
+className="rounded-xl"
 value={project.name} onChange={(e) => setproject((prev) => ({ ...prev, name: e.target.value }))} />
 </div>
 <div className="space-y-2">
 <Label htmlFor="description">Описание</Label>
-<Textarea className="min-h-[100px] text-basic-default" id="description" placeholder="Описание"
+<Textarea className="min-h-[100px] text-basic-default rounded-xl" id="description" placeholder="Описание"
 value={project.description} onChange={(e) => setproject((prev) => ({ ...prev, description: e.target.value }))} />
 </div>
 <SearchUser memberIds={membersIds}/>
@@ -121,6 +124,7 @@ value={project.description} onChange={(e) => setproject((prev) => ({ ...prev, de
 <Button onClick={() => createProjectClient()}>Создать проект</Button>
 </CardFooter>
 </Card>
+</>
 )
 }
 export default CreatePage
