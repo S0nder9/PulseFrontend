@@ -2,8 +2,8 @@
 const nextConfig = {
   experimental: {
   serverActions: {
-  allowedForwardedHosts: ['811q79f5-3000.euw.devtunnels.ms'],
-  allowedOrigins: ["https://811q79f5-3000.euw.devtunnels.ms"],
+  allowedForwardedHosts: ['https://kdnhfs81-3000.euw.devtunnels.ms/'],
+  allowedOrigins: ["https://kdnhfs81-3000.euw.devtunnels.ms/"]
   },
   },
   reactStrictMode: false,

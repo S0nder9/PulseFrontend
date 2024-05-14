@@ -11,6 +11,11 @@ import { useTheme } from "next-themes";
 export default function Home() {
   const router = useRouter()
   // TODO доделать страницу поика
+  //TODO сделать проверку на может менять или нет 
+  //TODO сделать страницу поиска юзеров доделать цвета
+  // !На беке продумать как сделать удаление через месяц
+  //* Добавить страницу скачивания отчетности
+  //& Перенести логику в hooks и добавить loading везде
   const { data, isLoading, error, AuthUser } = useAuth()
   useEffect(() => {
     AuthUser()

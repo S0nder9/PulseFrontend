@@ -4,6 +4,7 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
+  --background-main-color:black;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --text-default: rgb(236, 231, 231);
@@ -13,15 +14,16 @@
   --borderColor: #fbfbfb;
   --loaderColor:#eef3f6;
   --button-bg-color:rgb(65, 64, 64);
-  --background-cards-color: rgb(57, 49, 49);
+  --background-cards-color: rgb(45, 42, 42);
 }
 [data-theme="light"] {
+  --background-main-color:rgba(155, 153, 153, 0.824);
   --text-default: #eceeef;
   --text-secondary: rgb(248, 246, 246);
-  --background:#e1d4d4;
-  --background-section-color: rgb(146, 120, 120);
-  --background-cards-color: rgb(68, 52, 52);
-  --background-button-color: rgb(40, 37, 37);
+  --background:#28bbce;
+  --background-section-color: rgb(24, 206, 238);
+  --background-cards-color: rgb(27, 126, 232);
+  --background-button-color: rgb(27, 126, 232);
   --borderColor:#010406;
   
   --loaderColor:#01090e;

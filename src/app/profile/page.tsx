@@ -21,7 +21,7 @@ const Profile = () => {
       {
         !isMounted && <Loading />
       }
-      <main className="bg-[#0D1117] min-h-screen text-white ">
+      <main className="  bg-main-base min-h-screen text-white ">
         <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row">
           {
             userData ?

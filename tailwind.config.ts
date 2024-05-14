@@ -42,6 +42,9 @@ backgroundColor:{
      },
      cards:{
         base:"var(--background-cards-color)"
+     },
+     main:{
+        base:"var(--background-main-color)"
      }
 },
 
