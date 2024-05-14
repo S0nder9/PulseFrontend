@@ -33,6 +33,33 @@ async function changeTaskStatus(id:number,changedStatus:string):Promise<statusTy
     }
     return status
 }
+async function changeProblemStatus(id:number,changedStatus:string):Promise<statusType> {
+    const cookieStore = cookies();
+    const jwt = cookieStore.get('jwt')?.value
+    if (!jwt) {
+        status.code = 1
+    status.text = "no token given"
+        return status
+    }
+    if (!id) {
+        throw new Error('No task id provided')
+    }
+    const res = await fetch(`${host}issue/${id}`,{
+        method:"PATCH",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+           status: changedStatus
+        })
+    });
+    if (!res.ok) {
+    status.code = res.status.valueOf()
+    status.text = res.statusText.valueOf()
+        return status
+    }
+    return status
+}
 async function updateUserData(data:userData,id:number):Promise<userData | statusType> {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
@@ -65,5 +92,5 @@ async function updateUserData(data:userData,id:number):Promise<userData | status
     }
     return status
 }
-export {changeTaskStatus,updateUserData}
+export {changeTaskStatus,updateUserData,changeProblemStatus}
 

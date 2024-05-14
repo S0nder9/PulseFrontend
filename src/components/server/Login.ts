@@ -10,7 +10,7 @@ interface OutPut{
 message: string,
 token: string
 }
-   async function sendUserLoginData(data: LoginData): Promise<OutPut> {
+   async function sendUserLoginData(data: LoginData): Promise<string> {
     const res = await fetch(`${host}users/login`, {
         method: 'POST',
         credentials: 'include',
@@ -19,21 +19,18 @@ token: string
         },
         body: JSON.stringify(data)
     })
-
-    const receiveddata: OutPut = await res.json();
-
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error(`Ошибка при входе попробуйте еще раз , статус ${res.statusText} `,); 
     }
-
+    const receiveddata: OutPut = await res.json();
     const cookiesApi = cookies()
     cookiesApi.set('jwt', receiveddata.token,{
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         httpOnly: true,
         secure: true,
     })
-    return receiveddata;
+    return receiveddata.message
 }
 
 export default sendUserLoginData;

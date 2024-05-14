@@ -7,6 +7,7 @@ export  async function checkCookie():Promise<boolean>{
     if(!jwt){
         return false
     }
+    console.log("Checkend")
     return true
 
 }

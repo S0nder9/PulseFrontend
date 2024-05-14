@@ -1,15 +1,16 @@
 import authUser from "@/components/server/Auth";
 import { checkCookie } from "@/components/server/CheckCookie";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
 import { fetchTitle } from "@/components/server/FetchJobTitle";
 import { allDepMembers } from "@/components/server/getAllDepartment";
 import { getUserProjects } from "@/components/server/getUserProjects";
 
 
-const useProjectData = () =>{
+export const useProjectData = () =>{
     const [userData, setUserData] = useState<userData | null>(null);
+    
 const [status, setStatus] = useState({
   isBoss: false,
   deparmentId: 0
@@ -18,13 +19,13 @@ const [errorState, setError] = useState({
   status: false,
   text: "",
 })
-const isServer = typeof window !== 'undefined'
 const [projects, setProjects] = useState<project | Array<project> | null>(null)
 const [title, setTitle] = useState("")
 const [departmentMembers, setDepartmentMembers] = useState<userData[] | null>(null);
 const router = useRouter()
-const userId: userData = isServer && JSON.parse(localStorage?.getItem('userData') || '{}');
 const { data, isLoading, AuthUser } = useAuth()
+const isMounted = useIsMounted()
+const [loading, setloading] = useState<boolean>()
 async function setJobTitle(id: number) {
     try {
       const title = await fetchTitle(id);
@@ -35,38 +36,57 @@ async function setJobTitle(id: number) {
       alert(error);
     }
   }
-  async function getUserProjectsClient() {
+  async function getUserProjectsClient(id: number) {
     try {
-      const response = await getUserProjects(userId.id);
-      if (!response) {
-        return
+      if (id) {
+        const response = await getUserProjects(id);
+        if (response) {
+          setProjects(response);
+        }
       }
-      setProjects(response)
     } catch (error) {
-      alert(`${error} on project`,);
+      console.log(error);
     }
   }
-const getAll = async () => {
-    AuthUser()
-          try {
-            const response = await authUser();
-            setUserData(response.userData);
-            setJobTitle(response.userData.job_title_id)
-            if (response.userData.position == 'B') {
-              const departmentMembers = await allDepMembers(response.userData?.department_id)
-              setDepartmentMembers(departmentMembers)
-              setStatus({
-                isBoss: true,
-                deparmentId: response.userData?.department_id
-              })
-              console.log('departmentMembers', departmentMembers)
-              getUserProjectsClient()
+        useEffect(() => {  
+             AuthUser()
+          setloading(false)
+          const fetchData = async () => {
+            try {
+              const response = await authUser();
+              setUserData(response.userData);
+              setJobTitle(response.userData.job_title_id)
+              if(!userData){
+  return
+              }
+              const responseP = await getUserProjects(userData.id);
+              if (responseP) {
+                setProjects(responseP);
+              }
+              if (response.userData.position == 'B') {
+                const departmentMembers = await allDepMembers(response.userData?.department_id)
+                setDepartmentMembers(departmentMembers)
+                setStatus({
+                  isBoss: true,
+                  deparmentId: response.userData?.department_id
+                })
+              }
             }
-            getUserProjectsClient()
-          }
-          catch (error) {
-            setError({ status: true, text: "Ошибка аутентификации пользователя" })
-          }
-        };
-        return {A}
+            catch (error) {
+              setError({ status: true, text: "Ошибка аутентификации пользователя" })
+            }
+            setloading(true)
+          };
+          fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, []);
+        return {title,departmentMembers,userData,status,errorState,getUserProjectsClient,projects,isMounted,loading}
     }
+    export const useIsMounted = () => {
+      const [isMounted, setIsMounted] = useState(false);
+      useEffect(() => {
+          setIsMounted(true);
+          return () => setIsMounted(false);
+      }, []);
+      return isMounted;
+  };

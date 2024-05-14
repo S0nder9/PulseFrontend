@@ -50,7 +50,6 @@ function Registration() {
     const result = schematwo.safeParse(data)
     if (!result.success) {
       throw new Error(result.error.message)
-
     }
     try {
       // const send = await registerUser(data)
@@ -60,7 +59,6 @@ function Registration() {
     }
 
   }
-  console.log(data)
   useEffect(() => {
     const fetchData = async () => {
       const isToken = await checkCookie()

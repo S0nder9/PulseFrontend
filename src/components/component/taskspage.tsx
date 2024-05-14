@@ -2,7 +2,7 @@
 import { checkCookie } from '@/components/server/CheckCookie'
 import { getAllProjectTasks, getProjectTitle, getUserByPrefixSurname } from '@/components/server/getUserProjects'
 import { useRouter } from 'next/navigation';
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -15,6 +15,7 @@ import ThemeSwitcher from '../buildIn/ThemeSwitcher';
 import { JSX, SVGProps } from 'react';
 import TaskImportance from '../buildIn/TaskImportance';
 import ProjectData from '../assembled/ProjectData';
+import Context from '@/utils/ContextProvider';
 type Props = {
 projectId: number,
 isError: boolean
@@ -24,7 +25,7 @@ interface selec {
   name: string,
   tostatus: string | null,
 }
-export default function Taskspage(props: Props) {
+export default function   Taskspage(props: Props) {
 const [isOpened, setisOpened] = useState(false)
 const [selected, setselected] = useState<selec>({
   selectedId: 0,
@@ -61,13 +62,20 @@ return
           getNames()
       },1000)
   },[name])
+
+const bask = useCallback(
+  async() => {
+    const isToken = await checkCookie()
+    if (!isToken) {
+        router.push('/login')
+        return
+    }
+  },
+  []
+)
+
     useEffect(() => {
         const fetchData = async () => {
-            const isToken = await checkCookie()
-            if (!isToken) {
-                router.push('/login')
-                return
-            }
             try {
                 const response = await getAllProjectTasks(props.projectId)
                 setTasks(response)
@@ -138,16 +146,16 @@ const handleSelectUser = (user: userData) => {
           </div>
         </header> */}
         <ProjectData projectId={props.projectId} projectName='' withMenu={true}/>
-    <main className="grid grid-cols-3 gap-6 p-6">
+    <main className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
       <section className="bg-basic-default rounded-2xl p-4">
+      <header className="flex items-center justify-between mb-4">
+                      <h2 className="text-lg font-semibold bg-basic-default">В обсуждении</h2>
+                    </header>
 {
             Object.keys(tasksByStage).map(stage => (
               <>
                 {stage === "В обсуждении" && (
                   <>
-                    <header className="flex items-center justify-between mb-4">
-                      <h2 className="text-lg font-semibold bg-basic-default">В обсуждении</h2>
-                    </header>
                     <div className="space-y-4">
                       {tasksByStage[stage].map(task => (
                         <article className="bg-cards-default rounded-lg p-4 shadow-sm relative" key={task.id}>
@@ -209,7 +217,7 @@ const handleSelectUser = (user: userData) => {
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                   {task.description}
                           </p>
-                  <TaskImportance value={task.priority} created={task.created_at}  toAcc={task.hoursToAccomplish}/>
+                  <TaskImportance value={task.priority} created_at={task.created_at}  toAcc={task.hoursToAccomplish}/>
                         </article>
                       ))}
                     </div>
@@ -235,14 +243,14 @@ const handleSelectUser = (user: userData) => {
         </div>
     </section>
     <section className="bg-basic-default rounded-2xl p-4">
+    <header className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-semibold  bg-basic-default ">В процессе</h2>
+                    </header>
     {
             Object.keys(tasksByStage).map(stage => (
               <>
                 {stage === "В процессе" && (
                   <>
-                    <header className="flex items-center justify-between mb-4">
-                    <h2 className="text-lg font-semibold  bg-basic-default ">В процессе</h2>
-                    </header>
                     <div className="space-y-4">
                       {tasksByStage[stage].map(task => (
                         <article className="bg-cards-default rounded-lg p-4 shadow-sm relative" key={task.id}>
@@ -318,7 +326,7 @@ const handleSelectUser = (user: userData) => {
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                   {task.description}
                           </p>
-                  <TaskImportance value={task.priority} created={task.created_at}  toAcc={task.hoursToAccomplish} />
+                  <TaskImportance value={task.priority} created_at={task.created_at}  toAcc={task.hoursToAccomplish} />
                         </article>
                       ))}
                     </div>
@@ -344,14 +352,14 @@ const handleSelectUser = (user: userData) => {
         </div>
           </section>
           <section className="bg-basic-default rounded-2xl p-4">
+          <header className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-semibold  bg-basic-default ">Готово</h2>
+                    </header>
     {
             Object.keys(tasksByStage).map(stage => (
               <>
                 {stage === "Готово" && (
                   <>
-                    <header className="flex items-center justify-between mb-4">
-                    <h2 className="text-lg font-semibold  bg-basic-default ">Готово</h2>
-                    </header>
                     <div className="space-y-4">
                       {tasksByStage[stage].map(task => (
                         <article className="bg-cards-default rounded-lg p-4 shadow-sm relative" key={task.id}>
@@ -413,7 +421,7 @@ const handleSelectUser = (user: userData) => {
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                   {task.description}
                           </p>
-                  <TaskImportance value={task.priority} created={task.created_at}  toAcc={task.hoursToAccomplish} />
+                  <TaskImportance value={task.priority} created_at={task.created_at}  toAcc={task.hoursToAccomplish} />
                         </article>
                       ))}
                     </div>

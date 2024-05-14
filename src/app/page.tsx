@@ -1,12 +1,13 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-import { useTheme } from "next-themes";
+
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { checkCookie } from "@/components/server/CheckCookie";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
+import { useTheme } from "next-themes";
 export default function Home() {
   const router = useRouter()
   // TODO доделать страницу поика
@@ -16,9 +17,8 @@ export default function Home() {
   }, [AuthUser, router])
   //const { scrollYProgress } = useScroll();
   const { resolvedTheme, setTheme } = useTheme();
-  console.log(resolvedTheme);
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48  bg-basic-default">
+    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48  bg-basic-default min-h-screen">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_550px]">
           <div className="flex flex-col justify-center space-y-4">
@@ -36,7 +36,7 @@ export default function Home() {
                 className="w-full bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90"
                 type="submit"
               >
-                <Link href={"/registration"} prefetch={false}> Начать</Link>
+                <Link href={"/registration"} className="w-full"> Начать</Link>
               </Button>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Зарегистрируйся для получения дальнейшей информации
@@ -48,6 +48,7 @@ export default function Home() {
             className=" select-none mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
             height="310"
             src="/main.png"
+            loading="lazy"
             width="550"
           />
         </div>

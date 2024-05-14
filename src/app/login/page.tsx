@@ -9,7 +9,6 @@ import sendUserLoginData from "@/components/server/Login";
 import { useRef, useState } from "react";
 export default function Home() {
   const router = useRouter()
-  const buttonRef = useRef<HTMLButtonElement>(null)
   const schema = z.object({
       login: z.string().min(6),
       password: z.string().min(6)
@@ -23,25 +22,30 @@ export default function Home() {
     })
   const [errorData, setErrorData] = useState<string>('')
   const sendData = async () => {
+    alert("start")
       const data = {
           login: login || '',
           password: password || ''
       }
-
       const result = schema.safeParse(data)
       if (!result.success) {
           setErrorData(result.error.issues[0].message)
           console.error(result.error.message)
+          alert("error")
       }
-      const resultData = await sendUserLoginData(data)
+      try{
+      const resultData = await sendUserLoginData(data)   
       if (!resultData) {
           setError({status:true, text:"Ошибка аутентификации пользователя"})
           throw new Error("Failed to login")
       }
-      router.push('./profile')
-          localStorage.setItem('userData', JSON.stringify(resultData))
-      return resultData
-
+      router.push("/profile")
+          localStorage.setItem('userData', JSON.stringify(resultData))  
+    }
+    catch(error){
+      console.log(error)
+      throw new Error("sss")
+    }
   }
   return (
     <main className="flex min-h-[100dvh] items-center justify-center bg-gradient-to-br from-[#f0f4ff] to-[#e6e9f2] px-4 py-12 dark:from-[#0f172a] dark:to-[#1e293b]">
@@ -63,8 +67,9 @@ export default function Home() {
             value={password}
                             onChange={(e) => { setPassword(e.target.value) }} />
           </div>
-          <Button className="w-full" type="submit"
-                    onClick={sendData}>
+          <Button className="w-full" 
+          type="button"
+                    onClick={()=>sendData()}>
            Войти
           </Button>
         </form>

@@ -62,6 +62,22 @@ interface jobTitle {
     priority:number,
     workers:Array<number> 
   }
+  interface problem {
+    id: number,
+    project_id: number,
+    name: string,
+    description: string,
+    status:string,
+author:number
+    created_at: string
+}
+  interface addProblem {
+    project_id:number,
+    name:string,
+    description:string,
+status:string,
+author:number
+  }
   interface project {
       id: number,
       name:string ,

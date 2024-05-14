@@ -1,7 +1,5 @@
 'use client'
 import Aside from '@/components/assembled/Aside'
-import Loading from '@/components/assembled/Loading'
-import Tasks from '@/components/assembled/Tasks'
 import Navigation from '@/components/buildIn/Navigation'
 import { Suspense, useState } from 'react'
 

@@ -5,11 +5,9 @@ import { host } from "./types";
 async function fetchTitle(id:number):Promise<string> {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
-    console.log(jwt);
     if(!jwt){
         throw new Error('No token provided')
     }
-    console.log(host,id)
     if(!id ){
         return "no id provided"
     }

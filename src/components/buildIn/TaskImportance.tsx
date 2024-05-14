@@ -5,13 +5,13 @@ import { ClockIcon } from '@/svg/Svg';
 type Props = {
     value:number,
     toAcc : number,
-    created:string
+    created_at:string | null,
 }
 
 function TaskImportance(props: Props) {
-    const date = new Date();
+    console.log(props.created_at)
     return (
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md mt-5">
             <CardContent className="grid gap-6">
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Уровень важности</span>
@@ -45,12 +45,12 @@ function TaskImportance(props: Props) {
                     <span>10</span>
                 </div>
                 {
-                    props.created && props.toAcc ? 
+                    props.created_at && props.toAcc ? 
                     <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Оставшееся время</span>
                     <div className="flex items-center gap-2">
                         <ClockIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                        <span className="text-2xl font-bold">{calculateTimeLeft(props.created, props.toAcc, date)}</span>
+                        <span className="text-2xl font-bold">{calculateTimeLeft(props.created_at, props.toAcc,)}</span>
                     </div>
                 </div>
                 :

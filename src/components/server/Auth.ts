@@ -13,11 +13,6 @@ async function authUser(): Promise<OutCome > {
             Cookie: `jwt=${jwt}`
         }
     });
-
-
-        /* headers: {
-          'Cookie': 'jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjozNiwiZXhwIjoxNzExNzMwMDU2LCJpYXQiOjE3MTA4NjYwNTZ9.-7wepW1XWmXZTW1hmc7J7awbGR6bYDy1odoQGcB8YnY'
-        }*/
         return res.json()
 }
 export default authUser;

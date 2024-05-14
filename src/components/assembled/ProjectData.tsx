@@ -54,21 +54,25 @@ console.log(names)
   return (
     <>
 {
-    projectData && !error.status && names?
-<header className=" bg-basic-default  px-6 py-4 flex items-center justify-between rounded-xl">
+    projectData && !error.status && names ?
+<header className=" bg-basic-default  px-6 py-4 flex items-center justify-between ">
     {
         props.withMenu &&<div className="flex items-center space-x-4">
   <Package2Icon className="h-6 w-6" />
   <h1 className="text-lg text-basic-default font-semibold">{
     projectData.name
   }</h1>
-  <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
-    <Link className="hover:underline" href={`./${props.projectId}/issues`}>
+  <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">   
+   <Link className="hover:underline" href={`/projectView/${props.projectId}`}>
+Главная доска
+    </Link>
+    <Link className="hover:underline" href={`/projectView/${props.projectId}/issues`}>
     Проблемы
     </Link>
     <Link className="hover:underline" href="#">
    Развитие проекта
     </Link>
+
     <ThemeSwitcher/> 
   </div>
 </div>

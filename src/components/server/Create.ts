@@ -47,6 +47,30 @@ console.log(response.status , "Статус создания таски")
     return responseData
 
 }
-export {createProject,createTask}
+async function createProblem(data:addProblem): Promise<any> {
+    if(!data){
+        return
+    }
+    const response = await fetch(`${host}issue/0`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+           project_id: data.project_id,
+             name: data.name,
+            description: data.description,
+            status:data.status,
+             author: data.author,
+        })
+    });
+console.log(response.text , "Статус создания проблемы") 
+    const responseData = await response.json();
+
+    return responseData
+
+}
+
+export {createProject,createTask,createProblem}
 
 

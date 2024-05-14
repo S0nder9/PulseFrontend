@@ -16,7 +16,7 @@ const ProjectsCard = (props: Props) => {
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.isArray(props.projects)
           ? props.projects.map((project, index) => (
-            <Card className=" bg-cards-base" key={index}>
+            <Card className=" bg-cards-base  max-w-3.5 " key={index}>
               <CardHeader>
                 <CardTitle>{project.name}</CardTitle>
                 <CardDescription>{project.description}</CardDescription>
@@ -31,7 +31,7 @@ const ProjectsCard = (props: Props) => {
               </CardContent>
               <CardFooter className="flex flex-col gap-1 sm:justify-end sm:flex-row">
                 <Button className="w-fit sm:w-auto overflow-hidden">
-                  <Link href="/project/[id]" as={`/projectView/${project.id}`}>
+                  <Link href="/project/[id]" as={`/projectView/${project.id}`}  prefetch={false}>
                     Посмотреть
                   </Link>
                 </Button>
@@ -63,9 +63,9 @@ const ProjectsCard = (props: Props) => {
               ></ProjectData>
             </CardContent>
             <CardFooter className="flex flex-col gap-1 sm:justify-end sm:flex-row">
-              <Button className="w-fit sm:w-auto overflow-hidden">
-                <Link href="/project/[id]" as={`/projectView/${props.projects.id}`}>
-                  Посмотреть
+              <Button className="w-fit   overflow-hidden">
+                <Link href="/project/[id]" as={`/projectView/${props.projects.id}`} prefetch={false}>
+                  Смотреть
                 </Link>
               </Button>
               <Button
