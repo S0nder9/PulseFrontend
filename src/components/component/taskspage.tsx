@@ -16,6 +16,8 @@ import { JSX, SVGProps } from 'react';
 import TaskImportance from '../buildIn/TaskImportance';
 import ProjectData from '../assembled/ProjectData';
 import Context from '@/utils/ContextProvider';
+import Loading from '../buildIn/Loading';
+import { useTasks } from '@/hooks/useTasks';
 type Props = {
 projectId: number,
 isError: boolean
@@ -33,121 +35,20 @@ const [selected, setselected] = useState<selec>({
   tostatus: "" ,
 })
   const [type, settype] = useState<"delete" | "change" | "patch" | "add" | null>(null)
-  const windowType = typeof window !== 'undefined'
-
-  const userId: userData = windowType ? JSON.parse(localStorage?.getItem('userData') || '{}') : null
 const router = useRouter()
 const [update, setupdate] = useState(0)
-// setTimeout(() => {
-// setupdate(!update)
-// },10000)
-    const [tasks, setTasks] = useState<task | Array<task>>([])
-    const [name,setName] = useState('')
-    const [error,setError] = useState({
-      status:false,
-      text:"",
-    })
-    const [membersIds, setmembersIds] = useState<Array<number>>([userId?.id])
-    const [users, setusers] = useState<Array<userData> | userData>([])
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(()=>{
-      const getNames = async() =>{
-          const users = await getUserByPrefixSurname(name)
-     setusers(users)
-      }
-      if(name.length < 1){
-return
-      }
-      setTimeout(()=>{
-          getNames()
-      },1000)
-  },[name])
 
-const bask = useCallback(
-  async() => {
-    const isToken = await checkCookie()
-    if (!isToken) {
-        router.push('/login')
-        return
-    }
-  },
-  []
-)
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getAllProjectTasks(props.projectId)
-                setTasks(response)
-            }
-            catch (error) {
-              setError({status:true, text:`Ошибка сервера`})
-          
-            }
-        };
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [update]);
-    const tasksByStage: { [stage: string]: task[] } = {};
-    if(Array.isArray(tasks)){
-    tasks.forEach(task => {
-      if (!tasksByStage[task.stageAt]) {
-        tasksByStage[task.stageAt] = [];
-      }
-      tasksByStage[task.stageAt].push(task);
-    });
-}
-else {
-  tasksByStage[tasks.stageAt] = [tasks]
-}
-const handleSelectUser = (user: userData) => {
-  setmembersIds((prevIds) => [...prevIds, user.id])
-  }
+const {tasks,tasksByStage,isMounted}= useTasks({projectId:props.projectId})
+console.log(isMounted)
   return (
     <>
-    {/* {
-      isLoading && <Loading/>
-    } */}
+{!isMounted && <Loading/>}
     {
       isOpened && <AlertComponent isOpened={isOpened} update={update}  setupdate={setupdate} project ={props.projectId} setisOpened={setisOpened}  type={type} toStatus={selected.tostatus} name={selected.name} id={selected.selectedId}/>
     }
-        {/* <header className=" bg-basic-default dark:bg-gray-800 px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Package2Icon className="h-6 w-6" />
-            <h1 className="text-lg text-basic-default font-semibold">Имз Аутентификация</h1>
-            <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400">
-              <Link className="hover:underline" href="#">
-              Проблемы
-              </Link>
-              <Link className="hover:underline" href="#">
-             Развитие проекта
-              </Link>
-              <ThemeSwitcher/> 
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-
-            <Avatar>
-              <AvatarImage alt="Shuding" src="https://flomaster.top/uploads/posts/2022-07/1658190796_32-flomaster-club-p-muzhchina-v-ochkakh-risunok-krasivo-37.jpg" />
-              <AvatarFallback>SD</AvatarFallback>
-            </Avatar>
-            <Avatar>
-              <AvatarImage alt="John Doe" src="https://distribution.faceit-cdn.net/images/767a1efb-0326-424e-ba8c-dd8e3b7f1be4.jpeg" />
-              <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
-            <Avatar>
-              <AvatarImage alt="Oliver Maguire" src="https://pushinka.top/uploads/posts/2023-03/1680122627_pushinka-top-p-khvkh-avatarki-pinterest-46.jpg " />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
-            <Avatar>
-              <AvatarImage alt="Lily Wang" src="/avatars/04.png" />
-              <AvatarFallback>LW</AvatarFallback>
-            </Avatar>
-          </div>
-        </header> */}
         <ProjectData projectId={props.projectId} projectName='' withMenu={true}/>
     <main className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
-      <section className="bg-basic-default rounded-2xl p-4">
+      <section className="bg-basic-default rounded-2xl p-4" key={1}>
       <header className="flex items-center justify-between mb-4">
                       <h2 className="text-lg font-semibold bg-basic-default">В обсуждении</h2>
                     </header>
@@ -242,7 +143,7 @@ const handleSelectUser = (user: userData) => {
           </Button>
         </div>
     </section>
-    <section className="bg-basic-default rounded-2xl p-4">
+    <section className="bg-basic-default rounded-2xl p-4" key={2}>
     <header className="flex items-center justify-between mb-4">
                     <h2 className="text-lg font-semibold  bg-basic-default ">В процессе</h2>
                     </header>
@@ -351,7 +252,7 @@ const handleSelectUser = (user: userData) => {
           </Button>
         </div>
           </section>
-          <section className="bg-basic-default rounded-2xl p-4">
+          <section className="bg-basic-default rounded-2xl p-4" key={3}>
           <header className="flex items-center justify-between mb-4">
                     <h2 className="text-lg font-semibold  bg-basic-default ">Готово</h2>
                     </header>

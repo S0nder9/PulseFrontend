@@ -6,14 +6,10 @@ import { host } from './types';
     login: string
     password: string
 }
-interface OutPut{
-message: string,
-token: string
-}
-   async function sendUserLoginData(data: LoginData): Promise<string> {
+   async function sendUserLoginData(data: LoginData): Promise<OutCome> {
     const res = await fetch(`${host}users/login`, {
         method: 'POST',
-        credentials: 'include',
+        credentials: 'include', 
         headers: {
             'Content-Type': 'application/json'
         },
@@ -23,14 +19,14 @@ token: string
         // This will activate the closest `error.js` Error Boundary
         throw new Error(`Ошибка при входе попробуйте еще раз , статус ${res.statusText} `,); 
     }
-    const receiveddata: OutPut = await res.json();
+    const receiveddata: OutCome = await res.json();
     const cookiesApi = cookies()
     cookiesApi.set('jwt', receiveddata.token,{
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         httpOnly: true,
         secure: true,
     })
-    return receiveddata.message
+    return receiveddata
 }
 
 export default sendUserLoginData;

@@ -17,7 +17,7 @@ const Profile = () => {
   //! фиксануть ошибку не авторендерига
   return (
     <>
-      <Navigation isBoss={false} idOfDep={status.deparmentId} isImage={false} />
+      <Navigation isBoss={false} idOfDep={status.deparmentId} isImage={false}   />
       {
         !isMounted && <Loading />
       }

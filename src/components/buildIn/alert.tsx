@@ -58,14 +58,14 @@ function AlertComponent(props: Props) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 w-full  ">
       <div className="mx-4 w-full max-w-md rounded-2xl p-6 shadow-lg bg-basic-default">
         {props.type === "add" && (
-          <section className=" h-fit w-full overflow-y-scroll" >
+          <section className=" h-fit w-full overflow-y-scroll md:overflow-y-hidden xl:overflow-y-hidden" >
             <div className="mb-4">
               <h2 className="text-2xl font-bold bg-basic-default ">Добавить задачу </h2>
             </div>
             <div className="mb-6 ">
-              <p className="text-gray-400 dark:text-gray-400 mt-6">
+              <p className=" text-basic-default mt-6">
                 <Input className="w-full  rounded-xl" placeholder="Название задачи" value={newTask.name} onChange={(e) => setNewTask({ ...newTask, name: e.target.value })} />
-                <textarea className="w-full mt-5 rounded-xl" placeholder="Описание задачи" value={newTask.description} onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} />
+                <textarea className="w-full mt-5 rounded-xl bg-basic-default  text-basic-default" placeholder="Описание задачи" value={newTask.description} onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} />
                 <Label htmlFor='time'>Часов для окончания</Label>
                 <Input className="w-full  rounded-xl" placeholder="Время на выполнение" id="time" type='number' value={newTask.hoursToAccomplish} onChange={(e) => setNewTask({ ...newTask, hoursToAccomplish: Number(e.target.value) })} />
                 <Input className="w-full  mt-5  rounded-xl mb-5" placeholder="Важность" type='number' maxLength={10} value={newTask.priority} onChange={(e) => setNewTask({ ...newTask, priority: Number(e.target.value) })} />

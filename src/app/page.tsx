@@ -20,8 +20,6 @@ export default function Home() {
   useEffect(() => {
     AuthUser()
   }, [AuthUser, router])
-  //const { scrollYProgress } = useScroll();
-  const { resolvedTheme, setTheme } = useTheme();
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48  bg-basic-default min-h-screen">
       <div className="container px-4 md:px-6">

@@ -8,6 +8,8 @@ import { ArrowUpDownIcon } from '@/svg/Svg'
 import { getAllProjectIssues } from '@/components/server/getUserProjects'
 import AddProblem from '@/components/buildIn/AddProblem'
 import ProjectData from '@/components/assembled/ProjectData'
+import { useIssues } from '@/hooks/useIssues'
+import Loading from '@/components/buildIn/Loading'
 type Props = {
   params:{
     id:number
@@ -16,24 +18,18 @@ type Props = {
 
 const Issues = (props: Props) => {
   const [selected, setselected] = useState<number>(0)
-  const [problems, setproblems] = useState<problem[] | null | problem>(null)
   const [isOpened, setisOpened] = useState(false)
   const [type, settype] = useState<"delete" | "change" | "patch" | "add" | null>(null)
   const [current, setcurrent] = useState("")
-  useEffect(() => {
-    const getAllProblemsClient = async () => {
-      const response = await getAllProjectIssues(1)
-      setproblems(response)
-      console.log(problems)
-    }
-    getAllProblemsClient()
-  }, [])
+const {isMounted,problems} = useIssues(props.params.id)
   //! Добавить доску ошибок 
   return (
     <>
+    {
+      !isMounted && <Loading/>
+    }
       {
         isOpened && <AddProblem isOpened={isOpened} project={1} setisOpened={setisOpened} type={type} id={selected} current={current} />
-
       }
             <ProjectData projectId={1} projectName='' withMenu={true}/>
       <main className="bg-basic-default rounded-lg shadow-md p-6 h-screen w-full">

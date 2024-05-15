@@ -9,9 +9,6 @@ interface Props  {
 function page({params}: Props) {
   //! Переделать логику под бекенд
   //? Изменить стилизацию в globals.css
-  const contextValue = {
-    project_id: params.id,
-  };
   return (
       <Taskspage projectId={params.id} isError={false}/>
 

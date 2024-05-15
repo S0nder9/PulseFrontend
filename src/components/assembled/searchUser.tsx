@@ -19,13 +19,13 @@ const [membersList, setMembersList] = useState<Array<any>>([{
 id: userId.id,
 name: userId.first_name + ' ' + userId.last_name 
 }])
-
+console.log(membersList)
 const [name, setName] = useState('')
-const total = []
 const [users, setusers] = useState<Array<userData> | userData>([])
 useEffect(() => {
 const getNames = async () => {
 const users = await getUserByPrefixSurname(name)
+console.log(users)
 setusers(users)
 
 }
@@ -56,9 +56,11 @@ props.memberIds.push(user.id)
 return (
 <div className="space-y-2  bg-basic-default mt-5">
 <div className="flex space-x-4">
-<div className='flex flex-col '>Добавлены :  {membersList.map(user =>
-<span key={user.id}>{user.name} </span>
-)}</div>
+Добавлены :  {membersList.map(user =>
+    <div className='flex flex-col ' key={user.id}>
+<p >{user.name} </p>
+</div>
+)}  
 </div>
 <Input id='participants' className=" rounded-xl" placeholder="Введите Фамилию" value={name} onChange={(e) => setName(e.target.value)} />
 <div className=' pt-0 mt-0 text-basic-default'>

@@ -53,7 +53,7 @@ function AddProblem(props: Props) {
             <h2 className="text-2xl font-bold bg-basic-default ">Добавить задачу </h2>
           </div>
           <div className="mb-6 ">
-            <p className="text-gray-400 dark:text-gray-400 mt-6">
+            <p className=" text-basic-default mt-6">
               <Input className="w-full  rounded-xl" placeholder="Название задачи" value={newProblem.name} onChange={(e) => setnewProblem({ ...newProblem, name: e.target.value })} />
               <textarea className="w-full mt-5 bg-basic-default" placeholder="Описание задачи" value={newProblem.description} onChange={(e) => setnewProblem({ ...newProblem, description: e.target.value })} />
         </p>

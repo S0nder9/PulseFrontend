@@ -16,7 +16,7 @@ const ProjectsCard = (props: Props) => {
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.isArray(props.projects)
           ? props.projects.map((project, index) => (
-            <Card className=" bg-cards-base  max-w-3.5 " key={index}>
+            <Card className=" bg-cards-base  " key={index}>
               <CardHeader>
                 <CardTitle>{project.name}</CardTitle>
                 <CardDescription>{project.description}</CardDescription>

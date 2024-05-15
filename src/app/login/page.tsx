@@ -22,7 +22,6 @@ export default function Home() {
     })
   const [errorData, setErrorData] = useState<string>('')
   const sendData = async () => {
-    alert("start")
       const data = {
           login: login || '',
           password: password || ''
@@ -44,7 +43,6 @@ export default function Home() {
     }
     catch(error){
       console.log(error)
-      throw new Error("sss")
     }
   }
   return (
