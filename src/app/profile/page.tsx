@@ -9,6 +9,8 @@ import { useProjectData } from '@/hooks/useProjectData';
 import Loading from '@/components/buildIn/Loading';
 const Profile = () => {
   const { title, departmentMembers, userData, status, errorState, getUserProjectsClient, projects, isMounted } = useProjectData()
+  // todo добавить информацию о количестве рабочих часов сотрудника вобщем его данные загруженности 
+  //и его сделанные таски
   return (
     <>
       <Navigation isBoss={false} idOfDep={status.deparmentId} isImage={false}   />
