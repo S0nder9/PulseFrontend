@@ -4,10 +4,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import React, { useEffect, useState } from 'react'
 import { DropdownMenuTrigger, DropdownMenuRadioItem, DropdownMenuRadioGroup, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
-import { ArrowUpDownIcon } from '@/svg/Svg'
 import { getAllProjectIssues } from '@/components/server/getUserProjects'
 import AddProblem from '@/components/buildIn/AddProblem'
-import ProjectData from '@/components/assembled/ProjectData'
+import ProjectData from '@/components/buildIn/ProjectData'
 import { useIssues } from '@/hooks/useIssues'
 import Loading from '@/components/buildIn/Loading'
 type Props = {

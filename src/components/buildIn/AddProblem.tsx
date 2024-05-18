@@ -43,7 +43,6 @@ function AddProblem(props: Props) {
         props.setisOpened(false)
         // props.setupdate(props.update++)
       }
-      console.log(props.current)
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 w-full  ">
     <div className="mx-4 w-full max-w-md rounded-2xl p-6 shadow-lg bg-basic-default">

@@ -4,7 +4,7 @@ import { deleteProject } from '../server/deleteObj';
 import Link from 'next/link';
 import { CardTitle, CardDescription, CardHeader,CardFooter, CardContent, Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import ProjectData from '../assembled/ProjectData';
+import ProjectData from './ProjectData';
 type Props = {
     projects:project | project[] 
 }

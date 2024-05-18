@@ -1,4 +1,5 @@
-import Taskspage from '@/components/component/taskspage'
+
+import Taskspage from '@/components/buildIn/TasksPage';
 import Context from '@/utils/ContextProvider';
 import React from 'react'
 

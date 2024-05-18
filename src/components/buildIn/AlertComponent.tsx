@@ -2,7 +2,7 @@
 import React,{useState} from 'react'
 import { deleteTask } from '../server/deleteObj'
 import { changeTaskStatus } from '../server/patchData'
-import SearchUser from '../assembled/searchUser'
+import SearchUser from './searchUser'
 import {
   Select,
   SelectContent,

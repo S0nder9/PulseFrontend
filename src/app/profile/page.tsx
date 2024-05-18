@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button } from '@/components/ui/button';
 import Navigation from '@/components/buildIn/Navigation';
 import UserProfile from '@/components/buildIn/UserProfile';
@@ -7,13 +7,8 @@ import DpMembers from '@/components/buildIn/DpMembers';
 import ProjectsCard from '@/components/buildIn/ProjectsCard';
 import { useProjectData } from '@/hooks/useProjectData';
 import Loading from '@/components/buildIn/Loading';
-//TODO ПОПЫТАТСЯ РАЗОБРАТЬСЯ С ХУКАМИ ИЛИ
-//? ИСПРАВИТЬ ВСЕ НЕДОЧЕТЫ ГОТОВИТЬСЯ ДЕЛАТЬ СТРАНИЦУ ОТЧЕТА
-
 const Profile = () => {
-  //! Сделать нормальную загрузку
   const { title, departmentMembers, userData, status, errorState, getUserProjectsClient, projects, isMounted } = useProjectData()
-  //! фиксануть ошибку не авторендерига
   return (
     <>
       <Navigation isBoss={false} idOfDep={status.deparmentId} isImage={false}   />

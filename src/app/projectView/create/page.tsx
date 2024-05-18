@@ -1,6 +1,5 @@
 
 'use client'
-import Image from "next/image"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -11,7 +10,7 @@ import { useEffect, useState } from "react"
 import { getUserByPrefixSurname } from "@/components/server/getUserProjects"
 import { createProject } from "@/components/server/Create"
 import { useRouter } from "next/navigation"
-import SearchUser from "@/components/assembled/searchUser"
+import SearchUser from "@/components/buildIn/searchUser"
 import Navigation from "@/components/buildIn/Navigation"
 
 export function CreatePage() {

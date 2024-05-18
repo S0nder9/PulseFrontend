@@ -14,7 +14,7 @@ const DpMembers = (props: Props) => {
      <div className="flex items-center space-x-4" key={user.id}>
        <Avatar>
          <AvatarImage alt="Employee Avatar" src={user.avatar} />
-         <AvatarFallback>JD</AvatarFallback>
+         <AvatarFallback>{user.first_name}</AvatarFallback>
        </Avatar>
        <div>
          <h3 className="text-lg font-medium">{user.first_name} {user.last_name}</h3>

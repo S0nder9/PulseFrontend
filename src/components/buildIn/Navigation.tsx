@@ -1,12 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
 import ThemeSwitcher from './ThemeSwitcher'
-import { useTheme } from 'next-themes'
-import Aside from '../assembled/Aside'
-import { Switch } from '../ui/switch'
 import { DrawerTrigger, DrawerTitle, DrawerDescription, DrawerHeader, DrawerContent, Drawer } from "@/components/ui/drawer"
-import { ContactIcon, HomeIcon, MenuIcon, OptionIcon, ShoppingCartIcon } from '../component/cv'
 import { Button } from '../ui/button'
+import { Menu } from '@/svg/Svg'
 type Props = {
   isBoss:boolean,
   idOfDep:number,
@@ -31,7 +28,7 @@ const Navigation = (props: Props) => {
 <Drawer>
 <DrawerTrigger asChild>
 
-    <MenuIcon className=" absolute    w-8   h-8" />
+    <Menu className=" absolute    w-8   h-8" />
 </DrawerTrigger>
 <DrawerContent className="w-[300px] md:w-[400px]  bg-basic-default" >
   <DrawerHeader>
@@ -45,7 +42,6 @@ const Navigation = (props: Props) => {
   <div className="grid gap-4 pl-10 pb-4">
     <Link href='/projectView/create'   prefetch={false} className="flex items-center  pr-5 gap-2 text-lg font-medium">Создать проект </Link>
     <Link className="flex items-center gap-2 text-lg font-medium" href="#">
-      <OptionIcon className="w-5 h-5" />
 Общая информация 
     </Link>
     {props.isBoss && 

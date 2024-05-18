@@ -85,29 +85,47 @@ function Registration() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="first-name">Имя</Label>
-              <Input id="first-name" placeholder="Иван" required  className="rounded-xl"/>
+              <Input id="first-name" placeholder="Иван" required  className="rounded-xl"
+              value={data.first_name} onChange={(e)=>{
+                setdata({...data, first_name: e.target.value})
+              }}/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="last-name">Фамилия</Label>
-              <Input id="last-name" placeholder="Иванов" required  className="rounded-xl"/>
+              <Input id="last-name" placeholder="Иванов" required  className="rounded-xl" 
+             value={data.last_name} onChange={(e)=>{
+              setdata({...data,last_name: e.target.value})
+            }}/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="last-name">Отчество</Label>
-              <Input id="last-name" placeholder="Иванович" required  className="rounded-xl"/>
+              <Input id="last-name" placeholder="Иванович" required  className="rounded-xl"
+                value={data.father_name} onChange={(e)=>{
+                  setdata({...data,father_name: e.target.value})
+                }}/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="last-name">Возраст</Label>
               <Input id="last-name" placeholder="35" required type='number' min='18' max='70'
-               className="rounded-xl"/>
+               className="rounded-xl"
+                value={data.age} onChange={(e) => {
+                  setdata({ ...data, age: parseInt(e.target.value) })
+                }} />
             </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Логин</Label>
-            <Input id="email" placeholder="" required  className="rounded-xl"/>
+            <Input id="email" placeholder="" required  className="rounded-xl"
+              value={data.login} onChange={(e)=>{
+                setdata({...data,login: e.target.value})
+              }}/>
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Пароль</Label>
-            <Input id="password" required type="password" className="rounded-xl" />
+            <Input id="password" required type="password" className="rounded-xl" 
+              value={data.password} onChange={(e)=>{
+                setdata({...data,password: e.target.value})
+              }}/>
           </div>
    
         <div className="grid grid-cols-2 gap-4">
@@ -173,7 +191,7 @@ function Registration() {
                   }} />
                 </div>
               </div>
-          <Button className="w-full" type="submit">
+          <Button className="w-full" onClick={createUser}>
             Зарегистрироваться
           </Button>
         </form>

@@ -6,8 +6,9 @@ import { beautifyArray, toNames } from '../server/other/fromIdsToNames';
 import { AvatarImage, Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from '../ui/button';
 import Link from 'next/link';
-import { Package2Icon } from '../component/taskspage';
-import ThemeSwitcher from '../buildIn/ThemeSwitcher';
+
+import ThemeSwitcher from './ThemeSwitcher';
+import { Package2Icon } from '@/svg/Svg';
 type Props = {
     projectId: number,
     projectName: string,
