@@ -18,7 +18,7 @@ import Context from '@/utils/ContextProvider';
 import Loading from '../buildIn/Loading';
 import { useTasks } from '@/hooks/useTasks';
 import AlertComponent from './AlertComponent';
-import { ArrowLeftIcon, ArrowRightIcon, ChangeIcon, TrashIcon } from '@/svg/Svg';
+import { ArrowLeftIcon, ArrowRightIcon, ChangeIcon, TrashIcon } from '@/svgs/Svg';
 type Props = {
 projectId: number,
 isError: boolean

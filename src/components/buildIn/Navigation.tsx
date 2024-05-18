@@ -3,7 +3,7 @@ import React from 'react'
 import ThemeSwitcher from './ThemeSwitcher'
 import { DrawerTrigger, DrawerTitle, DrawerDescription, DrawerHeader, DrawerContent, Drawer } from "@/components/ui/drawer"
 import { Button } from '../ui/button'
-import { Menu } from '@/svg/Svg'
+import { Menu } from '@/svgs/Svg'
 type Props = {
   isBoss:boolean,
   idOfDep:number,

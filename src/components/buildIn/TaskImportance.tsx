@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { calculateTimeLeft } from '@/utils/timeCounter';
-import { ClockIcon } from '@/svg/Svg';
+import { ClockIcon } from '@/svgs/Svg';
 
 type Props = {
     value:number,

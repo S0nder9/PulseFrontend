@@ -8,7 +8,7 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 
 import ThemeSwitcher from './ThemeSwitcher';
-import { Package2Icon } from '@/svg/Svg';
+import { Package2Icon } from '@/svgs/Svg';
 type Props = {
     projectId: number,
     projectName: string,

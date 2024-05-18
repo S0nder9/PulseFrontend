@@ -1,13 +1,10 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { checkCookie } from "@/components/server/CheckCookie";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/hooks/useAuth";
-import { useTheme } from "next-themes";
 export default function Home() {
   const router = useRouter()
   // TODO доделать страницу поика
@@ -47,7 +44,7 @@ export default function Home() {
             </div>
           </div>
           <Image
-            alt="Hero"
+            alt="Rapid Rabit"
             className=" select-none mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
             height="310"
             src="/main.png"

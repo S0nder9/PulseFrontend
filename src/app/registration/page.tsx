@@ -1,11 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import {  z } from 'zod'
-import registerUser from '@/components/server/Register'
 import { fetchAllTitles } from '@/components/server/FetchJobTitle'
 import { checkCookie } from '@/components/server/CheckCookie'
 import { useRouter } from 'next/navigation'

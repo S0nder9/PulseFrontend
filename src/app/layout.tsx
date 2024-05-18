@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Rapid Rabit",
-  description: "Создано на next js",
+  description: "Эффективный менеджер трудозатрат",
   
 };
 

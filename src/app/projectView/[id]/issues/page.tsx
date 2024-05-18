@@ -1,10 +1,7 @@
 "use client"
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import React, { useEffect, useState } from 'react'
-import { DropdownMenuTrigger, DropdownMenuRadioItem, DropdownMenuRadioGroup, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
-import { getAllProjectIssues } from '@/components/server/getUserProjects'
+import React, { useState } from 'react'
 import AddProblem from '@/components/buildIn/AddProblem'
 import ProjectData from '@/components/buildIn/ProjectData'
 import { useIssues } from '@/hooks/useIssues'
