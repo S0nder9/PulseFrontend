@@ -12,4 +12,18 @@ return responseData;
 throw new Error("")
 }
 }
-export {allDepMembers}
+async function everyDepartment(): Promise<department[]> {
+    try {
+    const response = await fetch(`${host}get_all_department`);
+    if (!response.ok) {
+    throw new Error(`HTTP error ${response.status}`);
+    }
+    const responseData = await response.json();
+    return responseData;
+    } catch (error) {
+    throw new Error("")
+    }
+    }
+    
+
+export {allDepMembers,everyDepartment}

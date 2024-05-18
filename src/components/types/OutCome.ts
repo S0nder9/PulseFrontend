@@ -14,6 +14,11 @@ interface OutCome  {
       department_id:number
     }
   }
+  interface department {
+    id:number,
+    name:string,
+    head:number
+  }
   interface userData {
       id: number ,
       job_title_id: number,

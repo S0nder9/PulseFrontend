@@ -20,7 +20,7 @@ async function fetchTitle(id:number):Promise<string> {
     const receiveddata = await res.json();
     return receiveddata.name
 }
-async function fetchAllTitles():Promise<Array<jobTitle> |jobTitle> {
+async function fetchAllTitles():Promise<jobTitle[]> {
     const res = await fetch(`${host}all_job_titles`,);
     if(!res.ok) {
         console.log(res.status)

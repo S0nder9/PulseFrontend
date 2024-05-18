@@ -21,7 +21,8 @@ import AlertComponent from './AlertComponent';
 import { ArrowLeftIcon, ArrowRightIcon, ChangeIcon, TrashIcon } from '@/svgs/Svg';
 type Props = {
 projectId: number,
-isError: boolean
+isError: boolean,
+ableToChange:boolean
 }
 interface selec {
   selectedId: number,
@@ -37,7 +38,6 @@ const [selected, setselected] = useState<selec>({
 })
   const [type, settype] = useState<"delete" | "change" | "patch" | "add" | null>(null)
 const [update, setupdate] = useState(0)
-  
 const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.projectId})
   return (
     <>
@@ -63,6 +63,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                           <div className="flex items-center justify-between mb-2">
                             <h3 className="text-base font-medium">{task.name}</h3>
                             <div className="flex items-center space-x-2">
+                                {
+                                    props.ableToChange && 
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
                                   <Button
@@ -110,6 +112,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                   <TrashIcon className="h-4 w-4" />
                                 </Button>
                               </AlertDialog>
+                      }
                               <span className="bg-yellow-100 text-yellow-800 dark:text-yellow-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
                                 В обсуждении
                               </span>
@@ -128,6 +131,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
             ))
           }
                <div className="mt-4 flex w-full justify-end">
+               {
+                                    props.ableToChange && 
                <Button size="sm" variant="outline" className="rounded-2xl"
            onClick={() => {
             setisOpened(true);
@@ -141,6 +146,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
           }}>
           Добавить
           </Button>
+}
         </div>
     </section>
     <section className="bg-basic-default rounded-2xl p-4" key={2}>
@@ -158,6 +164,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                           <div className="flex items-center justify-between mb-2">
                             <h3 className="text-base font-medium">{task.name}</h3>
                             <div className="flex items-center space-x-2">
+                            {
+                                    props.ableToChange && 
                               <AlertDialog>
                               <Button
                                     className="p-1"
@@ -219,6 +227,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                   <TrashIcon className="h-4 w-4" />
                                 </Button>
                               </AlertDialog>
+}
                               <span className="bg-blue-100 dark:bg-blue-200 text-blue-800 dark:text-blue-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
                   В процессе
                   </span>
@@ -237,6 +246,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
             ))
           }
            <div className="mt-4 flex w-full justify-end">
+           {
+                                    props.ableToChange && 
           <Button size="sm" variant="outline" className="rounded-2xl"
            onClick={() => {
             setisOpened(true);
@@ -250,6 +261,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
           }}>
           Добавить
           </Button>
+}
         </div>
           </section>
           <section className="bg-basic-default rounded-2xl p-4" key={3}>
@@ -267,6 +279,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                           <div className="flex items-center justify-between mb-2">
                             <h3 className="text-base font-medium">{task.name}</h3>
                             <div className="flex items-center space-x-2">
+                            {
+                                    props.ableToChange && 
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
                                   <Button
@@ -314,6 +328,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                   <TrashIcon className="h-4 w-4" />
                                 </Button>
                               </AlertDialog>
+}
                               <span className="bg-green-100 dark:bg-green-200 text-green-800 dark:text-green-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute">
                   Готово
                   </span>
@@ -332,6 +347,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
             ))
           }
                <div className="mt-4 flex w-full justify-end">
+               {
+                                    props.ableToChange && 
                <Button size="sm" variant="outline" className="rounded-2xl"
            onClick={() => {
             setisOpened(true);
@@ -345,6 +362,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
           }}>
           Добавить
           </Button>
+}
         </div>
           </section>
           

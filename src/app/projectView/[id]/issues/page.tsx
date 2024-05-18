@@ -6,6 +6,7 @@ import AddProblem from '@/components/buildIn/AddProblem'
 import ProjectData from '@/components/buildIn/ProjectData'
 import { useIssues } from '@/hooks/useIssues'
 import Loading from '@/components/buildIn/Loading'
+import { useCheck } from '@/hooks/useCheck'
 type Props = {
   params:{
     id:number
@@ -18,6 +19,7 @@ const Issues = (props: Props) => {
   const [type, settype] = useState<"delete" | "change" | "patch" | "add" | null>(null)
   const [current, setcurrent] = useState("")
 const {isMounted,problems} = useIssues(props.params.id)
+const ableToChange = useCheck(props.params.id)
   //! Добавить доску ошибок 
   return (
     <>
@@ -31,13 +33,16 @@ const {isMounted,problems} = useIssues(props.params.id)
       <main className="bg-basic-default rounded-lg shadow-md p-6 h-screen w-full">
         <header className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Доска Ошибок</h1>
-          <Button variant="default" size="sm"
+          {
+            ableToChange &&  <Button variant="default" size="sm"
             onClick={() => {
               setisOpened(true);
               settype("add");
 
               setselected(1); 
             }}>Создать проблему</Button>
+          }
+    
         </header>
         <div className="">
           {
@@ -71,6 +76,9 @@ const {isMounted,problems} = useIssues(props.params.id)
                             className="bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400 select-none cursor-pointer"
                             variant="outline"
                             onDoubleClick={() => {
+                              if(!ableToChange){
+                                return
+                              }
                               setisOpened(true);
                               settype("change");
                               setselected(problem.id);
