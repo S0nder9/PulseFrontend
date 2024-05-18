@@ -8,7 +8,7 @@ type Props = {
 
 const UserProfile = (props: Props) => {
   return (
-  <aside className="flex flex-col justify-center rounded-2xl items-center p-8 space-y-6  bg-basic-default w-80 mt-2" >
+  <aside className="flex flex-col justify-center rounded-2xl items-center p-8 space-y-6  bg-basic-default  " >
     <Avatar className='select-none'>
       <AvatarImage alt="Profile picture" src={props.userData.avatar} />
       <AvatarFallback />

@@ -8,7 +8,7 @@ type Props = {
 
 const DpMembers = (props: Props) => {
   return (
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-basic-default p-4 rounded-2xl  ">
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-basic-default p-4   ">
    {
         props.departmentMembers.map((user:any)=>
      <div className="flex items-center space-x-4" key={user.id}>

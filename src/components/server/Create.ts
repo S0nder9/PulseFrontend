@@ -33,11 +33,11 @@ async function createTask(data:addTask): Promise<any> {
         },
         body: JSON.stringify({
            project_id: data.project_id,
-             name: data.name,
+            name: data.name,
             description: data.description,
             hoursToAccomplish: data.hoursToAccomplish,
             stageAt:data.stageAt,
-             priority: data.priority,
+            priority: data.priority,
             workers: data.workers
         })
     });

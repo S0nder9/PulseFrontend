@@ -7,8 +7,7 @@ import DpMembers from '@/components/buildIn/DpMembers';
 import ProjectsCard from '@/components/buildIn/ProjectsCard';
 import { useProjectData } from '@/hooks/useProjectData';
 import Loading from '@/components/buildIn/Loading';
-//TODO РАЗБИТЬ ВСЕ НА КОМПОНЕНТЫ , А ТАКЖЕ ДОБАВИТЬ ЗАГРУЗКУ И ОБРАБОТКУ ОШИБОК
-//& ДОБАВИТЬ ISSUES КАК ПРИЯТНОЕ ДОПОЛНЕНИЕ ОТВЕРСТАТЬ ГЛАВНУЮ СТРАНИЦУ
+//TODO ПОПЫТАТСЯ РАЗОБРАТЬСЯ С ХУКАМИ ИЛИ
 //? ИСПРАВИТЬ ВСЕ НЕДОЧЕТЫ ГОТОВИТЬСЯ ДЕЛАТЬ СТРАНИЦУ ОТЧЕТА
 
 const Profile = () => {
@@ -26,7 +25,6 @@ const Profile = () => {
           {
             userData ?
               <>
-
                 <UserProfile
                   userData={userData} title={title} />
                 <section className="flex flex-col flex-grow  p-8 space-y-6">

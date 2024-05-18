@@ -24,7 +24,8 @@ type Props = {
     id:number | null,
     project:number | null,
     update:number,
-    setupdate:React.Dispatch<React.SetStateAction<number>>
+    setupdate:React.Dispatch<React.SetStateAction<number>>,
+    updateState:()=>void
 }
 
 function AlertComponent(props: Props) {
@@ -51,6 +52,7 @@ function AlertComponent(props: Props) {
       throw new Error("Task not created")
     }
     props.setisOpened(false)
+    props.updateState()
     // props.setupdate(props.update++)
   }
   return (
@@ -143,6 +145,7 @@ function AlertComponent(props: Props) {
                     }
                     alert("Задача удалена")
                     props.setisOpened(false)
+                    props.updateState()
                     //  props.setupdate(props.update++)
                   }
                 }}
@@ -176,6 +179,7 @@ function AlertComponent(props: Props) {
                     }
                     alert(`Задача перемещена ${props.toStatus}`)
                     props.setisOpened(false)
+                    props.updateState()
                     // props.setupdate(props.update++)
                   }
                 }}>

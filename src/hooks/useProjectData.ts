@@ -36,35 +36,43 @@ async function setJobTitle(id: number) {
       alert(error);
     }
   }
-  async function getUserProjectsClient(id: number) {
+  async function getUserProjectsClient(id: number): Promise<project | project[] | undefined>{
+    if(!id){
+      return 
+    }
     try {
-      if (id) {
         const response = await getUserProjects(id);
-        if (response) {
-          setProjects(response);
-        }
-      }
+        if (!response) {
+ return 
+        }  
+        setProjects(response);
     } catch (error) {
       console.log(error);
     }
   }
         useEffect(() => {  
-             AuthUser()
+            //  AuthUser()
           setloading(false)
           const fetchData = async () => {
             try {
               const response = await authUser();
               setUserData(response.userData);
               setJobTitle(response.userData.job_title_id)
-              if(!userData){
+              if(!response){
+                console.log("no response")
   return
               }
-              const responseP = await getUserProjects(userData.id);
-              if (responseP) {
-                setProjects(responseP);
-              }
+              localStorage.setItem('userData', JSON.stringify(response.userData ))  
+              const projects = await getUserProjects(response.userData.id);
+              if (!projects) {
+       return 
+              }  
+              setProjects(projects);
               if (response.userData.position == 'B') {
                 const departmentMembers = await allDepMembers(response.userData?.department_id)
+                if (!departmentMembers) {
+                  return
+                }
                 setDepartmentMembers(departmentMembers)
                 setStatus({
                   isBoss: true,
@@ -80,7 +88,7 @@ async function setJobTitle(id: number) {
           fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
         }, []);
-        return {title,departmentMembers,userData,status,errorState,getUserProjectsClient,projects,isMounted,loading}
+        return {title,departmentMembers,projects,userData,status,errorState,getUserProjectsClient,isMounted,loading};
     }
     export const useIsMounted = () => {
       const [isMounted, setIsMounted] = useState(false);

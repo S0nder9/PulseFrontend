@@ -10,13 +10,20 @@ export const useTasks = (props:Props) => {
       status:false,
       text:"",
     })
+    async function getTasks() {
+        try {
+            const response = await getAllProjectTasks(props.projectId)
+            setTasks(response)
+        }
+        catch (error) {
+            setError({ status: true, text: `Ошибка сервера` })
+        }}
 
     const isMounted = useIsMounted()
 useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await getAllProjectTasks(props.projectId)
-            setTasks(response)
+getTasks()
         }
         catch (error) {
             setError({ status: true, text: `Ошибка сервера` })
@@ -38,5 +45,5 @@ tasks.forEach(task => {
 else {
 tasksByStage[tasks.stageAt] = [tasks]
 }
-return { tasks,tasksByStage,isMounted}
+return { tasks,tasksByStage,isMounted,getTasks}
 }

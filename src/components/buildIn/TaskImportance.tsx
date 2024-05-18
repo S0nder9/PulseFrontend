@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { calculateTimeLeft } from '@/utils/timeCalc';
 import { ClockIcon } from '@/svg/Svg';
@@ -9,7 +9,15 @@ type Props = {
 }
 
 function TaskImportance(props: Props) {
-    console.log(props.created_at)
+    const calculateTimeLeftCallback = useCallback(
+        () => {
+            console.log("")
+            return calculateTimeLeft(props.created_at || '', props.toAcc || 0)
+        
+        },
+        [props.created_at, props.toAcc]
+    )
+
     return (
         <Card className="w-full max-w-md mt-5">
             <CardContent className="grid gap-6">
@@ -45,18 +53,18 @@ function TaskImportance(props: Props) {
                     <span>10</span>
                 </div>
                 {
-                    props.created_at && props.toAcc ? 
-                    <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Оставшееся время</span>
-                    <div className="flex items-center gap-2">
-                        <ClockIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                        <span className="text-2xl font-bold">{calculateTimeLeft(props.created_at, props.toAcc,)}</span>
-                    </div>
-                </div>
-                :
-                null
+                    props.created_at && props.toAcc ?
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium">Оставшееся время</span>
+                            <div className="flex items-center gap-2">
+                                <ClockIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                                <span className="text-2xl font-bold">{calculateTimeLeftCallback()}</span>
+                            </div>
+                        </div>
+                        :
+                        null
                 }
-            
+
             </CardContent>
         </Card>
     )

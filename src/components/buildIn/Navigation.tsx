@@ -14,9 +14,9 @@ type Props = {
 }
 
 const Navigation = (props: Props) => {
-  const userData: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
-  console.log(userData  )
-  const title =localStorage.getItem("jobTitle")
+  const userData=    null
+
+  const title =""
   return (
 //     <nav className=' w-full    bg-basic-default text-basic-default flex space-x-5 '>
 //     <Link href='/projectView/create'   prefetch={false}>Создать проект </Link>

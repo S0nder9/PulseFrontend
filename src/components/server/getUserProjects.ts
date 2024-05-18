@@ -6,10 +6,10 @@ async function getUserProjects(id: number): Promise<Array<project> | project | u
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
     if (!jwt) {
-        return 
+        throw new Error('Invalid')
     }
     if (!id) {
-        return 
+throw new Error('Invalid')
     }
     const res = await fetch(`${host}all_user_projects/${id}`);
     if (!res.ok) {

@@ -19,25 +19,23 @@ const [membersList, setMembersList] = useState<Array<any>>([{
 id: userId.id,
 name: userId.first_name + ' ' + userId.last_name 
 }])
-console.log(membersList)
 const [name, setName] = useState('')
 const [users, setusers] = useState<Array<userData> | userData>([])
 useEffect(() => {
 const getNames = async () => {
 const users = await getUserByPrefixSurname(name)
-console.log(users)
 setusers(users)
-
+console.log(users)
 }
 if (name.length < 1) {
 return
 }
 setTimeout(() => {
 getNames()
-}, 1000)
+}, 2000)
 
 }, [name])
-
+//добавить дебоунсинг
 const handleSelectUser = (user: userData) => {
     setName("")
         if (membersList.some(member => member.id === user.id)) {

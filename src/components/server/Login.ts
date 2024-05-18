@@ -13,7 +13,7 @@ import { host } from './types';
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+    body: JSON.stringify(data)
     })
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary

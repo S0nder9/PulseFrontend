@@ -35,16 +35,15 @@ const [selected, setselected] = useState<selec>({
   tostatus: "" ,
 })
   const [type, settype] = useState<"delete" | "change" | "patch" | "add" | null>(null)
-const router = useRouter()
 const [update, setupdate] = useState(0)
-
-const {tasks,tasksByStage,isMounted}= useTasks({projectId:props.projectId})
-console.log(isMounted)
+  
+const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.projectId})
   return (
     <>
 {!isMounted && <Loading/>}
     {
-      isOpened && <AlertComponent isOpened={isOpened} update={update}  setupdate={setupdate} project ={props.projectId} setisOpened={setisOpened}  type={type} toStatus={selected.tostatus} name={selected.name} id={selected.selectedId}/>
+      isOpened && <AlertComponent isOpened={isOpened} update={update}  setupdate={setupdate} project ={props.projectId} setisOpened={setisOpened}  type={type} toStatus={selected.tostatus} name={selected.name} id={selected.selectedId}
+      updateState={getTasks}/>
     }
         <ProjectData projectId={props.projectId} projectName='' withMenu={true}/>
     <main className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
