@@ -44,13 +44,19 @@ async function changeProblemStatus(id:number,changedStatus:string):Promise<statu
     if (!id) {
         throw new Error('No task id provided')
     }
+// let statusText = ""
+// if(changedStatus){
+//     statusText = "Открыта"
+// }else{
+//     statusText = "Закрыта"
+// }
     const res = await fetch(`${host}issue/${id}`,{
         method:"PATCH",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-           status: changedStatus
+        body: JSON.stringify({  
+           status:changedStatus
         })
     });
     if (!res.ok) {

@@ -7,6 +7,7 @@ import ProjectData from '@/components/buildIn/ProjectData'
 import { useIssues } from '@/hooks/useIssues'
 import Loading from '@/components/buildIn/Loading'
 import { useCheck } from '@/hooks/useCheck'
+import Navigation from '@/components/buildIn/Navigation'
 type Props = {
   params:{
     id:number
@@ -29,8 +30,9 @@ const ableToChange = useCheck(props.params.id)
       {
         isOpened && <AddProblem isOpened={isOpened} project={1} setisOpened={setisOpened} type={type} id={selected} current={current} />
       }
+            <Navigation   />
             <ProjectData projectId={1} projectName='' withMenu={true}/>
-      <main className="bg-basic-default rounded-lg shadow-md p-6 h-screen w-full">
+      <main className="bg-basic-default rounded-lg shadow-md p-6  min-h-screen w-full">
         <header className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Доска Ошибок</h1>
           {
@@ -65,14 +67,16 @@ const ableToChange = useCheck(props.params.id)
                   {
                     Array.isArray(problems) ?
                     problems.map((problem) =>
-                      <tr key={problem.id}>
+                      <tr key={problem.id} className=' border-b-2 border-white md:border-b-2 lg:border-b-2 xl:border-b-0'>
                         <td>#{problem.id}</td>
-                        <td className="font-medium">{problem.name}
+                        <td className="font-medium border-r-2  border-white md:border-r-2 lg:border-r-2 xl:border-r-0">{problem.name}
                         </td>
-<td>{problem.description}</td>
-                        <td>{problem.created_at}</td>
+<td className=' pl-2'>{problem.description}</td>
+                        <td className='border-l-2  border-white md:border-l-2 lg:border-l-2 xl:border-l-0'>{problem.created_at}</td>
                         <td>
-                          <Badge
+                          {
+                            problem.status === 'Открыто'?
+                            <Badge
                             className="bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400 select-none cursor-pointer"
                             variant="outline"
                             onDoubleClick={() => {
@@ -82,11 +86,29 @@ const ableToChange = useCheck(props.params.id)
                               setisOpened(true);
                               settype("change");
                               setselected(problem.id);
-                              // setcurrent(problem.status == "Открыто" ? "Закрыта" :"Открыта")
+                             setcurrent( "Закрыто" )
                             }}
                           >
                             {problem.status}
                           </Badge>
+                          :
+                          <Badge
+                          className="bg-red-400 text-white select-none cursor-pointer"
+                          variant="outline"
+                          onDoubleClick={() => {
+                            if(!ableToChange){
+                              return
+                            }
+                            setisOpened(true);
+                            settype("change");
+                            setselected(problem.id);
+                           setcurrent( "Открыто" )
+                          }}
+                        >
+                          {problem.status}
+                        </Badge>
+                          }
+                
                         </td>
                       </tr>
                     )

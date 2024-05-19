@@ -9,9 +9,6 @@ export function calculateTimeLeft(created: string, hoursToAccomplish: number): s
     const hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60));
     const minutesLeft = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
-    if (hoursLeft < 0) {
-        return "0:00";
-    }
 
     return `${hoursLeft}:${minutesLeft.toString().padStart(2, '0')}`;
 }

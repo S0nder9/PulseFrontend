@@ -12,7 +12,6 @@ type Props = {
 function TaskImportance(props: Props) {
     const calculateTimeLeftCallback = useCallback(
         () => {
-            console.log("")
             return calculateTimeLeft(props.created_at || '', props.toAcc || 0)
         
         },
@@ -60,6 +59,7 @@ function TaskImportance(props: Props) {
                             <div className="flex items-center gap-2">
                                 <ClockIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                                 <span className="text-2xl font-bold">{calculateTimeLeftCallback()}</span>
+                                {/* calculateTimeLeft(props.created_at,props.toAcc) */}
                             </div>
                         </div>
                         :

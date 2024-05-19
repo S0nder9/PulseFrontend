@@ -13,7 +13,7 @@ const Profile = () => {
   //и его сделанные таски
   return (
     <>
-      <Navigation isBoss={false} idOfDep={status.deparmentId} isImage={false}   />
+      <Navigation  />
       {
         !isMounted && <Loading />
       }
@@ -30,12 +30,11 @@ const Profile = () => {
                   }
                   {
                     projects ?
-                      <ProjectsCard projects={projects} />
+                      <ProjectsCard projects={projects} id={userData.id}  />
                       :
                       <>
                         <p> У тебя нет проектов</p>
                         <Button onClick={()=>getUserProjectsClient(userData.id)} className='flex justify-center'>Обновить</Button>
-
                       </>
                   }
                 </section>

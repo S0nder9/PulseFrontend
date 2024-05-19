@@ -5,14 +5,20 @@ import Link from 'next/link';
 import { CardTitle, CardDescription, CardHeader,CardFooter, CardContent, Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import ProjectData from './ProjectData';
+import { useWorkTime } from '@/hooks/useWorkTime';
 type Props = {
-    projects:project | project[] 
+    projects:project | project[] ,
+    id:number 
 }
 
 const ProjectsCard = (props: Props) => {
+          //todo сделать вывод общего времени и показ всех его тасок
+  // const time = useWorkTime(props.id)
   return (
     <section className=" bg-basic-default  p-4 rounded-2xl">
+      <h1>Общее рабочее время в этом месяце {}</h1>
       <h2 className="text-lg font-bold  bg-basic-default ">Проекты</h2>
+
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.isArray(props.projects)
           ? props.projects.map((project, index) => (

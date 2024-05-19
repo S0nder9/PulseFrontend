@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 import ThemeSwitcher from './ThemeSwitcher';
 import { Package2Icon } from '@/svgs/Svg';
+import Navigation from './Navigation';
 type Props = {
     projectId: number,
     projectName: string,
@@ -39,10 +40,8 @@ const ProjectData = (props: Props) => {
             try {
                 const projectTitle:project= await getProjectTitle(props.projectId)
                setprojectData(projectTitle)
-               const members = await toNames(projectData.members)
-    
+               const members = await toNames(projectTitle.members)
        setnames(members)
-console.log(names)
     }
             catch (error) {
              //   throw new Error('error happened while authenticating user')
@@ -53,12 +52,14 @@ console.log(names)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
   return (
-    <>
+    <div>
 {
     projectData && !error.status && names ?
-<header className=" bg-basic-default  px-6 py-4 flex items-center justify-between ">
+    <>
     {
-        props.withMenu &&<div className="flex items-center space-x-4">
+        props.withMenu ?
+        <header className=" bg-basic-default  px-6 py-4 flex items-center justify-between ">
+        <div className="flex items-center space-x-4">
   <Package2Icon className="h-6 w-6" />
   <h1 className="text-lg text-basic-default font-semibold">{
     projectData.name
@@ -73,28 +74,29 @@ console.log(names)
     <Link className="hover:underline" href="#">
    Развитие проекта
     </Link>
-
-    <ThemeSwitcher/> 
   </div>
+  <Navigation   />
 </div>
-    }
-<div className="flex items-center space-x-4">
+</header>
+:
+<div className="flex items-center space-x-4 bg-transparent ">
     {
         names.map((user:userData) =>
 <>
      <Avatar  key={user.id}>
-        <AvatarImage alt="" src={user.avatar} />
+        <AvatarImage alt="" src={user.avatar}  loading='lazy' />
         <AvatarFallback>{user.last_name}</AvatarFallback>
       </Avatar>
     </>
         )
     }
-</div>
-</header>
-    :
+</div>  
+    }
+    </>
+    : 
     null
 }
-</>
+</div>
   )
 }
 

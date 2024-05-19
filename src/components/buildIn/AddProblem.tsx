@@ -89,7 +89,8 @@ function AddProblem(props: Props) {
                     <button className="rounded-md bg-gray-900 px-4 py-2 text-white transition-colors hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-600 dark:focus:ring-offset-gray-800"
                       onClick={() => {
                         if (props.id && props.current) {
-                          const res = changeProblemStatus(props.id, props.current)
+                          const res = changeProblemStatus(props.id, "Закрыто")
+                          alert("")
                           if (!res) {
                             throw new Error("")
                           }
