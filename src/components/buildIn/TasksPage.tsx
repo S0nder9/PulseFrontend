@@ -47,8 +47,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
       isOpened && <AlertComponent isOpened={isOpened} update={update}  setupdate={setupdate} project ={props.projectId} setisOpened={setisOpened}  type={type} toStatus={selected.tostatus} name={selected.name} id={selected.selectedId}
       updateState={getTasks}/>
     }
-        <ProjectData projectId={props.projectId} projectName='' withMenu={true}/>
-    <main className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6 bg-main-base">
+        <ProjectData projectId={props.projectId} projectName="" withMenu={true}/>
+    <main className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6 bg-main-base min-h-screen">
       <section className="bg-basic-default rounded-2xl p-4" key={1}>
       <header className="flex items-center justify-between mb-4">
                       <h2 className="text-lg font-semibold bg-basic-default">В обсуждении</h2>

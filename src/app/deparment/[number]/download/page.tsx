@@ -28,12 +28,15 @@ function page(props: Props) {
     <div className="container px-4 md:px-6">
       <div className="flex flex-col items-center space-y-4 text-center">
         <div className="space-y-2">
-          <div className="text-gray-500 dark:text-gray-400 text-sm font-medium">Май 2023</div>
+              <div className="text-gray-500 dark:text-gray-400 text-sm font-medium">
+               { new Date().toLocaleString('ru-RU', {year: 'numeric', month: 'long', day: 'numeric' })}
+              </div>
+
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-            Отчет 
+            Отчет о отделе.
           </h1>
           <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-            Скачайте отчет о вашем департаменте в нескольких форматах.
+            Скачайте отчет о вашем департаменте .
           </p>
         </div>
         <div className="space-x-4">

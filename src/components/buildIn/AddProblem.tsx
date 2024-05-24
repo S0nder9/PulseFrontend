@@ -10,6 +10,7 @@ import {
 import { Label } from '../ui/label'
 import { createProblem } from '../server/Create'
 import { changeProblemStatus } from '../server/patchData'
+import { useIssues } from '@/hooks/useIssues'
 
     type Props = {
         isOpened:boolean,
@@ -17,7 +18,8 @@ import { changeProblemStatus } from '../server/patchData'
         type:string | null,
         id:number | null,
         project:number | null,
-        current:string
+        current:string,
+        reloadPageF:() =>void,
     }
 
 
@@ -41,6 +43,7 @@ function AddProblem(props: Props) {
           throw new Error("Task not created")
         }
         props.setisOpened(false)
+        props.reloadPageF()
         // props.setupdate(props.update++)
       }
   return (
@@ -90,11 +93,12 @@ function AddProblem(props: Props) {
                       onClick={() => {
                         if (props.id && props.current) {
                           const res = changeProblemStatus(props.id, "Закрыто")
-                          alert("")
                           if (!res) {
                             throw new Error("")
                           }
                           props.setisOpened(false)
+                          alert(res)
+                          props.reloadPageF()
                           // props.setupdate(props.update++)
                         }
                       }}>

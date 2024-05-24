@@ -5,13 +5,13 @@ import { useIsMounted } from "./useGetUserData"
 export const useIssues = (prId:number)=>{
     const [problems, setproblems] = useState<problem[] | null | problem>(null)
     const isMounted  = useIsMounted()
+    const getAllProblemsClient = async () => {
+      const response = await getAllProjectIssues(prId)
+      setproblems(response)
+      console.log(problems)
+    }
     useEffect(() => {
-        const getAllProblemsClient = async () => {
-          const response = await getAllProjectIssues(1)
-          setproblems(response)
-          console.log(problems)
-        }
         getAllProblemsClient()
       }, [])
-   return {isMounted,problems}
+   return {isMounted,problems,getAllProblemsClient}
 }

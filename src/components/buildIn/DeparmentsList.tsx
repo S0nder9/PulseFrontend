@@ -1,12 +1,22 @@
+"use client"
 import { useDeparments } from '@/hooks/useDepartments'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { everyDepartment } from '../server/getAllDepartment'
 
 type Props = {
     selected: number
 }
 
 function DeparmentsList(props: Props) {
-    const { departments = [] } = (useDeparments() || { departments: [] }) as { departments: department[] }
+    const [departments, setDepartments] = useState<department[] | department | null>([])
+    async function getDepartments() {
+        const response = await everyDepartment()
+        setDepartments(response)
+        console.log(response)
+    }
+    useEffect(() => {
+        getDepartments()
+    }, [])
     return (
         <div className="relative">
             <select
@@ -14,12 +24,22 @@ function DeparmentsList(props: Props) {
                 id="department"
             >
                 {
-                    departments.map((department) => (
-                        <option key={department.id} value={department.id}
+                    departments &&
+                    (Array.isArray(departments) ?
+                        departments.map((department) => (
+                            <option key={department.id} value={department.id}
+                                onChange={(e) => {
+                                    props.selected = parseInt((e.target as HTMLSelectElement).value)
+                                }}
+                            >{department.name}</option>
+                        ))
+                        :
+                        <option key={departments.id} value={departments.id}
                             onChange={(e) => {
                                 props.selected = parseInt((e.target as HTMLSelectElement).value)
-                            }}>{department.name}</option>
-                    ))
+                            }}
+                        >{departments.name}</option>
+                    )
                 }
             </select>
         </div>

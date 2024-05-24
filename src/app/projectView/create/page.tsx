@@ -67,7 +67,7 @@ console.log(error)
 }
 }
 return (
-  <>  <Navigation isBoss={false} isImage={false} idOfDep={0} />
+  <>  <Navigation />
 <Card className="bg-basic-default min-h-screen ">
 <div className="flex space-x-4 bg-basic-default w-full ">
 <CardContent className="w-full max-w-lg space-y-4">

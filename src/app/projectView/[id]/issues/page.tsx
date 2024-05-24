@@ -8,6 +8,8 @@ import { useIssues } from '@/hooks/useIssues'
 import Loading from '@/components/buildIn/Loading'
 import { useCheck } from '@/hooks/useCheck'
 import Navigation from '@/components/buildIn/Navigation'
+import { TrashIcon } from '@/svgs/Svg'
+import { deleteIssue } from '@/components/server/deleteObj'
 type Props = {
   params:{
     id:number
@@ -19,7 +21,7 @@ const Issues = (props: Props) => {
   const [isOpened, setisOpened] = useState(false)
   const [type, settype] = useState<"delete" | "change" | "patch" | "add" | null>(null)
   const [current, setcurrent] = useState("")
-const {isMounted,problems} = useIssues(props.params.id)
+const {isMounted,problems,getAllProblemsClient} = useIssues(props.params.id)
 const ableToChange = useCheck(props.params.id)
   //! Добавить доску ошибок 
   return (
@@ -28,9 +30,8 @@ const ableToChange = useCheck(props.params.id)
       !isMounted && <Loading/>
     }
       {
-        isOpened && <AddProblem isOpened={isOpened} project={1} setisOpened={setisOpened} type={type} id={selected} current={current} />
+        isOpened && <AddProblem reloadPageF={getAllProblemsClient} isOpened={isOpened} project={1} setisOpened={setisOpened} type={type} id={selected} current={current} />
       }
-            <Navigation   />
             <ProjectData projectId={1} projectName='' withMenu={true}/>
       <main className="bg-basic-default rounded-lg shadow-md p-6  min-h-screen w-full">
         <header className="flex items-center justify-between mb-6">
@@ -40,8 +41,8 @@ const ableToChange = useCheck(props.params.id)
             onClick={() => {
               setisOpened(true);
               settype("add");
-
               setselected(1); 
+              getAllProblemsClient()
             }}>Создать проблему</Button>
           }
     
@@ -75,12 +76,13 @@ const ableToChange = useCheck(props.params.id)
                         <td className='border-l-2  border-white md:border-l-2 lg:border-l-2 xl:border-l-0'>{problem.created_at}</td>
                         <td>
                           {
-                            problem.status === 'Открыто'?
+                            problem.status === 'Открыто' ?
                             <Badge
                             className="bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400 select-none cursor-pointer"
                             variant="outline"
                             onDoubleClick={() => {
                               if(!ableToChange){
+                                alert("")
                                 return
                               }
                               setisOpened(true);
@@ -115,9 +117,25 @@ const ableToChange = useCheck(props.params.id)
                     :
                     <tr key={problems.id}>
                     <td>{problems.id}</td>
-                    <td className="font-medium">{problems.name}</td>
+                    <td className="font-medium">{problems.name}
+                    <Button
+                                  className=" bg-orange-600"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                  const sure  = confirm("Вы уверены?");
+                                  if(sure) {
+                                  deleteIssue(problems.id)
+                                  }
+                                  return
+                                   
+                                  }}
+                                >
+                                  <TrashIcon className="h-4 w-4" />
+                                </Button></td>
                     <td>{problems.description}</td>
-                    <td>{problems.created_at}</td>
+                        <td>{new Date(problems.created_at).toLocaleDateString()}</td>
+
                     <td>
                       <Badge
                         className="bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400 select-none"
@@ -131,8 +149,10 @@ const ableToChange = useCheck(props.params.id)
                       >
                         {problems.status}
                       </Badge>
-          
+                
                     </td>
+<td>
+</td>
       
                   </tr>
               

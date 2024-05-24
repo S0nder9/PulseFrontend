@@ -39,14 +39,14 @@ const Navigation = (props: Props) => {
             </Link>
             <Link
               className="flex items-center gap-2 text-lg font-medium"
-              href="#"
+              href="/profile"
             >
-              Общая информация
+             Профиль
             </Link>
             {userData?.position === "B" && (
               <Link
                 className="flex items-center gap-2 text-lg font-medium"
-                href={`/profile/generate/${userData.department_id}`}
+                href={`/deparment/${userData.department_id}/download`}
               >
                 Получить отчет
               </Link>

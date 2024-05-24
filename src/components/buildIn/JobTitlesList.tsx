@@ -1,12 +1,23 @@
+"use client"
 import { useJobTitles } from '@/hooks/useDepartments'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { fetchAllTitles } from '../server/FetchJobTitle'
 
 type Props = {
     selected: number
 }
 
 function JobTitlesList(props: Props) {
-    const { jobTitles = [] } = (useJobTitles() || { jobTitles: [] }) as { jobTitles: jobTitle[] }
+
+  const [jobTitles, setJobTitles] = useState<jobTitle[] | null>([])
+    async function getJobTitles() {
+        const response = await fetchAllTitles()
+        setJobTitles(response)
+    }
+
+    useEffect(()=>{
+          getJobTitles()
+    },[])
   return (
     <div className="relative">
               <select
@@ -14,7 +25,7 @@ function JobTitlesList(props: Props) {
                 id="job"
               >
            {
-jobTitles.map((jobTitle) => (
+jobTitles!.map((jobTitle) => (
     <option key={jobTitle.id} value={jobTitle.id}
     onChange={(e) => {
         props.selected = parseInt((e.target as HTMLSelectElement).value)

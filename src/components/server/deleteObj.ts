@@ -12,6 +12,18 @@ throw new Error(`HTTP error ${response.status}`);
 console.error('Error deleting object:', error);
 }
 }
+async function deleteIssue(taskId: number) {
+    try {
+    const response = await fetch(`${host}issue/${taskId}`, {
+    method: 'DELETE',
+    });
+    if (!response.ok) {
+    throw new Error(`HTTP error ${response.status}`);
+    }
+    } catch (error) {
+    console.error('Error deleting object:', error);
+    }
+    }
 async function deleteProject(projectId: number) {
     try {
     const response = await fetch(`${host}project/${projectId}`, {
@@ -36,4 +48,4 @@ async function deleteProject(projectId: number) {
         console.error('Error deleting object:', error);
         }
         }
-export {deleteTask,deleteProject,deleteUser}
+export {deleteTask,deleteProject,deleteUser,deleteIssue}

@@ -12,18 +12,20 @@ return responseData;
 throw new Error("")
 }
 }
-async function everyDepartment(): Promise<department[]> {
+async function everyDepartment(): Promise<department[] |department | null> {
     try {
-    const response = await fetch(`${host}get_all_department`);
-    if (!response.ok) {
-    throw new Error(`HTTP error ${response.status}`);
-    }
-    const responseData = await response.json();
-    return responseData;
+        const response = await fetch(`${host}get_all_departments`);
+        if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+        }
+        const responseData = await response.json();
+        return responseData;
     } catch (error) {
-    throw new Error("")
+        console.log(error)
+        return null
+
     }
-    }
+}
     
 
 export {allDepMembers,everyDepartment}
