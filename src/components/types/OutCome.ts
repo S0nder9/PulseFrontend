@@ -83,6 +83,12 @@ author:number
 status:string,
 author:number
   }
+  interface sendReport {
+    user_id:number,
+    work_type:string,
+    work_id:number,
+    work_time:number
+  }
   interface project {
       id: number,
       name:string ,

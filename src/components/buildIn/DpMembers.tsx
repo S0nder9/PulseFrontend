@@ -13,7 +13,7 @@ const DpMembers = (props: Props) => {
     userData = JSON.parse(localStorage?.getItem('userData') || '{}');
   }
   return (
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-basic-default p-4   ">
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-basic-default p-4   rounded-2xl ">
    {
         props.departmentMembers.map((user:any)=>
      <div className="flex items-center space-x-4" key={user.id}>

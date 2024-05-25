@@ -9,9 +9,8 @@ interface Props  {
 
 function Project({params}: Props) {
   //! Переделать логику под бекенд
-  //? Изменить стилизацию в globals.css
+  //? Изменить стилизацию в globals.css 
   const ableToChange = useCheck(params.id)
-  console.log(ableToChange)
 
   return (
     

@@ -17,11 +17,11 @@
   --background-cards-color: rgb(45, 42, 42);
 }
 [data-theme="light"] {
-  --background-main-color:rgba(155, 153, 153, 0.824);
+  --background-main-color:rgb(255, 255, 255);
   --text-default: #eceeef;
   --text-secondary: rgb(248, 246, 246);
   --background:#28bbce;
-  --background-section-color: rgb(24, 206, 238);
+  --background-section-color: rgb(114, 181, 239);
   --background-cards-color: rgb(27, 126, 232);
   --background-button-color: rgb(27, 126, 232);
   --borderColor:#010406;

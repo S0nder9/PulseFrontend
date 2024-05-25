@@ -25,3 +25,12 @@ checkData()
     
     return result
 }
+export const useId =():any=> {
+    const [result, setresult] = useState<boolean>(true)
+        const user_id = JSON.parse(localStorage.getItem('userData') || '{}').id;
+        if (!user_id) {
+            setresult(false);
+            return 
+        }
+return user_id
+}

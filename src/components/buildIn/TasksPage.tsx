@@ -65,11 +65,14 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                             <h3 className="text-base font-medium">{task.name}</h3>
                           {
                                     props.ableToChange &&   
-                                      <div className="flex items-center space-x-2">
-                              <AlertDialog>
-                                <AlertDialogTrigger asChild>
+                                      <div className="flex items-center space-x-2   ml-7">
+                                                    <div className="flex items-center space-x-2">
+                                          <span className="bg-yellow-100 text-yellow-800 dark:text-yellow-900  px-2 mb-8  ml-2.5  rounded-full text-xs font-medium absolute ">
+                                В обсуждении
+                              </span> 
+                              </div>
                                   <Button
-                                    className="p-1"
+                                    className="p-1 bg-cards-base rounded-xl"
                                     size="icon"
                                     variant="ghost"
                                     onClick={() => {
@@ -84,9 +87,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                   >
                                     <ArrowRightIcon className="h-4 w-4" />
                                   </Button>
-                                </AlertDialogTrigger>
                                 <Button
-                                  className="p-1 rounded-md"
+                                  className="p-1   bg-cards-base rounded-xl"
                                   size="icon"
                                   variant="ghost"
                                   onClick={() => {
@@ -97,7 +99,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                   <ChangeIcon className="h-4 w-4" />
                                 </Button>
                                 <Button
-                                  className="p-1"
+                                  className="p-1 bg-cards-base rounded-xl"
                                   size="icon"
                                   variant="ghost"
                                   onClick={() => {
@@ -112,16 +114,10 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                 >
                                   <TrashIcon className="h-4 w-4" />
                                 </Button>
-                              </AlertDialog>
-                  
-                  
+                                
                               </div>
                                  }
-                                                  <div className="flex items-center space-x-2">
-                                          <span className="bg-yellow-100 text-yellow-800 dark:text-yellow-900  px-2 mb-8 ml-2.5  rounded-full text-xs font-medium ">
-                                В обсуждении
-                              </span> 
-                              </div>
+                                    
                           </div>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                   {task.description}
@@ -173,9 +169,13 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                             {
                                     props.ableToChange && 
                                     <div className="flex items-center space-x-2">
-                              <AlertDialog>
+                                      <div className="flex items-center space-x-2">
+<span className="bg-blue-100 dark:bg-blue-200 text-blue-800 dark:text-blue-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium  absolute">
+                  В процессе
+                  </span>
+                              </div>
                               <Button
-                                    className="p-1"
+                                    className="p-1 bg-cards-base rounded-xl"
                                     size="icon"
                                     variant="ghost"
                                     onClick={() => {
@@ -191,7 +191,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                     <ArrowLeftIcon className="h-4 w-4" />
                                   </Button>
                                   <Button
-                                    className="p-1"
+                                    className="p-1 bg-cards-base rounded-xl"
                                     size="icon"
                                     variant="ghost"
                                     onClick={() => {
@@ -207,7 +207,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                     <ArrowRightIcon className="h-4 w-4" />
                                   </Button>
                                 <Button
-                                  className="p-1 rounded-md"
+                                  className="p-1 bg-cards-base rounded-xl"
                                   size="icon"
                                   variant="ghost"
                                   onClick={() => {
@@ -218,7 +218,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                   <ChangeIcon className="h-4 w-4" />
                                 </Button>
                                 <Button
-                                  className="p-1"
+                                  className="p-1 bg-cards-base rounded-xl"
                                   size="icon"
                                   variant="ghost"
                                   onClick={() => {
@@ -233,15 +233,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                 >
                                   <TrashIcon className="h-4 w-4" />
                                 </Button>
-                              </AlertDialog>
                               </div>
 }
-<div className="flex items-center space-x-2">
-<span className="bg-blue-100 dark:bg-blue-200 text-blue-800 dark:text-blue-900 px-2 mb-8 ml-2.5 rounded-full text-xs font-medium ">
-                  В процессе
-                  </span>
-
-                              </div>
                             </div>
                           </div>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -293,10 +286,13 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                             {
                                     props.ableToChange && 
                                     <div className="flex items-center space-x-2">
-                              <AlertDialog>
-                                <AlertDialogTrigger asChild>
+                                                        <div className="flex items-center space-x-2">
+                  <span className="bg-green-100 dark:bg-green-200 text-green-800 dark:text-green-900   px-2 mb-8 ml-2.5 rounded-full text-xs font-medium absolute ">
+                  Готово
+                  </span>
+                              </div>
                                   <Button
-                                    className="p-1"
+                                    className="p-1 bg-cards-base rounded-xl"
                                     size="icon"
                                     variant="ghost"
                                     onClick={() => {
@@ -311,9 +307,8 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                   >
                                     <ArrowLeftIcon className="h-4 w-4" />
                                   </Button>
-                                </AlertDialogTrigger>
                                 <Button
-                                  className="p-1 rounded-md"
+                                  className="p-1 bg-cards-base rounded-xl"
                                   size="icon"
                                   variant="ghost"
                                   onClick={() => {
@@ -324,7 +319,7 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                   <ChangeIcon className="h-4 w-4" />
                                 </Button>
                                 <Button
-                                  className="p-1"
+                                  className="p-1 bg-cards-base rounded-xl"
                                   size="icon"
                                   variant="ghost"
                                   onClick={() => {
@@ -339,15 +334,9 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                                 >
                                   <TrashIcon className="h-4 w-4" />
                                 </Button>
-                              </AlertDialog>
                               </div>
 }
                       
-                  <div className="flex items-center space-x-2">
-                  <span className="bg-green-100 dark:bg-green-200 text-green-800 dark:text-green-900   px-2 mb-8 ml-2.5 rounded-full text-xs font-medium ">
-                  Готово
-                  </span>
-                              </div>
                             </div>
                           </div>
                           <p className="text-sm text-gray-500 dark:text-gray-400">

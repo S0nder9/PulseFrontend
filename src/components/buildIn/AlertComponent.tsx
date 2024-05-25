@@ -102,8 +102,8 @@ function AlertComponent(props: Props) {
         )}
         {props.type === "patch" && (
           <>
-            <div className="mb-4">
-              <h2 className="text-2xl font-bold">Важное сообщение изменить</h2>
+            <div className="mb-4 bg-basic-default">
+              <h2 className="text-2xl font-bold bg-transparent">Важное сообщение изменить</h2>
             </div>
             <div className="mb-6">
               <p className="text-gray-600 dark:text-gray-400">
@@ -123,12 +123,12 @@ function AlertComponent(props: Props) {
         )}
         {props.type === "delete" && (
           <>
-            <div className="mb-4">
-              <h2 className="text-2xl font-bold">Удалить задачу?</h2>
+            <div className="mb-4 bg-basic-default" >
+              <h2 className="text-2xl font-bold bg-transparent" >Удалить задачу?</h2>
             </div>
             <div className="mb-6">
               <p className="text-gray-600 dark:text-gray-400">
-                После удаление , вы не сможете ее восстановить
+                После удаления , вы не сможете ее восстановить
               </p>
             </div>
             <div className="flex justify-between">
@@ -156,9 +156,9 @@ function AlertComponent(props: Props) {
           </>
         )}
         {props.type === "change" && (
-          <div className="mx-4 w-full max-w-md rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-800">
+          <div className=" w-full max-w-md rounded-2xl p-6 shadow-lg ">
             <div className="mb-4">
-              <h2 className="text-2xl font-bold w-full">Изменить статус на {props.toStatus}</h2>
+              <h2 className="text-2xl font-bold w-full  bg-transparent">Изменить статус на {props.toStatus}</h2>
             </div>
             <div className="mb-6">
               <p className="text-gray-600 dark:text-gray-400">
