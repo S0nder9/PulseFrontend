@@ -8,6 +8,7 @@ import Navigation from '@/components/buildIn/Navigation'
 import { useTasks } from '@/hooks/useTasks'
 import { sendReportP } from '@/components/server/sendReport'
 import { useId } from '@/hooks/useCheck'
+import { set } from 'zod'
 type Props = {
     params:{
       id:number
@@ -16,6 +17,7 @@ type Props = {
 
 function ReportSend(props: Props) {
     const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.params.id})
+    const [isAdded, setisAdded] = useState(false)
     const id = useId()
     const [data, setdata] = useState<sendReport>({
     user_id:parseInt(id),
@@ -26,13 +28,21 @@ function ReportSend(props: Props) {
 const sendReportClient = async () => {
     console.log(data)
 const response= await sendReportP(data)
-console.log(response)
-return response
+setisAdded(response)
+if(response){
+    setdata({
+    user_id:parseInt(id),
+    work_type:"T",
+   work_id:0,
+    work_time:0,
+    })
+}
+
 }
 //todo добить отправку репорта
   return (
     <div className=' min-h-screen w-full bg-main-base  overflow-y-hidden'>
-    <section className="w-full max-w-md mx-auto p-6 md:p-8 bg-basic-default  pt-12 rounded-lg shadow-md">
+    <section className="w-full max-w-md mx-auto p-6 md:p-8 bg-basic-default  pt-12 shadow-md rounded-2xl">
     <Navigation/>
       <div className="space-y-4">
         <h1 className="text-2xl font-bold ">Отчет о проделанной  работе </h1>
@@ -82,9 +92,12 @@ return response
             }}
           className='rounded-xl' />
         </div>
-        <Button className="w-full"  onClick={sendReportClient} type='button'>
+        <Button className="w-full  hover:bg-black/50"  onClick={sendReportClient} type='button'>
          Отправить
         </Button>
+        {
+isAdded && <h1 className=' text-center'>Репорт успешно отправлен</h1>
+        }
     </section></div>
 
   )

@@ -19,7 +19,7 @@ throw new Error('Invalid')
     return receiveddata
 }
 
-async function getUserTask(id:number):Promise<Array<task> | task> {
+async function getAllUserTask(id:number):Promise<Array<task> | task> {
     const cookieStore = cookies();
     const jwt = cookieStore.get('jwt')?.value
     if(!jwt){
@@ -30,6 +30,23 @@ async function getUserTask(id:number):Promise<Array<task> | task> {
         throw new Error('No task id provided')
     }
     const res = await fetch(`${host}all_user_task/${id}`);
+    if(!res.ok) {
+        throw new Error('Failed to fetch data')
+    }
+    const receiveddata = await res.json();
+    return receiveddata
+}
+async function getDepartmentTasks(id:number):Promise<Array<task> | task> {
+    const cookieStore = cookies();
+    const jwt = cookieStore.get('jwt')?.value
+    if(!jwt){
+        throw new Error('No token provided')
+    }
+    console.log(host,id)
+    if(!id ){
+        throw new Error('No task id provided')
+    }
+    const res = await fetch(`${host}get_all_department_tasks/${id}`);
     if(!res.ok) {
         throw new Error('Failed to fetch data')
     }
@@ -131,4 +148,4 @@ async function getProjectTitle(id:number):Promise<project>{
     
      return receiveddata;
     }
-export  { getUserProjects,getUserTask,getAllProjectTasks,getUserName,getUserByPrefixSurname,getProjectTitle,getByPrefixProject,getAllProjectIssues};
+export  { getUserProjects,getAllUserTask,getAllProjectTasks,getUserName,getUserByPrefixSurname,getProjectTitle,getByPrefixProject,getAllProjectIssues,getDepartmentTasks};

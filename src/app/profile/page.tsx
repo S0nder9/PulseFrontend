@@ -7,6 +7,8 @@ import DpMembers from '@/components/buildIn/DpMembers';
 import ProjectsCard from '@/components/buildIn/ProjectsCard';
 import { useProjectData } from '@/hooks/useProjectData';
 import Loading from '@/components/buildIn/Loading';
+import UserTasks from '@/components/buildIn/UserTasks';
+import DepTasks from '@/components/buildIn/BossRes';
 const Profile = () => {
   const { title, departmentMembers, userData, status, errorState, getUserProjectsClient, projects, isMounted } = useProjectData()
   // todo добавить информацию о количестве рабочих часов сотрудника вобщем его данные загруженности 
@@ -31,12 +33,20 @@ const Profile = () => {
                   {
                     projects ?
                       <ProjectsCard projects={projects} id={userData.id}  />
+            
                       :
                       <>
                         <p> У тебя нет проектов</p>
                         <Button onClick={()=>getUserProjectsClient(userData.id)} className='flex justify-center'>Обновить</Button>
                       </>
+
                   }
+   {
+    !departmentMembers ?
+  <UserTasks />
+    :
+ <DepTasks/>
+   }    
                 </section>
               </>
               :

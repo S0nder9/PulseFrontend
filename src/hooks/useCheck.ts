@@ -34,3 +34,12 @@ export const useId =():any=> {
         }
 return user_id
 }
+export const useDepartment =():any=> {
+    const [result, setresult] = useState<boolean>(true)
+        const user_id = JSON.parse(localStorage.getItem('userData') || '{}').department_id;
+        if (!user_id) {
+            setresult(false);
+            return 
+        }
+return user_id
+}

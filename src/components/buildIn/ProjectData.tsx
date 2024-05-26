@@ -71,8 +71,8 @@ const ProjectData = (props: Props) => {
     <Link className="hover:underline" href={`/projectView/${props.projectId}/issues`}>
     Проблемы
     </Link>
-    <Link className="hover:underline" href="#">
-   Развитие проекта
+    <Link className="hover:underline" href={`/projectView/${props.projectId}/report`}>
+Заполнить дневной отчет
     </Link>
   </div>
   <Navigation   />

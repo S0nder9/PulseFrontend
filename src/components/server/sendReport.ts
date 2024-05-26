@@ -1,8 +1,8 @@
 import { host } from "./types";
 
-async function sendReportP(data:sendReport): Promise<any> {
+async function sendReportP(data:sendReport): Promise<boolean> {
     if(!data){
-        return
+        return false
     }
     const response = await fetch(`${host}user_with_task/0`, {
         method: 'POST',
@@ -16,10 +16,12 @@ async function sendReportP(data:sendReport): Promise<any> {
             work_time:data.work_time
         })
     });
-console.log(response.text , "Статус создания проблемы") 
-    const responseData = await response.json();
+if(!response.status){
+    throw new Error('Failed to send data')
+}
 
-    return responseData
+
+    return true
 
 }
 export {sendReportP}
