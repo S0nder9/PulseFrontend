@@ -342,7 +342,6 @@ const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.project
                           <p className="text-sm text-gray-500 dark:text-gray-400">
                   {task.description}
                           </p>
-                  <TaskImportance value={task.priority} created_at={task.created_at}  toAcc={task.hoursToAccomplish} />
                         </article>
                       ))}
                     </div>

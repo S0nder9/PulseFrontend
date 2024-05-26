@@ -16,7 +16,6 @@ const ProjectsCard = (props: Props) => {
   // const time = useWorkTime(props.id)
   return (
     <section className=" bg-basic-default  p-4 rounded-2xl">
-      <h1>Общее рабочее время в этом месяце {}</h1>
       <h2 className="text-lg font-bold  bg-basic-default ">Проекты</h2>
 
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

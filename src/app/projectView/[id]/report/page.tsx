@@ -25,21 +25,14 @@ function ReportSend(props: Props) {
    work_id:0,
     work_time:0,
     })
-const sendReportClient = async () => {
+async function sendReportClient  () {
     console.log(data)
 const response= await sendReportP(data)
 setisAdded(response)
-if(response){
-    setdata({
-    user_id:parseInt(id),
-    work_type:"T",
-   work_id:0,
-    work_time:0,
-    })
-}
+alert(response)
 
 }
-//todo добить отправку репорта
+//todo добить отправку репорта  
   return (
     <div className=' min-h-screen w-full bg-main-base  overflow-y-hidden'>
     <section className="w-full max-w-md mx-auto p-6 md:p-8 bg-basic-default  pt-12 shadow-md rounded-2xl">

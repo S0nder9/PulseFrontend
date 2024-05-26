@@ -11,6 +11,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import DeparmentsList from '@/components/buildIn/DeparmentsList'
 import JobTitlesList from '@/components/buildIn/JobTitlesList'
+import registerUser from '@/components/server/Register'
 /**
  * The `Registration` component is the main entry point for the registration page of the application. It handles the user registration process, including validating user input, fetching job titles, and redirecting the user to the login page upon successful registration.
  *
@@ -53,8 +54,8 @@ function Registration() {
       throw new Error(result.error.message)
     }
     try {
-      // const send = await registerUser(data)
-      // router.push('/login')
+      const send = await registerUser(data)
+      router.push('/login')
     } catch (error) {
       throw new Error('Failed to register user')
     }
