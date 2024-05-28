@@ -9,16 +9,17 @@ import { useTasks } from '@/hooks/useTasks'
 import { sendReportP } from '@/components/server/sendReport'
 import { useId } from '@/hooks/useCheck'
 import { set } from 'zod'
+import { useUserTasks } from '@/hooks/useUserTasks'
 type Props = {
     params:{
       id:number
     }
   }
 
-function ReportSend(props: Props) {
-    const {tasks,tasksByStage,isMounted,getTasks}= useTasks({projectId:props.params.id})
-    const [isAdded, setisAdded] = useState(false)
+function ReportSend(props: Props) {  
     const id = useId()
+    const {tasks,tasksByStage,isMounted,getTasks}= useUserTasks({userId:id})
+    const [isAdded, setisAdded] = useState(false)
     const [data, setdata] = useState<sendReport>({
     user_id:parseInt(id),
     work_type:"T",
@@ -71,7 +72,7 @@ alert(response)
                 <SelectValue placeholder="Select task" />
               </SelectTrigger>
               <SelectContent className=' bg-cards-base'>
-              <SelectItem value={tasks!.id.toString()} key={tasks.id}>{tasks.id}</SelectItem>
+              <SelectItem value={tasks!.id.toString()} key={tasks.id}>{tasks.name}</SelectItem>
               </SelectContent>
               </Select>
             }

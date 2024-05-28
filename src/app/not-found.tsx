@@ -6,11 +6,11 @@ export default function Custom404() {
   const router = useRouter()
     return (
       <main className="flex flex-col items-center justify-center min-h-screen  bg-basic-default">
-      <div className="mb-8 animate-bounce">
+      <div className="mb-8   animate-pulse">
         <Image
-          alt="Crying rabbit"
+          alt="Рабочий Пульс"
           height={200}
-          src="/not_found.svg"
+          src="/go.png"
           style={{
             aspectRatio: "200/200",
             objectFit: "cover",

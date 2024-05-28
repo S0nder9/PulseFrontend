@@ -5,7 +5,7 @@ import { ThemeProvider } from 'next-themes';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Rapid Rabit",
+  title: "Рабочий Пульс",
   description: "Эффективный менеджер трудозатрат",
   
 };
@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" suppressHydrationWarning>
-      <head><link rel="icon" href="/rabit.svg" sizes="any" /></head>
+      <head><link rel="icon" href="/go.png" sizes="any" /></head>
       <body className={inter.className}   >
       <ThemeProvider>
       {children}

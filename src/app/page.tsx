@@ -28,7 +28,7 @@ export default function Home() {
               </h1>
               <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
                 Управляй своими проектами, следи за ошибками , управляй сотрудниками  и работай  вместе  с командой в одном месте.
-                <span className=" text-xl"> Rapid Rabit -это ультимативный инструмент для управления бизнес-процессами.</span>
+                <span className=" text-xl"> Рабочий Пульс -это ультимативный инструмент для управления бизнес-процессами.</span>
               </p>
             </div>
             <div className="flex w-full max-w-sm flex-col space-y-2">
@@ -44,10 +44,10 @@ export default function Home() {
             </div>
           </div>
           <Image
-            alt="Rapid Rabit"
+            alt="Рабочий Пульс"
             className=" select-none mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
             height="310"
-            src="/main.png"
+            src="/go.png"
             loading="lazy"
             width="550"
           />
