@@ -31,21 +31,22 @@ function AddProblem(props: Props) {
         status:"",
         author:0
       })
-      const addProblem = async () => {
-        const user: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
-
-          newProblem.project_id = 1
-          newProblem.author  = 7 
-          newProblem.status = "Открыто"
-        console.log(newProblem)
-        const res = await createProblem(newProblem)
-        if (!res) {
-          throw new Error("Task not created")
-        }
-        props.setisOpened(false)
-        props.reloadPageF()
-        // props.setupdate(props.update++)
-      }
+  const addProblem = async () => {
+    const user: userData = JSON.parse(localStorage?.getItem('userData') || '{}');
+if(props.project ){
+    newProblem.project_id = props.project
+    newProblem.author = user.id !== null ? user.id : 0; // Присвоить 0, если user.id равно null
+    newProblem.status = "Открыто"
+    console.log(newProblem)
+}
+    const res = await createProblem(newProblem)
+    if (!res) {
+      throw new Error("Problem not created")
+    }
+    props.setisOpened(false)
+    props.reloadPageF()
+    // props.setupdate(props.update++)
+  }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 w-full  ">
     <div className="mx-4 w-full max-w-md rounded-2xl p-6 shadow-lg bg-basic-default">

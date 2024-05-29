@@ -54,8 +54,10 @@ function Registration() {
       throw new Error(result.error.message)
     }
     try {
-      const send = await registerUser(data)
+      alert(data)
+    await registerUser(data)
       router.push('/login')
+      
     } catch (error) {
       throw new Error('Failed to register user')
     }
@@ -134,7 +136,9 @@ function Registration() {
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="job">
               Работа
             </label>
-           <JobTitlesList selected={data.job_title_id} />
+           <JobTitlesList selected={data.job_title_id} onChange={(e) => {
+              setdata({...data, job_title_id: parseInt(e) })
+            }} />
           </div>
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="department">
@@ -142,6 +146,9 @@ function Registration() {
             </label>
            <DeparmentsList
            selected={data.department_id}
+           onChange={(e)=> {
+            setdata({...data, department_id: parseInt(e) })
+           }}
             />
           </div>
           </div>
@@ -174,7 +181,7 @@ function Registration() {
                   }} />
                 </div>
               </div>
-          <Button className="w-full" onClick={createUser}>
+          <Button className="w-full" onClick={createUser} type='button'>
             Зарегистрироваться
           </Button>
         </form>

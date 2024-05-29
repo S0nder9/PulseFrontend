@@ -30,9 +30,9 @@ const ableToChange = useCheck(props.params.id)
       !isMounted && <Loading/>
     }
       {
-        isOpened && <AddProblem reloadPageF={getAllProblemsClient} isOpened={isOpened} project={1} setisOpened={setisOpened} type={type} id={selected} current={current} />
+        isOpened && <AddProblem reloadPageF={getAllProblemsClient} isOpened={isOpened} project={props.params.id} setisOpened={setisOpened} type={type} id={selected} current={current} />
       }
-            <ProjectData projectId={1} projectName='' withMenu={true}/>
+            <ProjectData projectId={props.params.id} projectName='' withMenu={true}/>
       <main className="bg-basic-default rounded-lg shadow-md p-6  min-h-screen w-full">
         <header className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Доска Ошибок</h1>
@@ -62,6 +62,7 @@ const ableToChange = useCheck(props.params.id)
                       </div>
                     </th>
                     <th className="text-left">Статус</th>
+                    <th>Удалить</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -110,29 +111,32 @@ const ableToChange = useCheck(props.params.id)
                           {problem.status}
                         </Badge>
                           }
-                
                         </td>
+                        <td>
+                <Button
+                                  className=" bg-orange-600 rounded-2xl  mb-5"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                  const sure  = confirm("Вы уверены?");
+                                  if(sure) {
+                                  deleteIssue(problem.id)
+                                  getAllProblemsClient()
+                                  }
+                                  return
+                                   
+                                  }}
+                                >
+                                  <TrashIcon className=" h-8 w-8" scale={100} />
+                                </Button>
+                </td>
                       </tr>
                     )
                     :
                     <tr key={problems.id}>
                     <td>{problems.id}</td>
                     <td className="font-medium">{problems.name}
-                    <Button
-                                  className=" bg-orange-600"
-                                  size="icon"
-                                  variant="ghost"
-                                  onClick={() => {
-                                  const sure  = confirm("Вы уверены?");
-                                  if(sure) {
-                                  deleteIssue(problems.id)
-                                  }
-                                  return
-                                   
-                                  }}
-                                >
-                                  <TrashIcon className="h-4 w-4" />
-                                </Button></td>
+                  </td>
                     <td>{problems.description}</td>
                         <td>{new Date(problems.created_at).toLocaleDateString()}</td>
 
@@ -145,13 +149,31 @@ const ableToChange = useCheck(props.params.id)
                           settype("change");
                           setselected(problems.id);
                           setcurrent(problems.status == "Открыто" ? "Закрыта" :"Открыта")
+                          getAllProblemsClient()
                         }}
                       >
                         {problems.status}
                       </Badge>
+                      
                 
                     </td>
 <td>
+<Button
+                                  className=" bg-orange-600 rounded-2xl"
+                                  size="icon"
+                                  variant="ghost"
+                                  onClick={() => {
+                                  const sure  = confirm("Вы уверены?");
+                                  if(sure) {
+                                  deleteIssue(problems.id)
+                                  getAllProblemsClient()
+                                  }
+                                  return
+                                   
+                                  }}
+                                >
+                                  <TrashIcon className=" h-8 w-8" scale={100} />
+                                </Button>
 </td>
       
                   </tr>

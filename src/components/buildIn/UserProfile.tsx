@@ -1,6 +1,7 @@
 import React from 'react'
 import { AvatarImage, Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import Link from 'next/link'
 type Props = {
     userData:userData
     title:string
@@ -20,7 +21,7 @@ const UserProfile = (props: Props) => {
       <p className="text-xs  text-secondary-default">Департамент {}</p>
     </div>
     <div className="text-xs">
-      <Button variant="secondary" className='bg-button-base rounded-xl'>Редактировать</Button>
+      <Button variant="secondary" className='bg-button-base rounded-xl' ><Link href='/'>Выйти</Link></Button>
       </div>
   </aside>
 

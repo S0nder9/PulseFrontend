@@ -81,13 +81,14 @@ const ProjectData = (props: Props) => {
 :
 <div className="flex items-center space-x-4 bg-transparent ">
     {
-        names.map((user:userData) =>
-<>
-     <Avatar  key={user.id}>
-        <AvatarImage alt="" src={user.avatar}  loading='lazy' />
-        <AvatarFallback>{user.last_name}</AvatarFallback>
-      </Avatar>
-    </>
+                                        names.map((user: userData) =>
+                                            <>
+                                                <Avatar key={user.id}>
+                                                    <AvatarImage alt="" src={user.avatar} loading='lazy' />
+                                                    <AvatarFallback>{user.first_name.slice(0, 1) + user.last_name.slice(0, 1)}</AvatarFallback>
+
+                                                </Avatar>
+                                            </>
         )
     }
 </div>  

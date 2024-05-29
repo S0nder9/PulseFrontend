@@ -7,7 +7,7 @@ type Props = {
 }
 
 function TotalTime(props: Props) {
-    const [time, settime] = useState<number | null>(null)
+    const [time, settime] = useState<any>(null)
     useEffect(() => {
         async function fetchData   ()  {
             if(!props.id){
@@ -20,7 +20,11 @@ return
 fetchData()
     }, [])
     return (
-        <h1>Общее рабочее время в этом месяце: { time && time} (ч)</h1>
+        <>
+        <h1>Общее рабочее время в этом месяце: { time && time.total} (ч)</h1>
+        <h1>Всего выполненно: { time && time.acc} (ч)</h1>
+        <h1>В работе: { time && time.workHours} (ч)</h1>
+</>
     )
 }
 

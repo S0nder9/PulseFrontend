@@ -59,7 +59,7 @@ alert(`${project.name},${project.description},${membersIds}`)
 const response = await createProject(project.name, project.description, membersIds)
 response.toString()
 console.log(response)
-router.push(`/project/${response}`)
+router.push(`/projectView/${response}`)
 
 }
 catch (error) {
