@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation"
 import SearchUser from "@/components/buildIn/searchUser"
 import Navigation from "@/components/buildIn/Navigation"
 
-export function CreatePage() {
+export function page() {
 const router = useRouter()
 const [project, setproject] = useState({
 name: "",
@@ -101,4 +101,4 @@ value={project.description} onChange={(e) => setproject((prev) => ({ ...prev, de
 </>
 )
 }
-export default CreatePage
+export default page
