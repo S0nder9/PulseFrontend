@@ -1,10 +1,9 @@
 
 
-## Начало
 
-Запустить сервер:
+## Запустить сервер:
 
-```bash
+```bash || powershell || zsh
 npm i
 npm run dev
 # or
@@ -18,17 +17,18 @@ pnpm dev
 bun dev
 ```
 
-Открой [http://localhost:3000](http://localhost:3000) что бы увидеть сайт.
+По умолчанию запускается на 3000 порту можно специфицировать next.config
+
+
 
 
 ## Подробнее
 
 Документация
 
-- [Next.js Documentation](https://nextjs.org/docs) - про api и фичи next js.
-- [Learn Next.js](https://nextjs.org/learn) - интерактивный туториал по next js .
+- [Next.js Документация](https://nextjs.org/docs) - про api.
 
-По всем вопросам и предложениям обращаться:
+## По всем вопросам и предложениям обращаться:
 
 @telegram:belxz999
 
