@@ -9,6 +9,7 @@ import { useProjectData } from '@/hooks/useProjectData';
 import Loading from '@/components/buildIn/Loading';
 import UserTasks from '@/components/buildIn/UserTasks';
 import DepTasks from '@/components/buildIn/BossRes';
+import { FiAlignJustify } from 'react-icons/fi';
 const Profile = () => {
   const { title, departmentMembers, userData, status, errorState, getUserProjectsClient, projects, isMounted } = useProjectData()
   // todo добавить информацию о количестве рабочих часов сотрудника вобщем его данные загруженности 
@@ -26,6 +27,9 @@ const Profile = () => {
               <>
                 <UserProfile
                   userData={userData} title={title} />
+                            <h1 className=' text-basic-default cursor-pointer select-none '>
+<FiAlignJustify className=' scale-150'/>
+          </h1>
                 <section className="flex flex-col flex-grow  p-8 space-y-6">
                   {
                     departmentMembers && <DpMembers departmentMembers={departmentMembers} />

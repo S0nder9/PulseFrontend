@@ -14,14 +14,14 @@ const Navigation = (props: Props) => {
   }
 
   return (
-    <div className="flex justify-end  bg-basic-default  over ">
+    <div className="flex justify-end  bg-basic-default   min-h-full ">
       <Drawer>
         <DrawerTrigger asChild>
-          <h1 className=' text-basic-default cursor-pointer select-none '>
+        <h1 className=' text-basic-default cursor-pointer select-none '>
 <FiAlignJustify className=' scale-150'/>
           </h1>
         </DrawerTrigger>
-        <DrawerContent className="w-[300px] md:w-[400px]  bg-basic-default">
+        <DrawerContent className=" md:w-[400px]  bg-basic-default">
           <DrawerHeader>
             {userData && (
               <DrawerTitle className='bg-basic-default'>

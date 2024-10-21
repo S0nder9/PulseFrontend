@@ -1,4 +1,4 @@
-const host ="http://localhost:8000/api/v1/"
+const host ="https://bwkvsj06-8000.euw.devtunnels.ms/"
 interface statusType {
     code:string | number,
 text:string
