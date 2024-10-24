@@ -56,7 +56,7 @@ function Registration() {
     try {
       alert(data)
     await registerUser(data)
-      router.push('/login')
+      // router.push('/login')
       
     } catch (error) {
       throw new Error('Failed to register user')
@@ -66,10 +66,10 @@ function Registration() {
   useEffect(() => {
     const fetchData = async () => {
       const isToken = await checkCookie()
-      if (isToken) {
-        router.push('/profile')
-        return
-      }
+      // if (isToken) {
+      //   router.push('/profile')
+      //   return
+      // }
 
       const response = await fetchAllTitles();
       setjob_title(response);
